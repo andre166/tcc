@@ -139,6 +139,7 @@ export default function CustomizedMenus({listaDeOm, setListaDeOm, setRenderCard,
             variant="outlined"
             color="primary"
             onClick={handleClick}
+            size="small"
           >
             Ornenar
           </Button>

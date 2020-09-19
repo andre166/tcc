@@ -9,15 +9,11 @@ import {
 
 import { bindActionCreators } from 'redux';
 
-import XsDrawner from '../../components/navbar/xsDrawner';
-
-
 function Home( props ){
 
     return(
         <div class="home-container">
             <h1 class="text-center">HOME</h1>
-            <XsDrawner/>
         </div>
     );
     

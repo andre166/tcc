@@ -59,9 +59,6 @@ export default function LeftDrawner( { open, renderNavbar } ){
             <div style={{marginTop: 65}}></div>
             {credencial && credencial === 'ROLE_ADMIN' &&       
                 <>
-                    <div className={classes.adminTextSidenav}>
-                        <span>Admin</span>
-                    </div>
 
                     <Divider />
 
@@ -73,7 +70,6 @@ export default function LeftDrawner( { open, renderNavbar } ){
                         ))}
                     </List>
 
-                    {/* <Divider /> */}
                 </>
             }
 

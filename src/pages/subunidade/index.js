@@ -20,6 +20,8 @@ import { Paper } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useParams, useHistory} from 'react-router-dom';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 export default function Om(){
 
@@ -49,6 +51,10 @@ export default function Om(){
 
 
     let [credencial, setCredencial] = useState('');
+    
+    const theme = useTheme();
+
+    const smDownMediaQ = useMediaQuery(theme.breakpoints.down('sm'));
 
      let [ infoOriginal, setInfoOriginal] = useState({
       qtdOm: 0,
@@ -63,7 +69,6 @@ export default function Om(){
         justifyContent: 'space-around',
         overflow: 'hidden',
         backgroundColor: '#eeeeee',
-        // padding: '10px 10px 15px 10px',
       },
       gridList: {
         width: '100%',
@@ -234,7 +239,7 @@ const classes = useStyles();
 
     const rowsPerPage = [
       4,8,12,16
-  ]
+    ]
 
   const changeContactCount = (e) => {
 
@@ -254,9 +259,10 @@ const classes = useStyles();
       }
       
     return(
-        <Grid container direction="row" alignItems="flex-start"  justify="center">
+        // <Grid container direction="column" alignItems="flex-start"  justify="center">
+        <>
 
-            <Grid className="subunidade-form" direction="column">
+            {/* <Grid className="subunidade-form" direction="column"> */}
 
               { listaDeOm && idParams.id && credencial != 'ROLE_ADMIN' && 
                 <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={true}></TextFields>
@@ -272,10 +278,10 @@ const classes = useStyles();
               { listaDeOm && idParams.id && credencial == 'ROLE_ADMIN' && 
                 <TextFields userOm={userOm} listaDeOm={listaDeOm} idParametro={true}></TextFields>
               } 
-            </Grid>
+            {/* </Grid> */}
 
             
-        </Grid>
+        </>
     );
     
 }

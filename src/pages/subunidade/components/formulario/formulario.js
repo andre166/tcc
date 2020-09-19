@@ -136,38 +136,21 @@ class TextFields extends React.Component {
       const { classes } = this.props;
       
     return (
-        <>
         
-        <form className={classes.container} noValidate autoComplete="off">
+        <div className={classes.container} noValidate autoComplete="off">
               
-            <Paper className={classes.containerSelecionarSu}>
+            <div className={classes.containerSelecionarSu}>
 
                 <>
-                    <label className={classes.teste}>Organização Militar: 
-                    <LightTooltip title={txt_tooltipIdiomas} className={classes.helpIcon_idiomas}>
-                        <HelpIcon></HelpIcon>
-                    </LightTooltip>
-
-                    </label>
+                    <label className={classes.teste}>Organização Militar: </label>
 
                     <TextField
                         id="standard-select-currency" select label="OM" className={classes.textField} value={this.state.omParaVincular}
                         onChange={this.changeOm('omParaVincular')} helperText="Selecione uma OM" margin="normal"
-                        SelectProps={{ MenuProps: {
-                            className: classes.menu,
-                            },
-                        }}
+                      
                     >
 
-                        {/* {this.props.listaDeOm && this.props.listaDeOm.length > 1 ?
-                        
-                            this.props.listaDeOm.map( om => (
-                                <MenuItem key={om.id} value={om}>
-                                {om.nomeAbrev}
-                                </MenuItem>
-                            ))
-                        : */}
-                        {console.log("this.state.credencial", this.state.credencial)}
+                       
                         {this.props.listaDeOm && this.state.credencial && this.state.credencial == "ROLE_ADMIN" &&
                         
                             this.props.listaDeOm.map( om => (
@@ -177,27 +160,21 @@ class TextFields extends React.Component {
                             ))
                         }
 
-                        {/* {this.getPerfil() !== "ROLE_ADMIN" && <MenuItem key={this.props.listaDeOm.id} value={this.props.listaDeOm}>
-                            {this.props.listaDeOm.nomeAbrev}
-                        </MenuItem>} */}
-
-                        
 
                     </TextField>
             
-                <Button variant="contained" color="primary" className={classes.buttonSuccess}
-                    onClick={() => this.listarSu( this.state.omParaVincular )}
-                    >
-                    selecionar
-                </Button>
+                    <Button variant="contained" color="primary" className={classes.buttonSuccess}
+                        onClick={() => this.listarSu( this.state.omParaVincular )}
+                        >
+                        selecionar
+                    </Button>
                 </>
             
-            </Paper>
+            </div>
 
             {this.state.omParaVincular !== '' && this.props.listaDeOm && this.state.mostrarForm  &&<TableCard userOm={this.props.userOm} omList={this.props.listaDeOm} omParaVincular={this.state.omParaVincular}/>}        
        
-        </form>
-        </>
+        </div>
 
     );
 

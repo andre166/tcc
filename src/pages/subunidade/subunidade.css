@@ -14,14 +14,14 @@
 }
 .subunidade-form{
     border-radius: 5px;
-    margin: 10px 0px;
+    /* margin: 10px 0px; */
     display: flex;
     justify-content: center;
     width: 100%;
     /* max-width: 1100px; */
     padding: 12px;
     border: 1px solid rgb(194, 194, 194);
-    margin-top: 60px;
+    /* margin-top: 50px; */
   }
 
 .lc{

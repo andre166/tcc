@@ -35,6 +35,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Modal from './components/modal/modal';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -47,14 +50,17 @@ const LightTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 const useStyles = makeStyles((theme) => ({
+  containerGeral:{
+    width: '100%'
+  },
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: '#eeeeee',
-    padding: '10px 10px 15px 10px',
-    width: '100%',
+    // padding: '10px 5px 15px 5px',
+    width: '100%'
   },
   gridList: {
     width: '100%',
@@ -65,18 +71,22 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute'
   },
   search: {
-    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
-    marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
       width: 'auto',
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 10,
+      marginLeft: theme.spacing(3),
+      width: '100%',
     },
   },
   searchIcon: {
@@ -90,15 +100,21 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon,
+    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
     },
     borderBottom: '1.5px solid #d8d3cd'
   },
@@ -107,15 +123,12 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonSuccess: {
     backgroundColor: '#1d3724',
-    height: 35,
-    marginLeft: 10,
-    marginTop: 15,
     '&:hover': {
       background: "#4a5442",
    },
-   containerCadastrarSu: {
-    padding: 10,
   },
+  containerCadastrar: {
+    background: '#eeeeee'
   },
   buttonInfoIcon:{
     color: '#145374'
@@ -125,6 +138,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Om( { omParaVincular, omList, userOm} ){
 
     const classes = useStyles();
+
+    const theme = useTheme();
+
+    const smDownMediaQ = useMediaQuery(theme.breakpoints.down('sm'));
+    const smUpMediaQ = useMediaQuery(theme.breakpoints.up('sm'));
+    const smDownMedia = useMediaQuery(theme.breakpoints.down('sm'));
+    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     let [listaDeOm, setListaDeOm] = useState(omParaVincular.subunidades);
     let [listaDeOmState, setListaDeOmState] = useState(omParaVincular.subunidades);
@@ -324,85 +344,112 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
     }
 
-      
+    // const defineCols = () => {
+
+    //   let wd = props.width;
+
+    //   if(wd == 'md' ){
+    //     return 4;
+    //   }else if(wd == 'sm' ){
+    //     return 3;
+    //   }else if(wd == 'xs' ){
+    //     return 1;
+    //   }else{
+    //     return 6;
+    //   }
+
+    // }
+
     return(
-          <Grid container direction="column" justify="flex-start" alignItems="center">
+          <Grid container direction="column" justify="flex-start" alignItems="center" className={classes.containerGeral}>
 
             {renderSnackBar && <Snackbar info={renderSnackBar} />}
 
-          <Grid direction="column">
-          <Paper style={{marginTop: 5, marginBottom: 5}}>
-          <Grid container alignItems="center" justify="flex-start" style={{padding: 10}}>
+          <Grid>
+            <div className={classes.containerCadastrar}>
+              <Grid direction="row" container alignItems="center" justify="flex-start" style={{padding: 10}}>
 
-          <Grid item sm={1}>
+                    <Grid item xs={6} sm={3} spacing={2}>
 
-            <Link to={{pathname: `/CadastrarSubunidade/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.buttonSuccess}
-                startIcon={<AddBoxIcon />}
-              >
-                Cadastrar
-              </Button>
-            </Link>
+                      <Link to={{pathname: `/CadastrarSubunidade/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.buttonSuccess}
+                          startIcon={<AddBoxIcon />}
+                        >
+                          Cadastrar
+                        </Button>
+                      </Link>
 
-          </Grid>
+                    </Grid>
 
-          <Grid item  xs>
-            {/* <Grid container alignItems="center" justify="center">
-              <h2> Lista de OM'S</h2>
-            </Grid> */}
-          </Grid>
+                    <Grid item xs={6} sm={2}>
+                      <Grid container alignItems="center" justify="flex-end">
 
-<Grid item xs className={classes.searchBar} alignItems="center" justify="center">
-  <Grid container alignItems="center" justify="center" >
-    <FormControlLabel
-        control={
-        <Switch checked={modoTabela} onClick={() => changeTableMode()} name="checkedA" inputProps={{ 'aria-label': 'primary checkbox' }}/>
-      }
-      label="Tabela"
-    />
-    { !modoTabela &&
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
-        
-          <SearchIcon />
-        </div>
-        <InputBase
-        
-          onChange={(e) => filterOm(e.target.value)}
-          placeholder="Pesquisar…"
-          value={searchInput}
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton aria-label="delete" onClick={(e) => clearFilter(e.target.value)}>
-              <ClearIcon fontSize="small" />
-            </IconButton>
-            </InputAdornment>
-          }
-          inputProps={{ 'aria-label': 'search' }}
-        />
-        
-      </div>
-    }
+                        <FormControlLabel
+                            control={
+                            <Switch checked={modoTabela} onClick={() => changeTableMode()} name="checkedA" inputProps={{ 'aria-label': 'primary checkbox' }}/>
+                          }
+                          label="Tabela"
+                        />
+                      </Grid>
 
-  </Grid>
-</Grid>
-</Grid>
+                    </Grid>
 
-</Paper>
+                    {xsDownMedia && !modoTabela &&
+
+                      <Grid item xs={6} sm={2}>
+                        <Grid container alignItems="center" justify="flex-start" style={{marginTop: 10}}>
+                          <MenuOrderBy listaDeOm={listaDeOm} setListaDeOm={setListaDeOm} setListaDeOmState={setListaDeOmState} setRenderCard={setRenderCard} setPaginaAtual={setPaginaAtual}/>
+                        </Grid>
+                      </Grid>
+
+                    }
+
+                    { !modoTabela &&
+                    <Grid item xs={12} sm={7} style={{display: 'flex', justifyContent: 'flex-end'}}>
+                      <div className={classes.search}>
+
+                        <div className={classes.searchIcon}>
+                          <SearchIcon />
+                        </div>
+
+                        <InputBase
+                          onChange={(e) => filterOm(e.target.value)}
+                          placeholder="Pesquisar…"
+                          value={searchInput}
+                          classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                          }}
+                          endAdornment={
+                            <InputAdornment position="end">
+                              <IconButton aria-label="delete" onClick={(e) => clearFilter(e.target.value)}>
+                              <ClearIcon fontSize="small" />
+                            </IconButton>
+                            </InputAdornment>
+                          }
+                          inputProps={{ 'aria-label': 'search' }}
+                        />
+                        
+                      </div>
+                    </Grid>
+                    }
+
+                  </Grid>
+            </div>
+            
              
 
                   {error &&  <div style={{margin: 10}}><GenerateAlert alertConfig={ {msg: "Nenhuma OM encontrada", tipo: "warning"}} /> </div>}
               {listaDeOm && 
 
                   modoTabela == true ? //Verifica se o modo é table ou card
-                  <RelatorioTable TableDimension={ { tWidth: 'calc(100vw - 280px)', tHeight: '100%' } } relatorio={listaDeOm} customColumns={colunaSubunidade} /> : 
+                    <div style={{ background: '#fff', width: smDownMediaQ && 'calc(100vw)' || smUpMediaQ && 'calc(100vw - 240px)'}}>
+                      <RelatorioTable TableDimension={ { tWidth: '99,8%', tHeight: '100%' } } relatorio={listaDeOm} customColumns={colunaSubunidade} /> 
+                    </div>
+                  : 
                   
                   renderCard && // para forçar a Re-renderização
                   <div className={classes.root}>
@@ -417,14 +464,13 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
               }
 
-              { !modoTabela && <Paper style={{marginTop: 10, padding: 10}} >
+              { !modoTabela && <div item xs={6}  sm={2} style={{padding: 10, background: '#fff'}} >
 
                   <Grid container direction="row" alignItems="center" justify="flex-start">
-
-                  <Grid item xs={2} >
-
-                      <TextField 
-                      style={{textAlign: 'center'}}
+                    {!xsDownMedia &&
+                      <Grid item xs={3} >
+                        <TextField 
+                          style={{textAlign: 'center'}}
                               id="standard-select-currency"
                               select
                               helperText="quantidade por linha"
@@ -438,27 +484,29 @@ export default function Om( { omParaVincular, omList, userOm} ){
                               ))}
                         </TextField>
                         
-                    </Grid>
-
-                    <Grid item xs={7}>
-                      <Grid container alignItems="center" justify="center">
-                        <Paginacao contatosPorPagina={contatosPorPagina} contatos={omParaVincular.subunidades.length} paginar={paginar} paginaAtual={paginaAtual}
-                        setPaginaAtual={setPaginaAtual} zerarPaginacao={zerarPaginacao}></Paginacao>
                       </Grid>
-                    </Grid>
+                    }
 
-                    <Grid item xs={3}>
+                    
+                      <Grid item xs={12} sm={6} style={{margin: xsDownMedia && '10px 0px'}}>
+                        <Grid container alignItems="center" justify="center">
+                          <Paginacao contatosPorPagina={contatosPorPagina} contatos={omParaVincular.subunidades.length} paginar={paginar} paginaAtual={paginaAtual}
+                          setPaginaAtual={setPaginaAtual} zerarPaginacao={zerarPaginacao}></Paginacao>
+                        </Grid>
+                      </Grid>
+                    {!xsDownMedia &&
+                    <Grid item xs={12} sm={3} style={{marginBottom: xsDownMedia && 10}}>
                       <Grid container alignItems="center" justify="center">
                         <MenuOrderBy omParaVincular={omParaVincular} listaDeOm={listaDeOm} setListaDeOm={setListaDeOm} setListaDeOmState={setListaDeOmState} setRenderCard={setRenderCard} setPaginaAtual={setPaginaAtual}/>
                       </Grid>
                     </Grid>
+                    }
                   </Grid>
 
-
-                </Paper>
+                </div>
               }
 
-          </Grid>
+              </Grid>
         </Grid>
     );
     

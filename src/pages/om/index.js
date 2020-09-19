@@ -140,8 +140,8 @@ const useStyles = makeStyles((theme) => ({
 export default withWidth()(Om);
 function Om( props ){
 
-    const theme = useTheme();
     const classes = useStyles();
+    const theme = useTheme();
 
     const smDownMediaQ = useMediaQuery(theme.breakpoints.down('sm'));
     const smUpMediaQ = useMediaQuery(theme.breakpoints.up('sm'));
@@ -150,7 +150,7 @@ function Om( props ){
 
     let [listaDeOm, setListaDeOm] = useState("");
     let [loading, setLoading] = useState(true);
-    const [modoTabela, setModoTabela] = useState(false);
+    const [modoTabela, setModoTabela] = useState(true);
     let [mostrarModal, setMostrarModal] = useState(false);
     let [listaDeOmState, setListaDeOmState] = useState(false);
 
