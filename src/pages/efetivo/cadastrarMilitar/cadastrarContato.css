@@ -1,0 +1,107 @@
+.container-cadastrarContato{
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  background-color: none;
+}
+
+.container-form{
+  background-color: #fff;
+  box-shadow: 2px 2px 4px #949494;
+  border-radius: 5px;
+  margin: 10px 0px;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  max-width: 1120px !important;
+  padding: 12px;
+
+}
+
+.h4Form h5{
+  padding: 0px 8px;
+  background-color: #fff;
+  color: #49392e;
+  letter-spacing: 1px;
+}
+
+.borda{
+  border: 1px solid green;
+}
+
+.txtField{
+  border: 1px solid #015d2a;
+  background-color:#0053252d;
+  box-shadow: 1.5px 1.5px 3px #c8c8c8;
+}
+.option{
+  cursor: pointer;
+  text-align: center;
+  margin: 2px 0px;
+  font-size: 12pt;
+  padding: 4px 0px;
+}
+
+.option:hover{
+  background-color:#015d2a28;
+}
+
+.inputDataNascimento{
+
+  padding: 12.5px;
+  border-radius: 5px;
+  border: 1px solid #adadad;
+  background-color:#0053252d;
+  box-shadow: 1.5px 1.5px 3px #c8c8c8;
+  margin-top: 10px;
+
+}
+
+.labelDataNascimento{
+  color: #797777;
+  margin-top: 7px;
+  margin-right: 12px;
+  font-size: 12pt;
+}
+.divider{
+  margin: 15px 0px !important;
+}
+.h4Form{
+  margin-top: -28px;
+}
+
+.btn-success{
+
+  background-color: #1d3724 !important;
+
+}
+
+.btn-success:hover{
+
+  background: #4a5442 !important;
+}
+
+.helpIcon_idiomas{
+  cursor: pointer;
+  margin-top: 30px;
+  margin-left: 5px;
+  font-size: 20pt !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
