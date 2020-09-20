@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Routes from '../../routes';
-import useStyles from './leftDrawner/sidenavStyles';
+import useStyles from './sidenavStyles';
 import AppBar from './appBar';
 import LeftDrawner from './leftDrawner';
-import Login from '../../pages/login';
 import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
 
@@ -29,9 +27,8 @@ function PersistentDrawerLeft( props ) {
     <BrowserRouter style={{minHeight: "100% !important"}}>
       <div className={classes.root}  style={{height: "100% !important"}}>
 
-        {props.navbarState.renderNavBar == false ? '' :  
+        {props.navbarState.renderNavBar == false ? '' :  //Rendederiza a navbar após o login
           <div style={{minHeight: "100% !important"}}>
-            {/* <CssBaseline /> */}
               <AppBar open={open} setOpen={setOpen} classes={classes} useStyles={useStyles} renderNavbar={props.renderNavbar}/>
               <Hidden smDown>
                 <LeftDrawner open={open} renderNavbar={props.renderNavbar}/>  

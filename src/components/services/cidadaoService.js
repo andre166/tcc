@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { localHost, hearderContent } from '../../utils/hostHttp';
-import { getToken } from '../../utils/getToken';
+import { getToken } from './localStorgeService';
 
 export const listarCidadaoPorTurma = async ( turma ) => {
 

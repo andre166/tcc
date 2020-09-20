@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuItem from '@material-ui/core/MenuItem';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -17,10 +16,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonIcon from '@material-ui/icons/Person';
 import useStyles from './appBarStyle';
 import XsDrawner from '../xsDrawner';
-import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
 import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { getUserName } from '../../services/localStorgeService';
 
 function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     
@@ -28,13 +27,13 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
   const anchorRef = useRef(null);
   const prevOpenUserMenu = useRef(openUserMenu);
   const classes = useStyles();
-  const { width } = props;
+  // const { width } = props;
 
   const matches = useMediaQuery('(min-width:960px)');
 
-  const handleDrawerOpen = () => {
-    setOpen(!open);
-  };
+  // const handleDrawerOpen = () => {
+  //   setOpen(!open);
+  // };
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -67,13 +66,7 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     window.location.assign("/")
     renderNavBar(false);
   }
-    let response = JSON.parse(localStorage.getItem("userInfo"));
-    let userName = '';
-
-    if(response){
-       userName = response.name;
-    }
-    
+    let userName = getUserName();
 
     return (
       <>

@@ -1,19 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import DrawnerList from '../DrawnerList';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import { Link } from 'react-router-dom';
-import { adminDrawner, cadastradorDrawner, gerencialDrawner, userDrawner } from '../leftDrawner/drawnerList';
+import MenuIcon from '@material-ui/icons/Menu';
+import { getUserPerfil } from '../../services/localStorgeService';
 
 const useStyles = makeStyles({
   list: {
@@ -38,10 +30,9 @@ const useStyles = makeStyles({
 
 export default function SwipeableTemporaryDrawer( { renderNavbar } ) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: false,
-  });
-  const [ credencial, setCredencial ] = useState('');
+  const [state, setState] = React.useState({left: false});
+
+  const perfil = getUserPerfil();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -50,41 +41,6 @@ export default function SwipeableTemporaryDrawer( { renderNavbar } ) {
 
     setState({ ...state, [anchor]: open });
   };
-
-  useEffect(() => {
-
-    let response = JSON.parse(localStorage.getItem("userInfo"));
-    
-    if(response){
-        let userPerfil = response.perfil;
-        setCredencial(userPerfil)
-    }
-
-  }, []);
-
-  const renderBtns = ( text ) => {
-
-    if(text.func){
-
-      return(
-          // <Link className={classes.link} }> 
-              <ListItem button key={text.nome} className={classes.link} onClick={() => text.func(renderNavbar.bind(this))}>
-                  <span style={{ marginRight: 10 }}>{text.icone} </span> {text.nome}  
-              </ListItem>
-          // </Link>
-      )
-    }else{
-        return(
-            <Link to={text.link} className={classes.link} onClick={() => ''}> 
-                <ListItem button key={text.nome} className={classes.link}>
-                    <span style={{ marginRight: 10 }}>{text.icone} </span> {text.nome}  
-                </ListItem>
-            </Link>
-        )
-
-    }
-
-  }
 
   const list = (anchor) => (
     <div
@@ -95,84 +51,10 @@ export default function SwipeableTemporaryDrawer( { renderNavbar } ) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      {credencial && credencial === 'ROLE_ADMIN' &&       
-                <>
-                    <List>
-                        { adminDrawner.map( text => (
 
-                            renderBtns(text)
+      <DrawnerList perfil={perfil}/>
 
-                        ))}
-                    </List>
-
-                    {/* <Divider /> */}
-                </>
-            }
-
-            {credencial && credencial !== 'ROLE_ADMIN' && 
-                <>
-                
-                    <div className={classes.adminTextSidenav}>
-                        <span>Admin2</span>
-                    </div>
-
-                    <List>
-                        { cadastradorDrawner.map((text, index) => (
-                            <Link to={text.link} className={classes.link}> 
-                                <ListItem button key={text.nome} className={classes.link}>
-                                    <span style={{marginRight: 5}}>{text.icone} </span> {text.nome}  
-                                </ListItem>
-                            </Link>
-                        ))}
-                    </List>
-
-                    <Divider />
-                </>
-            }
-
-            {credencial && credencial !== 'ROLE_ADMIN' && 
-                <>
-                    <div className={classes.adminTextSidenav}>
-                        <span>Usuário1</span>
-                    </div>
-
-
-                    <List>
-                        { gerencialDrawner.map( text => (
-                            <Link to={text.link} className={classes.link}> 
-                                <ListItem button key={text.nome} className={classes.link}>
-                                    <span style={{marginRight: 5}}>{text.icone} </span> {text.nome}  
-                                </ListItem>
-                            </Link>
-                        ))}
-                    </List>
-
-
-                    <Divider />
-                </>
-            }
-
-            {credencial && credencial !== 'ROLE_ADMIN' && 
-
-                <>
-                    <div className={classes.adminTextSidenav}>
-                        <span>Usuário2</span>
-                    </div>
-
-
-                    <List>
-                        { userDrawner.map( text => (
-                            <Link to={text.link} className={classes.link} onClick={() => text.func(renderNavbar.bind(this))}> 
-                                <ListItem button key={text.nome} className={classes.link}>
-                                    <span style={{ marginRight: 5 }}>{text.icone} </span> {text.nome}  
-                                </ListItem>
-                            </Link> 
-                        ))}
-
-                    </List>
-                </>
-            }
-    </div>
+    </div> 
   );
 
   return (
