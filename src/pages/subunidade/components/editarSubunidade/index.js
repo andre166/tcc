@@ -117,12 +117,22 @@ export default function Om(){
 
         let info = {
             severityType: 'info',
-            msg: 'om',
+            type: 'subunidade',
         }
     
         localStorage.setItem("snackBarAlert", JSON.stringify(info));
 
-        history.push(`/Subunidade/${idOm}`);
+        let response = JSON.parse(localStorage.getItem("userInfo"));
+
+        let userPerfil = response.perfil;
+  
+        if( userPerfil == 'ROLE_ADMIN'){
+            history.push(`/Subunidade/${idOm}`);
+        }else{
+            history.push(`/Subunidade`);
+
+        }
+
   
       }
   
@@ -139,6 +149,46 @@ export default function Om(){
         )
   
       }
+
+      function generatBackBtn(){
+
+        let response = JSON.parse(localStorage.getItem("userInfo"));
+  
+        let userPerfil = response.perfil;
+  
+        if( userPerfil == "ROLE_ADMIN"){
+          return (
+            <Link to={`/Subunidade/${idParams.idOm}`}  style={{textDecoration: 'none'}}>
+                <Button
+                    size="small"
+                    style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<KeyboardReturnIcon />}
+                >
+                  { !xsDownMedia && 'Voltar'}
+                </Button>
+            </Link>
+          )
+  
+        }else{
+  
+          return (
+            <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
+                <Button
+                    size="small"
+                    style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<KeyboardReturnIcon />}
+                >
+                  { !xsDownMedia && 'Voltar'}
+                </Button>
+            </Link>
+          )
+  
+        }
+      }
   
 
     return(
@@ -153,17 +203,7 @@ export default function Om(){
                 <Grid container direction="row"alignItems="center" justify="flex-start">
 
                     <Grid item sm={1}>
-                        <Link to={`/Subunidade/${idOm}`}  style={{textDecoration: 'none'}}>
-                            <Button
-                                size="small"
-                                style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<KeyboardReturnIcon />}
-                            >
-                                { !xsDownMedia && 'Voltar'}
-                            </Button>
-                        </Link>
+                        {generatBackBtn()}
                     </Grid>
 
                     <Grid item xs>

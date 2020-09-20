@@ -108,19 +108,22 @@ export const colunaSubunidade = [
         renderGraph: false,
         cellStyle: { 
             width: '100%', 
+            maxWidth: 400,
             textAlign: 'center',
-            alignItems: 'center',
+            // alignItems: 'center',
         }, 
         headerStyle: { 
             width: '100%', 
-            textAlign: 'center',
+            maxWidth: 400,
+
+            // textAlign: 'center',
         },
     },
     { 
         title: 'Nome Abreviado', 
         field: 'nomeSubunidade', 
         type: 'string', 
-        renderGraph: false,
+        renderGraph: true,
         cellStyle: { 
             width: '100%', 
             minWidth: 180,
@@ -133,18 +136,50 @@ export const colunaSubunidade = [
         }
     },
     { 
-        title: 'Efetivo', 
-        field: 'cidadao.length', 
+        title: 'Nome Abreviado', 
+        field: 'nomeSubunidade', 
         type: 'string', 
-        renderGraph: false,
+        renderGraph: true,
         cellStyle: { 
             width: '100%', 
-            minWidth: 180,
+            minWidth: 300,
             textAlign: 'center'
         }, 
         headerStyle: { 
             width: '100%', 
-            // minWidth: 180,
+            minWidth: 300,
+            textAlign: 'center'
+        }
+    },
+    { 
+        title: 'Nome Abreviado', 
+        field: 'nomeSubunidade', 
+        type: 'string', 
+        renderGraph: false,
+        cellStyle: { 
+            width: '100%', 
+            minWidth: 300,
+            textAlign: 'center'
+        }, 
+        headerStyle: { 
+            width: '100%', 
+            minWidth: 300,
+            textAlign: 'center'
+        }
+    },
+    { 
+        title: 'Efetivo', 
+        field: 'cidadao.length', 
+        type: 'string', 
+        renderGraph: true,
+        cellStyle: { 
+            width: '100%', 
+            minWidth: 300,
+            textAlign: 'center'
+        }, 
+        headerStyle: { 
+            width: '100%', 
+            minWidth: 300,
             textAlign: 'center'
         }
     },

@@ -89,6 +89,45 @@ export default function FormCadastro(){
 
     }, []);
 
+    function generatBackBtn(){
+
+      let response = JSON.parse(localStorage.getItem("userInfo"));
+
+      let userPerfil = response.perfil;
+
+      if( userPerfil == "ROLE_ADMIN"){
+        return (
+          <Link to={`/Subunidade/${idParams.id}`}  style={{textDecoration: 'none'}}>
+              <Button
+                  size="small"
+                  style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<KeyboardReturnIcon />}
+              >
+                { !xsDownMedia && 'Voltar'}
+              </Button>
+          </Link>
+        )
+
+      }else{
+
+        return (
+          <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
+              <Button
+                  size="small"
+                  style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
+                  variant="outlined"
+                  color="primary"
+                  startIcon={<KeyboardReturnIcon />}
+              >
+                { !xsDownMedia && 'Voltar'}
+              </Button>
+          </Link>
+        )
+
+      }
+    }
 
     async function onSubmit( values, action ){
 
@@ -104,12 +143,22 @@ export default function FormCadastro(){
 
       let info = {
         severityType: 'success',
-        type: 'om', 
+        type: 'subunidade', 
       }
 
       localStorage.setItem("snackBarAlert", JSON.stringify(info));
 
-      history.push(`/Subunidade/${idParams.id}`);
+      let response = JSON.parse(localStorage.getItem("userInfo"));
+
+      let userPerfil = response.perfil;
+
+      if( userPerfil == 'ROLE_ADMIN'){
+        history.push(`/Subunidade/${idParams.id}`);
+      }else{
+        history.push(`/Subunidade`);
+
+      }
+
       
     }
 
@@ -144,7 +193,7 @@ export default function FormCadastro(){
 
             <Grid container direction="row" alignItems="center" justify="center">
                 <Grid item sm={1}>
-                    <Link to={`/Subunidade/${idParams.id}`}  style={{textDecoration: 'none'}}>
+                    {/* <Link to={`/Subunidade/${idParams.id}`}  style={{textDecoration: 'none'}}>
                         <Button
                             size="small"
                             style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
@@ -154,7 +203,8 @@ export default function FormCadastro(){
                         >
                           { !xsDownMedia && 'Voltar'}
                         </Button>
-                    </Link>
+                    </Link> */}
+                    {generatBackBtn()}
                 </Grid>
 
                 <Grid item xs>

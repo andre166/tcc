@@ -31,8 +31,10 @@ export const adminDrawner = [
 
 export const cadastradorDrawner = [
 
+    {nome: 'Página inicial', link: '/Home', icone: <HomeIcon />},
     {nome: 'Subunidade', link: '/Subunidade', icone: <AssignmentIcon /> },
-    {nome: 'Gerenciar Usuarios', link: '/GerenciarUsuario', icone: <ViewListIcon />}
+    {nome: 'Gerenciar Usuarios', link: '/GerenciarUsuario', icone: <ViewListIcon />},
+    {nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
 
 ]
 

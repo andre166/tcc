@@ -131,7 +131,8 @@ function Login( props ){
         let info = {
           name: nome,
           token: login.data.data.token,
-          perfil:  login.data.usuario.perfil
+          perfil:  login.data.usuario.perfil,
+          userId: login.data.usuario.id
         }
 
         localStorage.setItem("userInfo", JSON.stringify(info)); 
@@ -179,8 +180,8 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'CB_MESQUITA',
-          senha: '123456'
+          nome: 'nerd',
+          senha: '123'
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (
 

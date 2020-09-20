@@ -74,7 +74,7 @@ export default function CustomizedSnackbars( { info } ) {
       msg = <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.info}> editado</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
     }
 
-  }
+  }else
 
   if( type == 'om'){
 
@@ -88,6 +88,22 @@ export default function CustomizedSnackbars( { info } ) {
 
     if( severityType == 'info'){
       msg = <label className={classes.centralizar}> <span>OM</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
+    }
+
+  }else
+
+  if( type == 'subunidade'){
+
+    if( severityType == 'success'){
+      msg =  <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.success}> cadastrada</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+    }
+
+    if( severityType == 'error'){
+      msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.error}> exculída</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+    }
+
+    if( severityType == 'info'){
+      msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
     }
 
   }

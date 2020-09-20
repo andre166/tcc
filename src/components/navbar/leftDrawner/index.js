@@ -60,37 +60,30 @@ export default function LeftDrawner( { open, renderNavbar } ){
             {credencial && credencial === 'ROLE_ADMIN' &&       
                 <>
 
-                    <Divider />
-
                     <List>
                         { adminDrawner.map( text => (
-
                             renderBtns(text)
-
                         ))}
                     </List>
 
                 </>
             }
 
-            {credencial && credencial !== 'ROLE_ADMIN' && 
+            {credencial && credencial == 'ROLE_CHEFE_INFO' && 
                 <>
 
                     <List>
                         { cadastradorDrawner.map((text, index) => (
-                            <Link to={text.link} className={classes.link}> 
-                                <ListItem button key={text.nome} className={classes.link}>
-                                    <span style={{marginRight: 5}}>{text.icone} </span> {text.nome}  
-                                </ListItem>
-                            </Link>
+                            renderBtns(text)
                         ))}
                     </List>
 
-                    <Divider />
                 </>
             }
 
-            {credencial && credencial !== 'ROLE_ADMIN' && 
+            {
+            credencial && credencial !== 'ROLE_ADMIN' && 
+            credencial !== 'ROLE_CHEFE_INFO' &&
                 <>
                     <div className={classes.adminTextSidenav}>
                         <span>Usuário1</span>
@@ -99,11 +92,13 @@ export default function LeftDrawner( { open, renderNavbar } ){
 
                     <List>
                         { gerencialDrawner.map( text => (
-                            <Link to={text.link} className={classes.link}> 
-                                <ListItem button key={text.nome} className={classes.link}>
-                                    <span style={{marginRight: 5}}>{text.icone} </span> {text.nome}  
-                                </ListItem>
-                            </Link>
+                            // <Link to={text.link} className={classes.link}> 
+                            //     <ListItem button key={text.nome} className={classes.link}>
+                            //         <span style={{marginRight: 5}}>{text.icone} </span> {text.nome}  
+                            //     </ListItem>
+                            // </Link>
+                            renderBtns(text)
+
                         ))}
                     </List>
 
@@ -113,6 +108,7 @@ export default function LeftDrawner( { open, renderNavbar } ){
             }
 
             {credencial && credencial !== 'ROLE_ADMIN' && 
+            credencial !== 'ROLE_CHEFE_INFO' &&
 
                 <>
                     <div className={classes.adminTextSidenav}>

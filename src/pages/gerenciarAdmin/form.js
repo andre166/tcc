@@ -173,7 +173,7 @@ function Editable( props ) {
         { 
           title: 'Om', 
           field: 'nomeOm', 
-          
+          renderGraph: true
         },
         {
           title: 'Perfil',

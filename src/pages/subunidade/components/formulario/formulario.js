@@ -99,35 +99,75 @@ class TextFields extends React.Component {
 
   }
 
+//   componentDidUpdate( prevProps, prevState){
+      
+//       console.log("prevProps", prevProps)
+//       console.log("this.props", this.props)
+
+//     if( this.props.omParaVincular){
+//         if(this.props.omParaVincular != prevProps.omParaVincular){
+
+
+//             let response = JSON.parse(localStorage.getItem("userInfo"));
+
+//             let userPerfil = response.perfil;
+//             this.setState({ 
+//                 omParaVincular: this.props.omParaVincular,
+//                 credencial: userPerfil
+//             });
+//         }
+
+//     }
+
+//   }
+
   componentDidMount(){
 
     let response = JSON.parse(localStorage.getItem("userInfo"));
 
     let userPerfil = response.perfil;
 
-    if( this.props.listaDeOm && this.props.idParametro && this.props.userOm){ //Admin com idParams
-
+    if( this.props.listaDeOm && this.props.idParametro && this.props.userOm && userPerfil == 'ROLE_ADMIN'){ //Admin com idParams
+        console.log("aqui1", this.props)
         this.setState({ 
             omParaVincular: this.props.userOm,
+            // omParaVincular: this.props.omParaVincular,
             credencial: userPerfil
         });
         this.listarSu( this.props.userOm );
 
-    }else
+    }else if( this.props.listaDeOm && !this.props.idParametro && userPerfil == 'ROLE_ADMIN' ){
 
-      if( this.props.listaDeOm && this.props.idParametro ){
-        this.setState({ 
-            omParaVincular: this.props.listaDeOm,
-            credencial: userPerfil
-        });
+        if( this.props.listaDeOm ){
+        console.log("aqui2", this.props)
+
+            this.setState({ 
+                omParaVincular: this.props.listaDeOm,
+                credencial: userPerfil
+            });
+        }else if( this.props.omParaVincular ){
+        console.log("aqui3", this.props)
+
+            this.setState({ 
+                omParaVincular: this.props.omParaVincular,
+                credencial: userPerfil
+            });
+        }
         
-        this.listarSu( this.props.listaDeOm );
-      }else{
-        this.setState({ 
-            omParaVincular: this.props.listaDeOm,
-            credencial: userPerfil
-        });
+        
+        // this.listarSu( this.props.listaDeOm );
       }
+      
+      if( userPerfil !== 'ROLE_ADMIN' ){
+          this.setState({ 
+              omParaVincular: this.props.userOm,
+              credencial: userPerfil,
+              mostrarForm: true
+          });
+
+      }
+
+        
 
 
   }
@@ -141,38 +181,41 @@ class TextFields extends React.Component {
               
             <div className={classes.containerSelecionarSu}>
 
-                <>
-                    <label className={classes.teste}>Organização Militar: </label>
+                {this.props.listaDeOm && 
+                    <>
+                        <label className={classes.teste}>Organização Militar: </label>
 
-                    <TextField
-                        id="standard-select-currency" select label="OM" className={classes.textField} value={this.state.omParaVincular}
-                        onChange={this.changeOm('omParaVincular')} helperText="Selecione uma OM" margin="normal"
-                      
-                    >
-
-                       
-                        {this.props.listaDeOm && this.state.credencial && this.state.credencial == "ROLE_ADMIN" &&
+                        <TextField
+                            id="standard-select-currency" select label="OM" className={classes.textField} value={this.state.omParaVincular}
+                            onChange={this.changeOm('omParaVincular')} helperText="Selecione uma OM" margin="normal"
                         
-                            this.props.listaDeOm.map( om => (
-                                <MenuItem key={om.id} value={om}>
-                                {om.nomeAbrev}
-                                </MenuItem>
-                            ))
-                        }
-
-
-                    </TextField>
-            
-                    <Button variant="contained" color="primary" className={classes.buttonSuccess}
-                        onClick={() => this.listarSu( this.state.omParaVincular )}
                         >
-                        selecionar
-                    </Button>
-                </>
+
+
+                            {this.props.listaDeOm && this.state.credencial == "ROLE_ADMIN" &&
+                            
+                                this.props.listaDeOm.map( om => (
+                                    <MenuItem key={om.id} value={om}>
+                                    {om.nomeAbrev}
+                                    </MenuItem>
+                                ))
+                            }
+
+
+                        </TextField>
+                
+                        <Button variant="contained" color="primary" className={classes.buttonSuccess}
+                            onClick={() => this.listarSu( this.state.omParaVincular )}
+                            >
+                            selecionar
+                        </Button>
+                    </>
+                }
             
             </div>
 
-            {this.state.omParaVincular !== '' && this.props.listaDeOm && this.state.mostrarForm  &&<TableCard userOm={this.props.userOm} omList={this.props.listaDeOm} omParaVincular={this.state.omParaVincular}/>}        
+            {this.state.omParaVincular !== '' && this.state.mostrarForm  &&<TableCard userOm={this.props.userOm} omList={this.props.listaDeOm} omParaVincular={this.state.omParaVincular}/>}        
+            {/* {this.state.omParaVincular !== '' && this.props.listaDeOm && this.state.mostrarForm  &&<TableCard userOm={this.props.userOm} omList={this.props.listaDeOm} omParaVincular={this.state.omParaVincular}/>}         */}
        
         </div>
 

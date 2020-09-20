@@ -143,7 +143,7 @@ function SimpleDialogWrapped( props ){
 
   const classes = useStyles();
   const history = useHistory();
-
+  const idParams = useParams();
   const { onClose, selectedValue, open, token } = props;
 
   const handleClose = () => {
@@ -154,11 +154,13 @@ function SimpleDialogWrapped( props ){
     onClose(value);
   };
 
-  const excluir = async ( id ) => {
 
-    
+  const excluir = async ( _id ) => {
 
-    await deletarSubunidade( id, token );
+    let p = idParams.id;
+
+
+    await deletarSubunidade( _id, token );
 
     let info = {
       severityType: 'error',
@@ -167,10 +169,16 @@ function SimpleDialogWrapped( props ){
 
     localStorage.setItem("snackBarAlert", JSON.stringify(info));
 
-    if(props.btnModalType == 'edit'){
+    let response = JSON.parse(localStorage.getItem("userInfo"));
+
+    let userPerfil = response.perfil;
+
+    if(props.btnModalType == 'edit' && userPerfil == 'ROLE_ADMIN'){
       history.push(`/Subunidade/${props.omParaVincular.id}`);
-    }else{
-      window.location.reload();
+    }else if(p && userPerfil == 'ROLE_ADMIN'){
+      window.location.assign(`/Subunidade/${props.omParaVincular.id}`);
+    }else if( props.btnModalType == 'edit' && userPerfil !== 'ROLE_ADMIN'){
+      history.push(`/Subunidade`);
     }
 
   }

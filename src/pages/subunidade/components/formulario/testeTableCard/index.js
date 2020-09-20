@@ -137,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Om( { omParaVincular, omList, userOm} ){
 
+
     const classes = useStyles();
 
     const theme = useTheme();
@@ -187,12 +188,16 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
     useEffect(() => {
 
-      function gerarActionsButtons(){
+      function gerarActionsButtons( omParaVincular ){
 
-       if(colunaSubunidade[0].title != 'Ações'){
+        if( colunaSubunidade[0].title == 'Ações' ){
+          colunaSubunidade.shift()
+        }
+
+       if(colunaSubunidade[0].title !== 'Ações'){
          let btns = { 
            title: 'Ações',
-           render: rowData => <ActionBtns rowData={rowData}/>
+           render: rowData => <ActionBtns rowData={rowData} omParaVincular={omParaVincular}/>
          }
   
          colunaSubunidade.unshift(btns);
@@ -201,8 +206,9 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
       }
 
-      const ActionBtns = ( {rowData} ) => {
-      
+
+      function ActionBtns( {rowData, omParaVincular} ) {
+
         return (
           <div className="actionBtns" >
       
@@ -214,7 +220,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
             </LightTooltip>
           </Link>
       
-          <Modal om={ rowData } btnTable={true}/>
+          <Modal om={ rowData } btnTable={true} omParaVincular={omParaVincular}/>
 
           <Link to={{pathname: `/VerificarSubunidade/${rowData.id}/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
             <LightTooltip title="Detalhar Subunidade">
@@ -226,7 +232,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
         )
       }
 
-      gerarActionsButtons();
+      gerarActionsButtons( omParaVincular );
 
       const loadPage = async () => {
 

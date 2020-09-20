@@ -4,6 +4,7 @@ import './subunidade.css';
 import TextFields from './components/formulario/formulario';
 import Grid from '@material-ui/core/Grid';
 import { listarOm } from '../../components/services/omServices';
+import { getUserOm } from '../../components/services/authService';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
@@ -126,20 +127,24 @@ const classes = useStyles();
      
     useEffect(() => {
 
-      const getOms = async ( id, perfil ) => {
+      const getOms = async ( id, perfil, userId ) => {
 
         let response = '';
 
-        if( perfil == "ROLE_ADMIN" ){
+        if( perfil == "ROLE_ADMIN" && id ){
+
           let uOm = await listarOm( id );
-          setUserOm(uOm)
+          setUserOm(uOm);
           response = await listarOm( );
 
-        }else
-        if( id ){
-          response = await listarOm( id );
-        }else{
+        }else if(perfil == "ROLE_ADMIN" && !id){
+          
           response = await listarOm( );
+
+        }else if(perfil !== "ROLE_ADMIN"){
+          let a = await getUserOm(userId);
+          setUserOm(a)
+
         }
 
         setListaDeOm(response);
@@ -150,25 +155,29 @@ const classes = useStyles();
       let response = JSON.parse(localStorage.getItem("userInfo"));
 
       let userPerfil = response.perfil;
+      let userId = response.userId;
 
       setCredencial(userPerfil);
 
+      //Perfil de administrador
       if( idParams.id && userPerfil == 'ROLE_ADMIN'){
-
         let id = idParams.id 
-
         getOms( id, userPerfil );
-
-
-      }else if( idParams.id && userPerfil != 'ROLE_ADMIN'){
-
-        let id = idParams.id 
-
-        getOms( id );
-
-      }else{
-        getOms( );
+      }else if( !idParams.id && userPerfil == 'ROLE_ADMIN'){
+        getOms( '', userPerfil);
+      }else if( userPerfil !== 'ROLE_ADMIN'){
+        getOms( '', '', userId );
       }
+
+      
+      // else if( idParams.id && userPerfil != 'ROLE_ADMIN'){
+
+      //   let id = idParams.id 
+
+      //   getOms( id );
+
+      // }else{
+      // }
 
     }, []);
 
@@ -268,7 +277,7 @@ const classes = useStyles();
                 <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={true}></TextFields>
               } 
 
-              { listaDeOm && !idParams.id && credencial != 'ROLE_ADMIN' && 
+              { userOm && !idParams.id && credencial != 'ROLE_ADMIN' && 
                 <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={false}></TextFields>
               } 
 
