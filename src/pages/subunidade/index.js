@@ -169,16 +169,6 @@ const classes = useStyles();
         getOms( '', '', userId );
       }
 
-      
-      // else if( idParams.id && userPerfil != 'ROLE_ADMIN'){
-
-      //   let id = idParams.id 
-
-      //   getOms( id );
-
-      // }else{
-      // }
-
     }, []);
 
 

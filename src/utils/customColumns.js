@@ -110,13 +110,10 @@ export const colunaSubunidade = [
             width: '100%', 
             maxWidth: 400,
             textAlign: 'center',
-            // alignItems: 'center',
         }, 
         headerStyle: { 
             width: '100%', 
             maxWidth: 400,
-
-            // textAlign: 'center',
         },
     },
     { 

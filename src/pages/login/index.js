@@ -17,7 +17,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
-// import StoreContext from '../../store/context';
 import { verificarLogin } from '../../components/services/authService';
 import { connect } from 'react-redux';
 import { renderNavbar } from '../../components/actions/navbarActions';
@@ -27,7 +26,7 @@ import GenerateAlert from '../../components/errorAlert';
 
 import { bindActionCreators } from 'redux';
 
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 
 const useStyles = makeStyles((theme) => ({
     centralizar:{
@@ -108,7 +107,6 @@ function Login( props ){
 
       const login = await logar( nome, senha );
 
-      console.log("aaaa", login)
       if( login.invalidUser ==  'Network Error'){
 
         setErro({
@@ -180,8 +178,8 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'nerd',
-          senha: '123'
+          nome: 'CB_MESQUITA',
+          senha: '123456'
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (
 
