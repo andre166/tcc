@@ -164,7 +164,7 @@ function SimpleDialogWrapped( props ){
 
     let info = {
       severityType: 'error',
-      type: 'om', 
+      type: 'subunidade', 
     }
 
     localStorage.setItem("snackBarAlert", JSON.stringify(info));

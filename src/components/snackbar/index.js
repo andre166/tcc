@@ -56,61 +56,96 @@ export default function CustomizedSnackbars( { info } ) {
 
   let msg = '';
 
+  function generateMsg(){
+
+    let tipo = ''
+    let msgFinal = '';
+    let gen = '';
+    let estilo = '';
+
+    if( type == 'user' ){
+      tipo = 'Usuário'
+      gen = 'o'
+    }else if(type == 'om'){
+      tipo = 'OM'
+      gen = 'a'
+    }else if(type == 'subunidade'){
+      tipo = 'Subunidade'
+      gen = 'a'
+    }
+
+    if( severityType == 'success'){
+      msgFinal = ` cadastrad${gen}` ;
+      estilo = classes.success;
+    }else if(severityType == 'error'){
+      msgFinal = ` exluíd${gen}`;
+      estilo = classes.error;
+    }else if(severityType == 'info'){
+      msgFinal = ` editad${gen}`;
+      estilo = classes.info;
+    }
+
+    return(
+      <label className={classes.centralizar}> 
+        <span>{tipo}</span> 
+        <span className={estilo}>{msgFinal}</span> 
+        <span style={{marginLeft: 5}}>com sucesso!</span> 
+      </label>
+    )
+  }
+
+
   if( !variantType ){
     variantType = 'filled'
   }
 
-  if( type == 'user' ){
+  // if( type == 'user' ){
 
-    if( severityType == 'success'){
-      msg =  <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.success}> cadastrado</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'success'){
+  //     msg =  <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.success}> cadastrado</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'error'){
-      msg = <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.error}> exculído</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'error'){
+  //     msg = <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.error}> exculído</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'info'){
-      msg = <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.info}> editado</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
-    }
+  //   if( severityType == 'info'){
+  //     msg = <label className={classes.centralizar}> <span>Usuário</span> <span className={classes.info}> editado</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
+  //   }
 
-  }else
+  // }else if( type == 'om'){
 
-  if( type == 'om'){
+  //   if( severityType == 'success'){
+  //     msg =  <label className={classes.centralizar}> <span>OM</span> <span className={classes.success}> cadastrada</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'success'){
-      msg =  <label className={classes.centralizar}> <span>OM</span> <span className={classes.success}> cadastrada</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'error'){
+  //     msg = <label className={classes.centralizar}> <span>OM</span> <span className={classes.error}> exculída</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'error'){
-      msg = <label className={classes.centralizar}> <span>OM</span> <span className={classes.error}> exculída</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'info'){
+  //     msg = <label className={classes.centralizar}> <span>OM</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
+  //   }
 
-    if( severityType == 'info'){
-      msg = <label className={classes.centralizar}> <span>OM</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
-    }
+  // }else
 
-  }else
+  // if( type == 'subunidade'){
 
-  if( type == 'subunidade'){
+  //   if( severityType == 'success'){
+  //     msg =  <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.success}> cadastrada</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'success'){
-      msg =  <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.success}> cadastrada</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'error'){
+  //     msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.error}> exculída</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
+  //   }
 
-    if( severityType == 'error'){
-      msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.error}> exculída</span> <span style={{marginLeft: 5}}>com sucesso!</span> </label>
-    }
+  //   if( severityType == 'info'){
+  //     msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
+  //   }
 
-    if( severityType == 'info'){
-      msg = <label className={classes.centralizar}> <span>Subunidade</span> <span className={classes.info}> editada</span><span style={{marginLeft: 5}}>com sucesso!</span></label>
-    }
+  // }
 
-  }
-
-
-
-  const message = msg;
+  const message = generateMsg();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -120,13 +155,6 @@ export default function CustomizedSnackbars( { info } ) {
     setOpen(false);
   };
 
-  // const message = ( 
-  //   <>
-  //    <span>{msg}</span>
-  //    <span className={classes.success}>sucesso!</span>
-  //   </>
-  // )
-
   localStorage.removeItem("snackBarAlert");
 
   return (
@@ -134,7 +162,7 @@ export default function CustomizedSnackbars( { info } ) {
       <Snackbar open={open} 
       autoHideDuration={4000} 
       onClose={handleClose}
-      message={message}>
+      message={generateMsg()}>
       </Snackbar>
     </div>
   );

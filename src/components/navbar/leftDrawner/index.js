@@ -8,7 +8,7 @@ export default function LeftDrawner( { open, renderNavbar } ){
 
     const classes = useStyles();
 
-    const perfil = getUserPerfil()
+    const perfil = getUserPerfil();
 
     return (
 

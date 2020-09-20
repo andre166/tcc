@@ -27,13 +27,8 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
   const anchorRef = useRef(null);
   const prevOpenUserMenu = useRef(openUserMenu);
   const classes = useStyles();
-  // const { width } = props;
 
   const matches = useMediaQuery('(min-width:960px)');
-
-  // const handleDrawerOpen = () => {
-  //   setOpen(!open);
-  // };
 
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -85,44 +80,45 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
             >
 
               <div className={classes.accountMenuBtn}>
+
                 <AccountCircleIcon style={{marginRight: 4}} className={classes.xsFont14}/>
                 <Typography noWrap variant="subtitle2" component="h6">
                    {userName}
                 </Typography>
+
               </div>
 
             </IconButton>
 
             <Popper open={openUserMenu} anchorEl={anchorRef.current} role={undefined} transition disablePortal >
 
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                        transformOrigin:
-                        placement === 'bottom' ? 'center top' : 'center bottom',
-                    }}
-                    >
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                      transformOrigin:
+                      placement === 'bottom' ? 'center top' : 'center bottom',
+                  }}
+                  >
+                  
+                  <Paper>
+                      <ClickAwayListener onClickAway={handleClose}>
 
-                    <Paper>
-                        <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
+                        <MenuItem onClick={handleClose}><PersonIcon style={{marginRight: 4}}/>Perfil</MenuItem>
+                        <MenuItem onClick={sair}><ExitToAppIcon style={{marginRight: 4}}/>Sair</MenuItem>
+                      </MenuList>
 
-                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
-                          <MenuItem onClick={handleClose}><PersonIcon style={{marginRight: 4}}/>Perfil</MenuItem>
-                          <MenuItem onClick={sair}><ExitToAppIcon style={{marginRight: 4}}/>Sair</MenuItem>
-                        </MenuList>
+                      </ClickAwayListener>
+                  </Paper>
 
-                        </ClickAwayListener>
-                    </Paper>
+                </Grow>
+              )}
 
-                  </Grow>
-                )}
+            </Popper>
 
-              </Popper>
-
-                </Toolbar>
-
-            </AppBar>
+          </Toolbar>
+        </AppBar>
       </>
     )
 }
