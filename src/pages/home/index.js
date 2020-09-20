@@ -1,6 +1,5 @@
 import React from 'react';
 import './estilo.css';
-// import ShowRela from './showRelatorio';
 import { connect } from 'react-redux';
 
 import { 

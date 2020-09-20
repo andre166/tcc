@@ -4,7 +4,6 @@ import { Switch, Route, BrowserRouter} from 'react-router-dom';
 import Home from './pages/home';
 import Efetivo from './pages/efetivo';
 import CadastrarMilitar from './pages/efetivo/cadastrarMilitar';
-import ListaDeMilitares from './pages/listaDeMilitares';
 import Login from './pages/login';
 import Om from './pages/om';
 import Subunidade from './pages/subunidade/index';
@@ -41,8 +40,6 @@ const Routes = ( ) => {
             <Route exact path='/Efetivo' component={Efetivo}/>
             <Route exact path='/' render={props => <Login {...props}/>}/>
 
-        
-            <Route exact path='/ListaDeMilitares' component={ListaDeMilitares}/>
             <Route exact path='/CadastrarMilitar' component={CadastrarMilitar}/>
 
             <Route exact path='/GerenciarUsuario' component={GerenciarUsuario}/>

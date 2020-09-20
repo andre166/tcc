@@ -4,7 +4,7 @@ import './subunidade.css';
 import TextFields from './components/formulario/formulario';
 import Grid from '@material-ui/core/Grid';
 import { listarOm } from '../../components/services/omServices';
-import { getUserOm } from '../../components/services/authService';
+import { getUserOm } from '../../components/services/usuarioService';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';

@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { cadastrarUsuarioAutenticado } from '../../../components/services/authService';
+import { addUser } from '../../../components/services/usuarioService';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { perfilList } from '../../../utils/perfilList';
@@ -120,7 +120,7 @@ function CadastrarAdmin2(){
 
       localStorage.setItem("snackBarAlert", JSON.stringify(info));
 
-      await cadastrarUsuarioAutenticado( values );
+      await addUser( values );
       
       history.push('/GerenciarAdmin');
 

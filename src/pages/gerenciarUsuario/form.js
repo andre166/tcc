@@ -7,9 +7,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 // ======= services ======= //
-import { listarUsuarios, deletarUsuario, editarUsuario, listarPerfis} from '../../components/services/authService';
-import { getUserOm } from '../../components/services/authService';
+import { deleteUser, getUserOm } from '../../components/services/usuarioService';
 import { listarOm } from '../../components/services/omServices';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -204,7 +204,7 @@ function Editable( props ) {
       
       let userId = rowInfo.id;
 
-      await deletarUsuario(userId);
+      await deleteUser(userId);
 
       let info = {
         severityType: 'error',

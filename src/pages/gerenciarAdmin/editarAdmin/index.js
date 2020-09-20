@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { editarUsuario, deletarUsuario, listarUsuarios } from '../../../components/services/authService';
+import { deleteUser } from '../../../components/services/usuarioService';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useParams, useHistory} from 'react-router-dom';
@@ -114,7 +114,7 @@ function CadastrarAdmin2( props ){
 
       const { id, idOm } = idParams;
       
-      deletarUsuario(id);
+      deleteUser(id);
 
     }
 
