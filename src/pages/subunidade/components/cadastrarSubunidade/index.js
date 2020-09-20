@@ -17,6 +17,8 @@ import { listarOm } from '../../../../components/services/omServices';
 import { useParams, useHistory} from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -51,8 +53,12 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8
   },
   containerGeral:{
-      marginTop: 80
-  }
+    marginTop: 63,
+    padding: 5,
+    [theme.breakpoints.down('xs')]: {
+        marginTop: 55,
+    },
+  },
   }));
 
 export default function FormCadastro(){
@@ -60,6 +66,8 @@ export default function FormCadastro(){
     const classes = useStyles();
     const history = useHistory();
     let idParams = useParams();
+    const theme = useTheme();
+    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     let [om, setOm] = useState([]);
     let [loading, setLoading] = useState(true);
@@ -138,12 +146,13 @@ export default function FormCadastro(){
                 <Grid item sm={1}>
                     <Link to={`/Subunidade/${idParams.id}`}  style={{textDecoration: 'none'}}>
                         <Button
-                            style={{marginTop: '-30px'}}
+                            size="small"
+                            style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
                             variant="outlined"
                             color="primary"
                             startIcon={<KeyboardReturnIcon />}
                         >
-                          Voltar
+                          { !xsDownMedia && 'Voltar'}
                         </Button>
                     </Link>
                 </Grid>

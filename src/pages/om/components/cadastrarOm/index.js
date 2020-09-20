@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8
   },
   containerGeral:{
+      [theme.breakpoints.down('xs')]: {
+          marginTop: 55,
+      },
       marginTop: 80,
       padding: 5
   }
@@ -105,7 +108,7 @@ export default function FormCadastro(){
                     <Link to={'/Om'}  style={{textDecoration: 'none'}}>
                         <Button
                             size='small'
-                            style={{marginTop: '-35px', position: 'absolute'}}
+                            style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
                             variant="outlined"
                             color="primary"
                             startIcon={<KeyboardReturnIcon />}

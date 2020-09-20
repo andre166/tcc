@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
    },
   },
   containerCadastrar: {
-    background: '#eeeeee'
+    background: '#fff'
   },
   buttonInfoIcon:{
     color: '#145374'
@@ -366,6 +366,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
             {renderSnackBar && <Snackbar info={renderSnackBar} />}
 
           <Grid>
+            <Divider/>
             <div className={classes.containerCadastrar}>
               <Grid direction="row" container alignItems="center" justify="flex-start" style={{padding: 10}}>
 
@@ -440,6 +441,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
                   </Grid>
             </div>
             
+            <Divider/>
              
 
                   {error &&  <div style={{margin: 10}}><GenerateAlert alertConfig={ {msg: "Nenhuma OM encontrada", tipo: "warning"}} /> </div>}
@@ -452,7 +454,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
                   : 
                   
                   renderCard && // para forçar a Re-renderização
-                  <div className={classes.root}>
+                  <Paper style={{background: "#eeeeee", margin: "5px 0px"}}>
                     <GridList cellHeight={'100%'} style={{minWidth: 'calc(100vw - 280px)'}} className={classes.gridList} cols={6}>
                         {quantidadeDeContatos.map( su => (
                           <GridListTile key={su.id} cols={1}>
@@ -460,7 +462,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
                           </GridListTile>
                         ))}
                     </GridList>
-                  </div>
+                  </Paper>
 
               }
 

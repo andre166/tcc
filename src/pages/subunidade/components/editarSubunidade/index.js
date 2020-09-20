@@ -18,6 +18,8 @@ import { useParams, useHistory} from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import Modal from '../formulario/testeTableCard/components/modal/modal';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const LightTooltip = withStyles((theme) => ({
     tooltip: {
@@ -31,7 +33,11 @@ const LightTooltip = withStyles((theme) => ({
   
     const useStyles = makeStyles((theme) => ({
         containerGeral:{
-            marginTop: 70
+            marginTop: 63,
+            padding: 5,
+            [theme.breakpoints.down('xs')]: {
+                marginTop: 55,
+            },
         },
         root: {
             width: '100%',
@@ -75,6 +81,10 @@ export default function Om(){
 
     let idParams = useParams();
     const history = useHistory();
+
+    const theme = useTheme();
+
+    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     const { id, idOm } = idParams;
 
@@ -145,12 +155,13 @@ export default function Om(){
                     <Grid item sm={1}>
                         <Link to={`/Subunidade/${idOm}`}  style={{textDecoration: 'none'}}>
                             <Button
-                                style={{marginTop: '-30px'}}
+                                size="small"
+                                style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
                                 variant="outlined"
                                 color="primary"
                                 startIcon={<KeyboardReturnIcon />}
                             >
-                                Voltar
+                                { !xsDownMedia && 'Voltar'}
                             </Button>
                         </Link>
                     </Grid>

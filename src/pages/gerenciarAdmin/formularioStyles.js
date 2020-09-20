@@ -6,7 +6,8 @@ export const styles = theme => ({
     },
     paperContainerCadastrar:{
       padding: 10,
-      marginBottom: 10
+      marginTop: 5,
+      background: '#fff'
     },
     firstRow: {
       display: 'flex',

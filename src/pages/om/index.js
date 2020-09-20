@@ -52,8 +52,14 @@ const LightTooltip = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   containerGeral:{
-    padding: 5,
-    width: '100%'
+    padding: 0,
+    // width: smDownMediaQ && 'calc(100vw - 15px)' || smUpMediaQ && 'calc(100vw - 240px)',background: "#eeeeee", marginTop: 5}}
+
+    [theme.breakpoints.down('xs')]: {
+      // marginTop: 10,
+      // marginLeft: theme.spacing(3),
+      // width: '100%',
+    },
   },
   root: {
     display: 'flex',
@@ -378,7 +384,7 @@ function Om( props ){
             {renderSnackBar && <Snackbar info={renderSnackBar} />}
 
           <Grid direction="column">
-            <Paper style={{marginBottom: 5, marginTop: xsDownMedia && 55 || 65}}>
+            <div style={{marginTop: xsDownMedia && 55 || 65, background: '#fff'}}>
               <Grid container direction="row" alignItems="center" justify="flex-start" style={{padding: 10}}>
 
 
@@ -455,19 +461,19 @@ function Om( props ){
                 {/* </Grid>
                 </Grid> */}
               </Grid>
-              </Paper>
+              </div>
 
                   {error &&  <div style={{margin: 10}}><GenerateAlert alertConfig={ {msg: "Nenhuma OM encontrada", tipo: "warning"}} /> </div>}
               {listaDeOm.length === 0 ? '' :
 
                   modoTabela == true ? //Verifica se o modo é table ou card
-                  <Paper style={{ width: smDownMediaQ && 'calc(100vw - 15px)' || smUpMediaQ && 'calc(100vw - 270px)', padding: 0, margin: 0 }}>
+                  <div style={{ width: smDownMediaQ && '100vw' || smUpMediaQ && 'calc(100vw - 240px)', background: '#fff' }}>
                     <RelatorioTable TableDimension={ { tWidth: '100%', tHeight: '100%' } } relatorio={listaDeOm} customColumns={omColuns} />
-                  </Paper>
+                  </div>
                   :
 
                   renderCard && // para forçar a Re-renderização
-                  <Paper style={{background: "#eeeeee", marginTop: 10}}>
+                  <Paper style={{width: smDownMediaQ && '100vw' || smUpMediaQ && 'calc(100vw - 240px)',background: "#eeeeee", marginTop: 5}}>
                     <GridList cellHeight={'100%'} cols={defineCols()}>
                         {quantidadeDeContatos.map( om => (
                           <GridListTile key={om.id} cols={1}>
@@ -479,7 +485,7 @@ function Om( props ){
 
               }
 
-              { !modoTabela && <Paper style={{marginTop: 10}}>
+              { !modoTabela && <div style={{marginTop: 5, background: '#fff'}}>
 
               <Grid container direction="row" alignItems="center" justify="flex-start">
 
@@ -518,7 +524,7 @@ function Om( props ){
                     }
                     </Grid>
                 
-                </Paper>
+                </div>
               }
 
           </Grid>

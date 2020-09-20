@@ -28,11 +28,16 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import LockIcon from '@material-ui/icons/Lock';
 import { useParams, useHistory} from 'react-router-dom';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '10px 20px',
-    marginTop: theme.spacing(10),
+    marginTop: 70,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 56,
+    },
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
       width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(3),
+      // marginTop: theme.spacing(1),
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
@@ -61,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
      },
     },
     CcontainerEditarSenha: {
-      marginTop: 10,
-      padding: 10
+      // marginTop: 10,
+      // padding: 10
     }
 }))
 
@@ -82,6 +87,10 @@ function CadastrarAdmin2(){
     let [perfil, setPerfil] = useState("");
 
     const history = useHistory();
+
+    const theme = useTheme();
+
+    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     useEffect(() => {
 
@@ -132,32 +141,32 @@ function CadastrarAdmin2(){
 
     return(
 
-      <Container component="main" maxWidth="sm">
+      <Container component="main" maxWidth="sm" style={{padding: 5}}>
       <CssBaseline />
       <Paper className={classes.paper}>
 
       <Grid container direction="row" justify="space-between" alignItems="center">
-
-          <Hidden xsDown>
-            <Grid item xs={4} sm={4} >
+            {/* <Grid item xs={4} sm={4} > */}
                   <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
                       <Button
+                          size='small'
+                          style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
                           variant="outlined"
                           color="primary"
                           startIcon={<KeyboardReturnIcon />}
                       >
-                          Voltar
+                          {!xsDownMedia && 'Voltar'}
                       </Button>
                   </Link>
-            </Grid>
-          </Hidden>
-            <Grid item xs={12} sm={6}>
-              <Typography component="h1" variant="h5" style={{margin: '10px 0px'}}>
-                Cadastrar Usuário
-              </Typography>
+            {/* </Grid> */}
+
+            <Grid item xs>
+                <Grid container alignItems="center" justify="center">
+                  <h2>Cadastrar Usuário</h2>
+                </Grid>
             </Grid>
 
-            <Grid item xs={4} sm={1}></Grid>
+            {/* <Grid item xs={4} sm={1}></Grid> */}
 
           </Grid>
 
@@ -174,7 +183,7 @@ function CadastrarAdmin2(){
         }}
         render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
-        <Form onSubmit={handleSubmit} className={classes.form}>
+        <Form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -250,7 +259,7 @@ function CadastrarAdmin2(){
 
             <Grid item xs={12} sm={6}>
 
-            <FormControl>
+            <FormControl style={{width:'100%'}}>
               <InputLabel htmlFor="input-with-icon-adornment">Nome de usuário</InputLabel>
               <Input
                 fullWidth
@@ -271,7 +280,7 @@ function CadastrarAdmin2(){
 
             <Grid item xs={12} sm={6}>
 
-            <FormControl>
+            <FormControl style={{width:'100%'}}>
               <InputLabel htmlFor="input-with-icon-adornment">Senha</InputLabel>
               <Input
                 fullWidth

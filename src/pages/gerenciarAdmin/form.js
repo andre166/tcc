@@ -225,13 +225,17 @@ function Editable( props ) {
         {columns.lenght === 0 ? '' : 
         <>
 
-          <Paper className={classes.paperContainerCadastrar}>
+          <div className={classes.paperContainerCadastrar}>
               <Link to="/CadastrarUserAdmin" style={{textDecoration: 'none'}}>
                   <Button startIcon={<AddBoxIcon />} className={classes.buttonSuccess}  variant="contained" color="primary">Cadastrar</Button>
               </Link>
-          </Paper>
+          </div>
 
-          {data.length > 0 && columns.length > 0 && <ShowRelatorio relatorio={data} customColumns={columns}/>}
+          {data.length > 0 && columns.length > 0 && 
+            <div style={{background: '#fff'}}>
+              <ShowRelatorio relatorio={data} customColumns={columns}/>
+            </div>
+          }
           
             {rowInfo &&
               <Dialog

@@ -28,6 +28,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 function CadastrarAdmin2( props ){
 
@@ -62,18 +64,17 @@ function CadastrarAdmin2( props ){
     const useStyles = makeStyles((theme) => ({
        paper: {
         padding: '10px 20px',
-        marginTop: theme.spacing(10),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        marginTop: 70,
+        [theme.breakpoints.down('xs')]: {
+          marginTop: 55,
         },
+       },
         avatar: {
           margin: theme.spacing(1),
           backgroundColor: theme.palette.secondary.main,
         },
         form: {
           width: '100%', // Fix IE 11 issue.
-          marginTop: theme.spacing(3),
         },
         submit: {
           margin: theme.spacing(3, 0, 2),
@@ -105,6 +106,10 @@ function CadastrarAdmin2( props ){
     const classes = useStyles();
     const { width } = props;
 
+    const theme = useTheme();
+
+    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
+
     const excluirUsuario = (e) => {
 
       const { id, idOm } = idParams;
@@ -128,32 +133,29 @@ function CadastrarAdmin2( props ){
 
     return(
 
-      <Container component="main" maxWidth="sm">
+      <Container component="main" maxWidth="sm" style={{padding: 5}}>
       <CssBaseline />
       <Paper className={classes.paper}>
 
       <Grid container direction="row" justify="space-between" alignItems="center">
 
-          <Hidden xsDown>
-            <Grid item xs={4} sm={4} >
-                  <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
-                      <Button
-                          variant="outlined"
-                          color="primary"
-                          startIcon={<KeyboardReturnIcon />}
-                      >
-                          Voltar
-                      </Button>
-                  </Link>
-            </Grid>
-          </Hidden>
-            <Grid item xs={12} sm={6}>
-              <Typography component="h1" variant="h5" style={{margin: '10px 0px'}}>
-                Editar Usuário
-              </Typography>
-            </Grid>
+            <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
+                <Button
+                    size="small"
+                    style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
+                    variant="outlined"
+                    color="primary"
+                    startIcon={<KeyboardReturnIcon />}
+                >
+                    {!xsDownMedia && 'Voltar'}
+                </Button>
+            </Link>
 
-            <Grid item xs={4} sm={1}></Grid>
+            <Grid item xs>
+                <Grid container alignItems="center" justify="center">
+                  <h2>Editar Usuário</h2>
+                </Grid>
+            </Grid>
 
           </Grid>
 
