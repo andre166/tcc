@@ -12,12 +12,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import RelatorioTable from '@lestetelecom/showrelatorio/lib/index';
-import { colunaSubunidade } from '../../../../../utils/customColumns';
+import { colunaSubunidade } from '../../../../../utils/columns/colunaSubunidade';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -29,7 +28,6 @@ import MenuOrderBy from './components/menuOrderBy';
 import Snackbar from '../../../../../components/snackbar';
 import { Link} from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { withStyles } from '@material-ui/core/styles';
 import Modal from './components/modal/modal';
@@ -37,7 +35,6 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {

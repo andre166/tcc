@@ -1,9 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect } from 'react';
 import './om.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import { listarOm } from '../../components/services/omServices';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './components/card';
@@ -12,12 +10,11 @@ import GridListTile from '@material-ui/core/GridListTile';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import RelatorioTable from '@lestetelecom/showrelatorio/lib/index';
-import { omColuns } from '../../utils/customColumns';
+import { omColuns } from '../../utils/columns/omColumns';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -28,27 +25,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuOrderBy from './components/menuOrderBy';
 import Snackbar from '../../components/snackbar';
 import { Link} from 'react-router-dom';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { withStyles } from '@material-ui/core/styles';
 import Modal from './components/modal/modal';
-import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-
-const LightTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: "#222831",
-    color: theme.palette.common.white,
-    boxShadow: theme.shadows[1],
-    fontSize: 14,
-    padding: '8px 12px 8px 12px'
-  },
-}))(Tooltip);
-
+import withWidth from '@material-ui/core/withWidth';
+import LightTooltip from '../../utils/toolTip';
 
 const useStyles = makeStyles((theme) => ({
   containerGeral:{

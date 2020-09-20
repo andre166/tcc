@@ -1,15 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import LockIcon from '@material-ui/icons/Lock';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Alert from '@material-ui/lab/Alert';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import redefinirSenhaSchema from '../../../utils/schemas/redefinirSenha';
 import Button from '@material-ui/core/Button';
 import GenerateAlert from '../../../components/errorAlert';
@@ -34,12 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-
 export default function Review( {handleNext}) {
 
   const classes = useStyles();
-  const [ erro, setErro ] = React.useState(false);
+  const [ erro, setErro ] = useState(false);
 
   async function onSubmit( values, action ){
 
@@ -81,7 +74,7 @@ export default function Review( {handleNext}) {
 
         <Form>
 
-        <Grid container spacing={3} style={{padding: 10}}>
+          <Grid container spacing={3} style={{padding: 10}}>
             <TextField
                 margin="normal"
                 fullWidth
@@ -100,31 +93,31 @@ export default function Review( {handleNext}) {
                   
             />
             <ErrorMessage name="senha1">{(msg) => <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } />}</ErrorMessage>
-            
+              
             <TextField        
-                margin="normal"
-                fullWidth
-                name="senha2"
-                label="Repita a nova senha"
-                value={values.senha2}
-                onChange={handleChange}
-                InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                    <LockIcon />
-                    </InputAdornment>
-                ),
-                }}
-                type="password"
+              margin="normal"
+              fullWidth
+              name="senha2"
+              label="Repita a nova senha"
+              value={values.senha2}
+              onChange={handleChange}
+              InputProps={{
+              startAdornment: (
+                  <InputAdornment position="start">
+                  <LockIcon />
+                  </InputAdornment>
+              ),
+              }}
+              type="password"
             />
+
             <ErrorMessage name="senha2">{(msg) => <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } />}</ErrorMessage>
 
-        </Grid>
+          </Grid>
 
-        <Grid style={{marginTop: 20}} container direction="column" justify="center" alignItems="center">
+          <Grid style={{marginTop: 20}} container direction="column" justify="center" alignItems="center">
             <Button color="primary" className={classes.buttonSuccess} variant="contained" type="submit">Redefinir</Button>
-        </Grid>
-
+          </Grid>
 
         </Form>
 

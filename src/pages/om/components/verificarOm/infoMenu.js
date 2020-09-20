@@ -26,7 +26,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import { maskCnpj } from '../../../../utils/maskAndValidators/cnpj';
 import { maskCep } from '../../../../utils/maskAndValidators/cep';
 import ShowRelatorio from '@lestetelecom/showrelatorio';
-import {colunaSubunidade} from '../../../../utils/customColumns';
+import {colunaSubunidade} from '../../../../utils/columns/colunaSubunidade';
 import { Link} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

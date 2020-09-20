@@ -30,7 +30,6 @@ export const styles = theme => ({
         background: "#4a5442",
      },
     },
-  
     buttonDanger: {
       backgroundColor: '#ed3237',
       height: 35,
@@ -39,7 +38,6 @@ export const styles = theme => ({
         background: "#7f3436",
      },
     },
-  
     buttonInfo: {
       backgroundColor: '#0064a6',
       height: 35,
@@ -95,6 +93,6 @@ export const styles = theme => ({
   },
   buttonDangerIcon:{
     color: '#ed3237'
-  },
-  });
+  }
+});
   

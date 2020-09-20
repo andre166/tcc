@@ -20,7 +20,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { listarCidadaoPorTurma } from '../../components/services/cidadaoService';
 import ShowRelatorio from '@lestetelecom/showrelatorio';
-import { colunaCidadao } from '../../utils/customColumns';
+import { colunaCidadao } from '../../utils/columns/colunaCidadao';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link} from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
