@@ -1,9 +1,5 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -19,27 +15,29 @@ export default function PaymentForm( { rowInfo }) {
 
         <List dense={true} disablePadding>
             <ListItem>
-                <ListItemText primary="Nome:" secondary={rowInfo.nome} />
+                <ListItemText primary="Nome" secondary={rowInfo.nome} />
             </ListItem>
         <Divider/>
             <ListItem>
-                <ListItemText primary="Nome de usuário:" secondary={rowInfo.userName} />
+                <ListItemText primary="Nome de usuário" secondary={rowInfo.userName} />
             </ListItem>
             <Divider/>
 
             <ListItem>
-                <ListItemText primary="Cpf:" secondary={rowInfo.cpf} />
+                <ListItemText primary="Cpf" secondary={rowInfo.cpf} />
             </ListItem>
             <Divider/>
 
             <ListItem>
-                <ListItemText primary="Perfil:" secondary={rowInfo.perfil} />
+                <ListItemText primary="Perfil" secondary={rowInfo.perfil} />
             </ListItem>
             <Divider/>
 
-            {rowInfo.nomeOm && <ListItem>
-                <ListItemText primary="Om:" secondary={rowInfo.nomeOm} />
-            </ListItem>}
+            {rowInfo.nomeOm && 
+                <ListItem>
+                    <ListItemText primary="Om" secondary={rowInfo.nomeOm} />
+                </ListItem>
+            }
 
         </List>
 

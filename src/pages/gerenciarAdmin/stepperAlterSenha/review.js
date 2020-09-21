@@ -1,15 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import LockIcon from '@material-ui/icons/Lock';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Alert from '@material-ui/lab/Alert';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import redefinirSenhaSchema from '../../../utils/schemas/redefinirSenha';
 import Button from '@material-ui/core/Button';
 import GenerateAlert from '../../../components/errorAlert';

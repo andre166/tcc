@@ -55,7 +55,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
   
       </div>
     )
-  }
+}
 
 
 export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClickOpen, classes  ) => {

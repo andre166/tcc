@@ -1,20 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './adminPassWord';
 import PaymentForm from './refefinição';
 import Review from './review';
 import Grid from '@material-ui/core/Grid';
-import { verificarLogin } from '../../../components/services/authService';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import Alert from '@material-ui/lab/Alert';
 
@@ -31,9 +27,10 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    flexWrap: 'wrap'
   },
   buttons: {
+    
     display: 'flex',
     justifyContent: 'flex-end',
   },
@@ -48,17 +45,30 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       background: "#7f3436",
    },
-}
+  },
+  title: {
+    padding: 10, 
+    background: '#eeeeee', 
+    width: '100%', 
+    textAlign: 'center',
+  },
+  titleTipogra: {
+    fontSize: '20pt',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '14pt',
+    }
+  }
+
 }));
 
-const steps = ['Confirmação', 'Autenticação', 'alteração'];
+const steps = ['Confirmação', 'Autenticação', 'Alteração'];
 
 export default function Checkout( {rowInfo, handleClose} ) {
 
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
-  const [ authOk, setAuthOk] = React.useState(false);
+  const [ authOk, setAuthOk] = useState(false);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -103,15 +113,16 @@ export default function Checkout( {rowInfo, handleClose} ) {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
             <Grid container style={{overflow: 'hidden'}} direction="row" alignItems="center" justify="center">
-           <Paper style={{padding: 10, background: '#eeeeee', width: '100%', textAlign: 'center'}}>
-              <Typography component="h2" variant="h4">
+           <Paper  className={classes.title}  >
+              <Typography className={classes.titleTipogra}  component="h2" variant="h4">
                   Redefinir Senha
               </Typography>
            </Paper>
            </Grid>
           <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
+            {steps.map((label, i) => (
+
+              <Step key={label} style={{margin: i == 1 && '5px 0px'}}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
@@ -171,11 +182,9 @@ export default function Checkout( {rowInfo, handleClose} ) {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {/* {activeStep === steps.length - 1 ? 'Place order' : 'Sim'} */}
                     {activeStep === 0 && 'Sim'}
                     {activeStep === 1 && 'Confirmar'}
                     {activeStep === 2 && 'Alterar'}
-                    {/* {activeStep === steps.length - 1 ? 'Place order' : 'Sim'} */}
                   </Button>}
 
                   {activeStep == 1 && authOk && <Button
@@ -184,21 +193,10 @@ export default function Checkout( {rowInfo, handleClose} ) {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {/* {activeStep === steps.length - 1 ? 'Place order' : 'Sim'} */}
                     {activeStep === 0 && 'Sim'}
                     {activeStep === 1 && 'Confirmar'}
                     {activeStep === 2 && 'Alterar'}
-                    {/* {activeStep === steps.length - 1 ? 'Place order' : 'Sim'} */}
                   </Button>}
-
-                  {/* {activeStep == 2 && <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={backAndClean}
-                    className={classes.button}
-                  >
-                    aquiiiiii
-                  </Button>} */}
 
                 </div>
               </React.Fragment>
