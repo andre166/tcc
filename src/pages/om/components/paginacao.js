@@ -1,14 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        marginTop: theme.spacing(2),
-      },
-    },
-}));
 
 export default function Paginacao(
 
@@ -22,8 +13,6 @@ export default function Paginacao(
     for(let i = 1; i <= Math.ceil(contatos / contatosPorPagina); i++){
         pageNumber.push(i);
     }
-
-    const classes = useStyles();
 
     const handleChange = (event, value) => {
         setPaginaAtual(value);

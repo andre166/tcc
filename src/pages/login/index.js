@@ -1,16 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import './login.css';
 import Button from '@material-ui/core/Button';
 import LockIcon from '@material-ui/icons/Lock';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -23,59 +18,11 @@ import { renderNavbar } from '../../components/actions/navbarActions';
 import { setNameAndToken } from '../../components/actions/userAction';
 import loginSchema from '../../utils/schemas/loginSchema';
 import GenerateAlert from '../../components/errorAlert';
+import { useStyles } from './loginStyles';
 
 import { bindActionCreators } from 'redux';
 
 import { Formik, Form, ErrorMessage } from 'formik';
-
-const useStyles = makeStyles((theme) => ({
-    centralizar:{
-      alignItems: 'center',
-      justifyContent: 'center',
-      letterSpacing: '0.5px',
-    },
-    leftText:{
-      padding: 0,
-      paddingLeft: 10,
-    },
-    container: {
-        // marginTop: '-40px',
-        minWidth: '100% !important',
-        height: '100vh !important',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background:'#f1f3f8',
-        // marginLeft: 125,
-    },  
-    paper: {
-      marginTop: '-200px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      background: '#fff',
-      padding: 20,
-      borderRadius: 4,
-      maxWidth: 440,
-      border: '1px solid #d8d3cd',
-    //   boxShadow: '2px 2px 2px black'
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.primary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-    textField: {
-        paddingLeft: 10,
-    },
-  }));
 
 async function logar (usuario, password ){
 
@@ -205,9 +152,7 @@ function Login( props ){
                 value={values.nome}
                 onChange={handleChange}
             />
-            {/* <ErrorMessage name="nome"/> */}
-                <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }
-            </ErrorMessage>
+            <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> } </ErrorMessage>
             
             <TextField
               variant="outlined"

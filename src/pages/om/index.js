@@ -1,5 +1,4 @@
 import React, {useState, useEffect } from 'react';
-import './om.css';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { listarOm } from '../../components/services/omServices';
@@ -7,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './components/card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { makeStyles, fade } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -25,7 +23,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuOrderBy from './components/menuOrderBy';
 import Snackbar from '../../components/snackbar';
 import { Link} from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 import Modal from './components/modal/modal';
 import EditIcon from '@material-ui/icons/Edit';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
@@ -34,99 +31,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import LightTooltip from '../../utils/toolTip';
-
-const useStyles = makeStyles((theme) => ({
-  containerGeral:{
-    padding: 0,
-    // width: smDownMediaQ && 'calc(100vw - 15px)' || smUpMediaQ && 'calc(100vw - 240px)',background: "#eeeeee", marginTop: 5}}
-
-    [theme.breakpoints.down('xs')]: {
-      // marginTop: 10,
-      // marginLeft: theme.spacing(3),
-      // width: '100%',
-    },
-  },
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: '#eeeeee',
-    // padding: '10px 5px 15px 5px',
-    width: '100%'
-  },
-  gridList: {
-    width: '100%',
-    height: '100%',
-    // maxHeight: 500,
-  },
-  posAbsolute:{
-    position: 'absolute'
-  },
-  search: {
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 'auto',
-    },
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 10,
-      marginLeft: theme.spacing(3),
-      width: '100%',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-    },
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-    },
-    borderBottom: '1.5px solid #d8d3cd'
-  },
-  clearBtn: {
-    position: 'absolute',
-  },
-  buttonSuccess: {
-    backgroundColor: '#1d3724',
-    '&:hover': {
-      background: "#4a5442",
-   },
-   containerCadastrarSu: {
-    padding: 10,
-  },
-  },
-  buttonInfoIcon:{
-    color: '#145374'
-  }
-}));
+import { useStyles } from './omStyles';
 
 export default withWidth()(Om);
 function Om( props ){
@@ -141,7 +46,7 @@ function Om( props ){
 
     let [listaDeOm, setListaDeOm] = useState("");
     let [loading, setLoading] = useState(true);
-    const [modoTabela, setModoTabela] = useState(true);
+    const [modoTabela, setModoTabela] = useState(false);
     let [mostrarModal, setMostrarModal] = useState(false);
     let [listaDeOmState, setListaDeOmState] = useState(false);
 
@@ -350,14 +255,16 @@ function Om( props ){
 
       let wd = props.width;
 
-      if(wd == 'md' ){
+      if(wd == 'xl' ){
+        return 5;
+      }else if(wd == 'lg' ){
         return 4;
-      }else if(wd == 'sm' ){
+      }else if(wd == 'md' ){
         return 3;
-      }else if(wd == 'xs' ){
+      }else if(wd == 'sm' ){
+        return 2;
+      }if(wd == 'xs' ){
         return 1;
-      }else{
-        return 6;
       }
 
     }
@@ -458,15 +365,22 @@ function Om( props ){
                   :
 
                   renderCard && // para forçar a Re-renderização
-                  <Paper style={{width: smDownMediaQ && '100vw' || smUpMediaQ && 'calc(100vw - 240px)',background: "#eeeeee", marginTop: 5}}>
-                    <GridList cellHeight={'100%'} cols={defineCols()}>
+                  <div style={{
+                    padding: xsDownMedia && '0px' || '0px 10px 0px 5px', 
+                    width: xsDownMedia && '100vw' || smDownMedia && 'calc(100vw - 10px)' || smUpMediaQ && 'calc(100vw - 258px)',
+                    background: "#eeeeee", 
+                    marginTop: 5
+                  }}>
+                    <GridList cellHeight={'100%'} cols={defineCols()} spacing={10}>
                         {quantidadeDeContatos.map( om => (
                           <GridListTile key={om.id} cols={1}>
                             <Card  om={om} mostrarModal={mostrarModal} setMostrarModal={setMostrarModal}/>
                           </GridListTile>
                         ))}
                     </GridList>
-                  </Paper>
+                    
+
+                  </div>
 
               }
 
