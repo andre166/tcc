@@ -10,6 +10,10 @@ import PieChartIcon from '@material-ui/icons/PieChart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import ListIcon from '@material-ui/icons/List';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import GroupIcon from '@material-ui/icons/Group';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+
 
 const sair = ( ) => {
     window.location.assign("/")
@@ -22,9 +26,9 @@ const blanck = () => {
 export const adminDrawner = [
 
     {nome: 'Página inicial', link: '/Home', icone: <HomeIcon />},
-    {nome: 'OM', link: '/Om', icone: <AssignmentIcon /> },
-    {nome: 'Subunidade', link: '/Subunidade', icone: <AssignmentIcon /> },
-    {nome: 'Usuários', link: '/GerenciarAdmin', icone: <ViewListIcon /> },
+    {nome: 'OM', link: '/Om', icone: <HomeWorkIcon /> },
+    {nome: 'Subunidade', link: '/Subunidade', icone: <SupervisedUserCircleIcon /> },
+    {nome: 'Usuários', link: '/GerenciarAdmin', icone: <GroupIcon /> },
     {nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
     
 ]

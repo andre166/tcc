@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import './subunidade.css';
 
 import TextFields from './components/formulario/formulario';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +8,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Switch from '@material-ui/core/Switch';
-import { makeStyles, fade } from '@material-ui/core/styles';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -23,6 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useParams, useHistory} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { useStyles } from './suStyle';
 
 export default function Om(){
 
@@ -39,13 +38,12 @@ export default function Om(){
     let [searchInput, setSearchInput] = useState("");
 
     let [error, setError] = useState("");
-     //States para paginação
+
      const [paginaAtual, setPaginaAtual] = useState(1); //Define a primeira página e fica sendo observado pelo UseEffect para mudar o css da paginação 
      const [contatosPorPagina, setContatosPorPagina] = useState(4); //Define a quantidade de contatos por página
  
      const indexLastContato = paginaAtual * contatosPorPagina;
      const indexOfFirstPost = indexLastContato - contatosPorPagina;
-    //  const quantidadeDeContatos = listaDeOm.subunidades.slice(indexOfFirstPost, indexLastContato);
  
      const [zerarPaginacao, setZerarPaginacao] = useState(false); // Volta para a página 1 ao mudar filtros ou ordenar - independente de true ou false - a cada mudança de estado é chamado um useffect
      const paginar = (pageNumber) => setPaginaAtual(pageNumber); //Define a quantidade de páginas a serem paginadas
@@ -62,65 +60,6 @@ export default function Om(){
       qtdSu: 0,
       qtdUsu: 0,
     });
-
-    const useStyles = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: '#eeeeee',
-      },
-      gridList: {
-        width: '100%',
-        height: '100%',
-        maxHeight: 500,
-      },
-      posAbsolute:{
-        position: 'absolute'
-      },
-      search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-          backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 'auto',
-        },
-      },
-      searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-      inputRoot: {
-        color: 'inherit',
-      },
-      inputInput: {
-        // padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        // paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-          width: '20ch',
-        },
-        borderBottom: '1.5px solid #d8d3cd'
-      },
-      clearBtn: {
-        position: 'absolute',
-      }
-    }));
 
 const classes = useStyles();
 
@@ -258,28 +197,23 @@ const classes = useStyles();
       }
       
     return(
-        // <Grid container direction="column" alignItems="flex-start"  justify="center">
         <>
 
-            {/* <Grid className="subunidade-form" direction="column"> */}
+          { listaDeOm && idParams.id && credencial != 'ROLE_ADMIN' && 
+            <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={true}></TextFields>
+          } 
 
-              { listaDeOm && idParams.id && credencial != 'ROLE_ADMIN' && 
-                <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={true}></TextFields>
-              } 
+          { userOm && !idParams.id && credencial != 'ROLE_ADMIN' && 
+            <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={false}></TextFields>
+          } 
 
-              { userOm && !idParams.id && credencial != 'ROLE_ADMIN' && 
-                <TextFields listaDeOm={listaDeOm} userOm={userOm} idParametro={false}></TextFields>
-              } 
+          { listaDeOm && !idParams.id && credencial == 'ROLE_ADMIN' && 
+            <TextFields listaDeOm={listaDeOm} idParametro={false}></TextFields>
+          } 
+          { listaDeOm && idParams.id && credencial == 'ROLE_ADMIN' && 
+            <TextFields userOm={userOm} listaDeOm={listaDeOm} idParametro={true}></TextFields>
+          } 
 
-              { listaDeOm && !idParams.id && credencial == 'ROLE_ADMIN' && 
-                <TextFields listaDeOm={listaDeOm} idParametro={false}></TextFields>
-              } 
-              { listaDeOm && idParams.id && credencial == 'ROLE_ADMIN' && 
-                <TextFields userOm={userOm} listaDeOm={listaDeOm} idParametro={true}></TextFields>
-              } 
-            {/* </Grid> */}
-
-            
         </>
     );
     

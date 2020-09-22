@@ -34,6 +34,7 @@ import LightTooltip from '../../utils/toolTip';
 import { useStyles } from './omStyles';
 
 export default withWidth()(Om);
+
 function Om( props ){
 
     const classes = useStyles();

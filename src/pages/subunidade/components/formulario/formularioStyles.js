@@ -74,9 +74,12 @@ export const styles = theme => ({
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection: 'row',
-      marginTop: 58,
+      marginTop: 65,
       padding: 10,
-      background: '#fff'
+      background: '#fff',
+      [theme.breakpoints.down('sm')]: {
+        marginTop: 57,
+      },
 
     },
     divider: {

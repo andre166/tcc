@@ -1,5 +1,6 @@
 .container-error{
     min-height: 75vh;
+    padding: 20px
 }
 .btn-erro{
     margin-top: 37px;
@@ -10,13 +11,12 @@
     font-size: 22px;
     text-align: center;
     border-radius: 28px;
-    font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
     border: 2px solid #fff;
     background-color: transparent;
     color: #fff;
     box-sizing: border-box;
-    transition-property: color,background-color;
+    transition-property: color;
     transition-duration: .2s;
     padding: 0 20px;
     font-weight: 800;
@@ -24,14 +24,13 @@
 
 .btn-erro:hover{
     background-color: #fff;
-    color: #015d2a;
+    color: #bdbfc1;
 }
 
 .h1_erro{
     margin-top: 62px;
     color: #fff;
     font-size: 66px;
-    font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
     line-height: 90px;
 }
