@@ -70,7 +70,7 @@ export const deleteUser = async ( id ) => {
 
 }
 
-export const editUser = async ( user, om ) => {
+export const editUser = async ( user ) => {
 
     let token = getToken();
 
@@ -83,4 +83,39 @@ export const editUser = async ( user, om ) => {
 
 
 }
+
+export const alterUserPassword = async ( user ) => {
+
+    let token = getToken();
+
+    let host = hearderContent( token );
+
+    await axios.put(`${localHost}/usuario/redefinirSenha`, user, {
+        headers: host
+    })
+    .catch((error) => { return error });
+
+
+}
+
+export const verifiUser = async ( user ) => {
+
+    let token = getToken();
+
+    let host = hearderContent( token );
+
+    let response = await axios.post(`${localHost}/usuario/verificarUsuario`, user, {
+        headers: host
+    })
+    .catch((error) => { return {data: 'Usuário e/ou senha inválido'} });
+
+    if( response.data ){
+        if( response.data.msg){
+            return response.data.msg;
+        }
+
+    }
+
+}
+
 

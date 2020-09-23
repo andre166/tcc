@@ -13,6 +13,8 @@ import ShowRelatorio from '@lestetelecom/showrelatorio/lib/index';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CheckoutPassword from './stepperAlterSenha/checkout';
 import { gerenciarAdminColumn } from '../../utils/columns/colunaGerenciarAdmin';
+import { maskCpf } from '../../utils/maskAndValidators/cpf';
+import { masckPerfil } from '../../utils/maskAndValidators/perfil';
 
 function Editable( props ) {
 
@@ -48,6 +50,9 @@ function Editable( props ) {
 
       o.usuario.map( user => {
 
+        // user.cpf = maskCpf(user.cpf);
+        // user.perfil = masckPerfil(user.perfil);
+
         userComOm.push( Object.assign( user, { idOm: o.id, nomeOm: o.nomeAbrev }) );
 
       })
@@ -55,10 +60,17 @@ function Editable( props ) {
     })
 
     perfilList.map( (p, i) => {
+
+      if( !p.nomeOm){
+        p.cpf = maskCpf(p.cpf);
+        p.perfil = masckPerfil(p.perfil);
+      }
       
       userComOm.map( user => {
 
         if( p.id === user.id ){
+          user.cpf = maskCpf(user.cpf);
+          user.perfil = masckPerfil(user.perfil);
           perfilList[i] = user
         }
       })
@@ -73,7 +85,9 @@ function Editable( props ) {
       let perfilList = await listUser();
       let omList = await listarOm();
       
-      formatUser( omList, perfilList );
+      formatUser( omList, perfilList ); // define a om dos usuarios
+
+      console.log("omList", omList)
 
       let colunas = gerenciarAdminColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       

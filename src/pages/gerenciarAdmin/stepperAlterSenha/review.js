@@ -9,6 +9,7 @@ import redefinirSenhaSchema from '../../../utils/schemas/redefinirSenha';
 import Button from '@material-ui/core/Button';
 import GenerateAlert from '../../../components/errorAlert';
 import TextField from '@material-ui/core/TextField';
+import { alterUserPassword } from '../../../components/services/usuarioService';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Review( {handleNext}) {
+export default function Review( {handleNext, rowInfo}) {
 
   const classes = useStyles();
   const [ erro, setErro ] = React.useState(false);
@@ -40,17 +41,21 @@ export default function Review( {handleNext}) {
 
     const {senha1, senha2} = values;
 
+    const userId = rowInfo.id;
+
     if( senha1 != senha2 ){
       setErro(true)
     }else if( senha1 == senha2 ){
+
+      let user = { id: userId, senha: senha1}
+
+      await alterUserPassword(user);
       setErro(false);
       handleNext();
     }
+
+
   
-  }
-  
-  const teste = () => {
-    setErro(false)
   }
   
 

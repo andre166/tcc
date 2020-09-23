@@ -15,6 +15,10 @@ export const omColuns = [
             textAlign: 'center',
             minWidth: 280
         },
+        filterCellStyle: {
+            textAlign: 'center',
+            width: '100%', 
+        }
         
     },
     { 

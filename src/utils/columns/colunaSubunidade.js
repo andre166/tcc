@@ -16,6 +16,10 @@ export const colunaSubunidade = [
             width: '100%', 
             maxWidth: 400,
         },
+        filterCellStyle: {
+            textAlign: 'center',
+            width: '100%', 
+        }
     },
     { 
         title: 'Nome Abreviado', 

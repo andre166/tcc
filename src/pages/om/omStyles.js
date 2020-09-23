@@ -3,6 +3,8 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
     containerGeral:{
       padding: 0,
+      background: '#eeeeee',
+      // minHeight: '100vh'
     },
     root: {
       display: 'flex',

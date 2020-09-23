@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 65,
         padding: 10,
         minHeight: 'calc(100vh - 65px)',
+        [theme.breakpoints.down('xs')]: {
+            marginTop: 55,
+        },
     },
     cardsContainer: {
         display: 'flex',
@@ -85,13 +88,13 @@ function Home( props ){
         { 
             icon: <HomeWorkIcon className={classes.avatarIcon}/>, 
             title: 'Organização Militar[OM]', 
-            desc: "Gerenciamento de OM", subDesc: "Cadastra, edita, exclui e lista Organizações Militares com suas devidas subunidades",
+            desc: "Gerenciamento de OM", subDesc: "Cadastrar, editar, excluir e listar Organizações Militares com suas devidas subunidades",
             link: '/Om'
         },
         { 
             icon: <SupervisedUserCircleIcon className={classes.avatarIcon}/>, 
             title: 'Subunidade[SU]', desc: "Gerenciamento de SU", 
-            subDesc: 'Cadastra, edita, exclui, lista de Subunidades com seu devido efetivo e suas informações por ano',
+            subDesc: 'Cadastrar, editar, excluir e lista de Subunidades com seu devido efetivo e suas informações por ano',
             link: '/Subunidade'
         },
         { 
@@ -134,7 +137,7 @@ function Home( props ){
     
     return(
         <div className={classes.root}>
-            <GridList cellHeight={180} cols={defineCols()} spacing={10}>
+            <GridList cellHeight={'100%'} cols={defineCols()} spacing={10}>
                 {colunas.map( (col, i) => (
                     <GridListTile key={i} cols={1}>
                         <Card info={col}/>

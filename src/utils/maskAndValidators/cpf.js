@@ -1,5 +1,9 @@
 export function validateCpf( cpfParaFormatar ){
 
+    if( !cpfParaFormatar ){
+        return false;
+    }
+
     let cpf = cpfParaFormatar.toString();
 
     let regex = /^\d{11}$/
@@ -62,4 +66,31 @@ export function cpfValido(cpf){
     }
     
     return ((digitos + '' + digVerificador) === cpf.substring(cpf.length, cpf.length - 2));
+}
+
+export function maskCpf( _cpf ){
+
+    let regex = /^\d{11}$/
+    let testeRegex1 = regex.test(_cpf);
+
+    if( testeRegex1 ){
+    
+        let cpf = _cpf.toString();
+        
+        let cpf1 = cpf.substring(0,3);
+        let cpf2 = cpf.substring(3,6);
+        let cpf3 = cpf.substring(6,9);
+        let cpf4 = cpf.substring(9,11);
+    
+        let cpfMask = cpf1 + '.' + cpf2 + '.' + cpf3 + '-' + cpf4
+    
+        
+    
+        return cpfMask;
+    }else{
+        return _cpf;
+    }
+
+
+
 }

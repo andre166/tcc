@@ -5,4 +5,4 @@ export const perfilList = [
     { perfil: 'Sargenteante', perfilSpring: 'ROLE_SGTE'},
     { perfil: 'Aux sgte justiça', perfilSpring: 'ROLE_AUXSGTE_JUST'},
     { perfil: 'Aux sgte saúde', perfilSpring: 'ROLE_AUXSGTE_SAUDE'},
-  ];
+];

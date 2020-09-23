@@ -90,9 +90,9 @@ export default function Checkout( {rowInfo, handleClose} ) {
       case 0:
         return <AddressForm rowInfo={rowInfo} setActiveStep={setActiveStep} />;
       case 1:
-        return <PaymentForm authOk={authOk} setAuthOk={setAuthOk}/>;
+        return <PaymentForm handleNext={handleNext} rowInfo={rowInfo} authOk={authOk} setAuthOk={setAuthOk}/>;
       case 2:
-        return <Review handleNext={handleNext}/>
+        return <Review handleNext={handleNext} rowInfo={rowInfo}/>
       default:
         throw new Error('Unknown step');
     }

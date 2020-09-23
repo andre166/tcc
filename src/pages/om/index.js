@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './components/card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { Paper } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
@@ -32,6 +31,8 @@ import { useTheme } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import LightTooltip from '../../utils/toolTip';
 import { useStyles } from './omStyles';
+import { maskCnpj } from '../../utils/maskAndValidators/cnpj';
+import { maskCep } from '../../utils/maskAndValidators/cep';
 
 export default withWidth()(Om);
 
@@ -47,7 +48,7 @@ function Om( props ){
 
     let [listaDeOm, setListaDeOm] = useState("");
     let [loading, setLoading] = useState(true);
-    const [modoTabela, setModoTabela] = useState(false);
+    const [modoTabela, setModoTabela] = useState(true);
     let [mostrarModal, setMostrarModal] = useState(false);
     let [listaDeOmState, setListaDeOmState] = useState(false);
 
@@ -126,9 +127,24 @@ function Om( props ){
 
       gerarActionsButtons();
 
+      const maskCepAndCnpj = ( response ) => {
+
+        response.map( e => {
+
+          e.cnpj = maskCnpj(e.cnpj);
+          e.cep = maskCep(e.cep)
+
+        });
+
+        return response
+
+      }
+
       const loadPage = async () => {
 
-        const response = await listarOm( null );
+        const resp = await listarOm( null );
+
+        let response = maskCepAndCnpj(resp);
         
         if( response ){
 

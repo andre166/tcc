@@ -9,24 +9,28 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import loginSchema from '../../../utils/schemas/loginSchema';
 import Button from '@material-ui/core/Button';
 import GenerateAlert from '../../../components/errorAlert';
-import { verificarLogin } from '../../../components/services/authService';
+import { verifiUser } from '../../../components/services/usuarioService';
 
 
-export default function AddressForm( { authOk, setAuthOk, setActiveStep } ) {
+export default function AddressForm( { authOk, setAuthOk, handleNext, rowInfo } ) {
 
   const [ erro, setErro ] = React.useState(false);
 
   async function onSubmit( values, action ){
 
-    let user = {userName: values.nome, senha: values.senha}
+    const userId = rowInfo.id
 
-    let response = await verificarLogin( user );
+    let user = {id: userId, userName: values.nome, senha: values.senha}
 
-    if( response.invalidUser ){
-        setErro(true);
-    }else{
+    let response = await verifiUser( user );
+
+    if(response == 'Usuário encontrado'){
         setAuthOk(true);
-        setErro(false)
+        setErro(false);
+        handleNext()
+    }else{
+      setErro(true);
+      setAuthOk(false);
     }
 
   }
@@ -38,7 +42,7 @@ export default function AddressForm( { authOk, setAuthOk, setActiveStep } ) {
   return (
     <React.Fragment>
       <Typography variant="body1" gutterBottom style={{marginBottom: 10}}>
-        <strong>Digite o usuário e a senha de administrador</strong>
+        <strong>Digite o seu nome de usuário e senha</strong>
       </Typography>
 
       { erro && 

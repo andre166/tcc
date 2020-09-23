@@ -128,6 +128,20 @@ function CadastrarAdmin2(){
 
     }
 
+    const verificarErro = ( msg ) => {
+
+      let tipo = 'warning';
+
+      if( msg == 'Não é um CPF válido.' ){
+        tipo = 'error'
+      }
+
+      return(
+        <GenerateAlert alertConfig={ {msg: msg, tipo: tipo} } />
+      )
+
+    }
+
 
     if(loading){ // caso a página esteja carregando mostra uma msg de loading
         return(
@@ -187,7 +201,7 @@ function CadastrarAdmin2(){
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                
+                autoComplete="off"
                 fullWidth
                 label="Nome Completo"
                 name="nome"
@@ -200,19 +214,20 @@ function CadastrarAdmin2(){
            
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete="off"
                 fullWidth
                 label="Cpf"
                 name="cpf"
                 value={values.cpf}
                 onChange={handleChange}
               />
-              <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+              <ErrorMessage name="cpf">{(msg) =>  verificarErro(msg) }</ErrorMessage>
 
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                
+                autoComplete="off"
                 fullWidth
                 label="Perfil"
                 name="perfil"
@@ -237,7 +252,7 @@ function CadastrarAdmin2(){
               <TextField
                 variant="outlined"
                 select
-                
+                autoComplete="off"
                 fullWidth
                 label="Om"
                 name="om"
@@ -262,6 +277,7 @@ function CadastrarAdmin2(){
             <FormControl style={{width:'100%'}}>
               <InputLabel htmlFor="input-with-icon-adornment">Nome de usuário</InputLabel>
               <Input
+                autoComplete="off"
                 fullWidth
                 name="userName"
                 value={values.userName}
@@ -283,6 +299,7 @@ function CadastrarAdmin2(){
             <FormControl style={{width:'100%'}}>
               <InputLabel htmlFor="input-with-icon-adornment">Senha</InputLabel>
               <Input
+                autoComplete="off"
                 fullWidth
                 name="senha"
                 value={values.senha}
@@ -323,195 +340,7 @@ function CadastrarAdmin2(){
       </Paper>
       
     </Container>
-        // <Grid container direction="row" alignItems="flex-start" className="subunidade-container" justify="center">
-
-        //     <Grid container direction="column" style={{maxWidth: 800, marginTop:70}}>
-        //       <Paper className={classes.paperContainer}>
-
-        //       <Grid style={{marginBottom: 10}} container direction="row" justify="space-between" alignItems="center">
-        //       <Grid item xs={4}>
-        //         <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
-        //             <Button
-        //                 style={{marginTop: '-40px'}}
-        //                 variant="outlined"
-        //                 color="primary"
-        //                 startIcon={<KeyboardReturnIcon />}
-        //             >
-        //                 Voltar
-        //             </Button>
-        //         </Link>
-
-        //       </Grid>
-
-        //           <Grid item item xs={4}>
-        //               <h1> Cadastrar usuário</h1>
-        //           </Grid>
-
-        //           <Grid item item xs={4}>
-                      
-        //           </Grid>
-
-        //       </Grid>
-
-        //         <Formik
-        //           // validate={teste}
-        //           validationSchema={cadastroAdminAchema}
-        //           onSubmit={onSubmit}
-        //           initialValues={{
-        //             nome: '',
-        //             senha: '',
-        //             cpf: '',
-        //             om: '',
-        //             perfil: '',
-        //             userName: ''
-        //           }}
-        //           render={( { values, handleChange, handleSubmit, errors, touched }) => (
-        //             <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
-                 
-              
-        //         <Grid container direction="row" justify="flex-start" alignItems="flex-start" style={{flexGrow: 1}}>
-
-        //           <Grid item xs={4}>
-
-        //               <TextField
-        //                 required
-        //                 id="outlined-required"
-        //                 label="Nome completo"
-        //                 margin="normal"
-        //                 name="nome"
-        //                 value={values.nome}
-        //                 onChange={handleChange}
-        //               />
-        //                <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: 'max-content'} } /> }</ErrorMessage>
-
-        //         </Grid>
-
-        //         <Grid item xs={4} >
-
-        //           <TextField
-        //               required
-        //               id="outlined-required"
-        //               label="CPF"
-        //               margin="normal"
-        //               name="cpf"
-        //               value={values.cpf}
-        //               onChange={handleChange}
-                      
-        //           />
-        //                <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: larguraMaxAlert} } /> }</ErrorMessage>
-
-        //         </Grid>
-
-
-        //           {listaDeOm.length === 0 ? '' :
-        //           <Grid item xs={4}>
-        //             <TextField
-        //                 required
-        //                 id="outlined-required"
-        //                 label="OM"
-        //                 margin="normal"
-        //                 variant="outlined"
-        //                 style={{width: "100%", maxWidth: 160}}
-        //                 select
-        //                 name="om"
-        //                 value={values.om}
-        //                 onChange={handleChange}
-
-        //             >
-
-        //                 {listaDeOm.map( ( unidade, index) => (
-
-        //                 <MenuItem key={index} value={ unidade } className="option">
-        //                     {unidade.nomeAbrev}
-        //                 </MenuItem>
-
-        //                 ))}
-
-        //             </TextField>
-        //             <ErrorMessage name="om" >{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: larguraMaxAlert} } /> }</ErrorMessage>
-
-        //             </Grid>
-        //           }
-
-          
-
-        //             {listaDePerfis.length ===0 ? '' : 
-        //             <Grid item xs={4}>
-        //               <TextField
-        //                   required
-        //                   id="outlined-required"
-        //                   label="Perfil"
-        //                   margin="normal"
-        //                   variant="outlined"
-        //                   style={{width: "100%", maxWidth: 160}}
-        //                   select
-        //                   name="perfil"
-        //                   value={values.perfil}
-        //                   onChange={handleChange}
-
-        //               >
-
-        //                   {listaDePerfis.map( ( p, index) => (
-
-        //                   <MenuItem key={index} value={ p.perfilSpring } className="option">
-        //                       {p.perfil}
-        //                   </MenuItem>
-
-        //                   ))}
-
-        //               </TextField>
-        //               <ErrorMessage name="perfil">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: larguraMaxAlert} } /> }</ErrorMessage>
-
-        //               </Grid>
-        //             }
-
-        //               <Grid item xs={4}>
-
-        //               <TextField
-        //                   required
-        //                   id="outlined-required"
-        //                   label="Nome de usuário"
-        //                   margin="normal"
-        //                   name="userName"
-        //                   value={values.userName}
-        //                   onChange={handleChange}
-                          
-        //               />
-        //                <ErrorMessage name="userName">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: larguraMaxAlert} } /> }</ErrorMessage>
-
-        //             </Grid>
-
-        //             <Grid item xs={4}>
-
-        //               <TextField
-        //                   required
-        //                   id="outlined-required"
-        //                   label="Senha"
-        //                   margin="normal"
-        //                   name="senha"
-        //                   value={values.senha}
-        //                   onChange={handleChange}
-                          
-        //               />
-        //                <ErrorMessage name="senha">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning", larguraMax: larguraMaxAlert} } /> }</ErrorMessage>
-
-        //             </Grid>
-
-        //       </Grid>
-
-        //       <Divider className="divider"/>
-
-            
-        //       <Grid container direction="row" justify="center" alignItems="center">
-        //         <Button className={classes.buttonSuccess} variant="contained" color="primary" type="submit">Cadastrar</Button>
-        //       </Grid>
-
-        //       </Form>
-        //       )}
-        //       />
-        //         </Paper>
-        //     </Grid>
-        // </Grid>
+    
     );
     
 }

@@ -2,40 +2,38 @@ import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { deleteUser } from '../../../components/services/usuarioService';
-import { listarSubunidades } from '../../../components/services/subunidadeService';
+import { listUser, deleteUser, getUserOm, editUser } from '../../../components/services/usuarioService';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useParams, useHistory} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { perfilList } from '../../../utils/perfilList';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import editarAdminSchema from '../../../utils/schemas/editarAdminSchema';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
-import { Link } from 'react-router-dom';
-import Hidden from '@material-ui/core/Hidden';
+import { Link, useHistory } from 'react-router-dom';
 import withWidth from '@material-ui/core/withWidth';
 import PropTypes from 'prop-types';
-import LockIcon from '@material-ui/icons/Lock';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { useStyles } from './editStyle';
+import GenerateAlert from '../../../components/errorAlert';
 
 function CadastrarAdmin2( props ){
 
+    const history = useHistory();
     let [loading, setLoading] = useState(true);
 
     let [om, setOm] = useState([]);
+    let [userOm, setUserOm] = useState('');
+    let [usuario, setUsuario] = useState([]);
 
     const [open, setOpen] = React.useState(false);
 
@@ -48,60 +46,46 @@ function CadastrarAdmin2( props ){
 
     let idParams = useParams();
 
+    const { id, idOm } = idParams;
+
     useEffect(() => {
 
       const inicializarForm = async () => {
+
+        let responseOmList = [];
+        let responseUserOM = [];
         
-        let response = await listarOm();
-        setOm(response);
+        let u = await listUser( id );
+
+          if( idOm ){
+
+            responseOmList = await listarOm();
+
+            let user = '';
+
+            responseOmList.find( (e, i) => {
+              if(e.id == idOm){
+                user = e;
+              }
+            });
+
+            setOm(responseOmList);
+            setUserOm(user);
+
+          }else{
+
+            responseOmList = await listarOm();
+            setOm(responseOmList);
+
+          }
+
+        setUsuario(u);
         setLoading(false)
         
       }
 
       inicializarForm();
     }, []);
-
-    const useStyles = makeStyles((theme) => ({
-       paper: {
-        padding: '10px 20px',
-        marginTop: 70,
-        [theme.breakpoints.down('xs')]: {
-          marginTop: 55,
-        },
-       },
-        avatar: {
-          margin: theme.spacing(1),
-          backgroundColor: theme.palette.secondary.main,
-        },
-        form: {
-          width: '100%', // Fix IE 11 issue.
-        },
-        submit: {
-          margin: theme.spacing(3, 0, 2),
-        },
-        buttonSuccess: {
-          backgroundColor: '#1d3724',
-          '&:hover': {
-            background: "#4a5442",
-         },
-        },
-        buttonInfo: {
-          backgroundColor: '#0064a6',
-          '&:hover': {
-            background: "#195493",
-         },
-        },
-        CcontainerEditarSenha: {
-          marginTop: 10,
-          padding: 10
-        },
-        buttonDanger: {
-          backgroundColor: '#ed3237',
-          '&:hover': {
-            background: "#7f3436",
-         },
-        }
-    }));
 
     const classes = useStyles();
     const { width } = props;
@@ -118,6 +102,20 @@ function CadastrarAdmin2( props ){
 
     }
 
+    const verificarErro = ( msg ) => {
+
+      let tipo = 'warning';
+
+      if( msg == 'Não é um CPF válido.' ){
+        tipo = 'error'
+      }
+
+      return(
+        <GenerateAlert alertConfig={ {msg: msg, tipo: tipo} } />
+      )
+
+    }
+
     if(loading){ // caso a página esteja carregando mostra uma msg de loading
         return(
           <div className="loading-container">
@@ -126,9 +124,13 @@ function CadastrarAdmin2( props ){
         )
       }
 
-    async function onSubmit( values, action ){
+    async function onSubmit( values ){
 
-      console.log("aaaa", values)
+      Object.assign(values, {id: usuario.id});
+
+      await editUser(values);
+      history.push('/GerenciarAdmin');
+
     }
 
     return(
@@ -159,57 +161,59 @@ function CadastrarAdmin2( props ){
 
           </Grid>
 
+{usuario  &&
         <Formik
         validationSchema={editarAdminSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: '',
-          cpf: '',
-          om: '',
-          perfil: '',
-          userName: ''
+          nome: usuario.nome,
+          cpf: usuario.cpf,
+          om: userOm,
+          perfil: usuario.perfil,
+          userName: usuario.userName
         }}
         render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
-        <Form onSubmit={handleSubmit} className={classes.form}>
+          <Form onSubmit={handleSubmit} className={classes.form}>
+         
           <Grid container spacing={2}>
+
             <Grid item xs={12}>
-              <TextField
-                // variant="outlined"
-                required
+              <TextField 
                 fullWidth
                 label="Nome Completo"
                 name="nome"
                 value={values.nome}
                 onChange={handleChange}
               />
+              <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
-                // variant="outlined"
-                required
                 fullWidth
                 label="Nome de usuário"
                 name="userName"
                 value={values.userName}
                 onChange={handleChange}
               />
+              <ErrorMessage name="userName">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                // variant="outlined"
-                required
                 fullWidth
                 label="Cpf"
                 name="cpf"
                 value={values.cpf}
                 onChange={handleChange}
               />
+              <ErrorMessage name="cpf">{(msg) => verificarErro(msg) }</ErrorMessage>
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 label="Perfil"
                 name="perfil"
@@ -227,28 +231,32 @@ function CadastrarAdmin2( props ){
 
               </TextField>
 
+              <ErrorMessage name="perfil">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
             </Grid>
 
+{console.log("aaaaa", values.om)}
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 select
-                required
                 fullWidth
                 label="Om"
                 name="om"
-                value={values.om}
+                value={values.om }
                 onChange={handleChange}
               >
                 {om.map( ( o, i) => (
 
-                  <MenuItem key={i} value={ o } className="option">
+                  <MenuItem key={i} value={o} className="option">
                       { o.nomeAbrev}
                   </MenuItem>
 
                 ))}
 
               </TextField>
+
+              <ErrorMessage name="om">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
             </Grid>
           </Grid>
@@ -258,7 +266,6 @@ function CadastrarAdmin2( props ){
               <Button
                 style={{margin: '20px 0px 15px 0px'}}
                 type="submit"
-                // fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.buttonSuccess}
@@ -284,6 +291,7 @@ function CadastrarAdmin2( props ){
         </Form>
         )}
       />
+                }
       </Paper>
 
       <Dialog
