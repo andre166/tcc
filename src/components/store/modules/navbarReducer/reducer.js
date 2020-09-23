@@ -2,6 +2,7 @@ const INITIAL_STATE =  {
 
     openSideBar: false,
     renderNavBar: true,
+    leftDrawnerRender: true,
     
 }
 
@@ -18,6 +19,12 @@ export default function reserve( state = INITIAL_STATE , action ){
                     renderNavBar : action.payLoad
                 }
             }
+        case 'LEFTDRAWNER_RENDER':
+
+            return { ...state,
+                leftDrawnerRender : action.payLoad
+            }
+            
         default:
             return state;
     }

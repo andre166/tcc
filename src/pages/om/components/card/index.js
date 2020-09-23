@@ -52,10 +52,10 @@ export default function SimpleCard( props ) {
               <ListItemText primary={`Usuário: ${props.om.usuario.length}`} />
             </ListItem>
             <ListItem>
-              <ListItemText primary={`Cnpj: ${maskCnpj(props.om.cnpj)}`} />
+              <ListItemText primary={`Cnpj: ${props.om.cnpj}`} />
             </ListItem>
             <ListItem>
-              <ListItemText primary={`Cep: ${maskCep(props.om.cep)}`} />
+              <ListItemText primary={`Cep: ${props.om.cep}`} />
             </ListItem>
           </List>
 

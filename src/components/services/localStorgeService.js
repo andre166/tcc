@@ -36,3 +36,10 @@ export const getUserInfo = () => {
 
     return responseStorage;
 }
+
+export const getNavbarItem = () => {
+
+    let responseStorage = JSON.parse(localStorage.getItem("navBarItem"));
+
+    return responseStorage;
+}

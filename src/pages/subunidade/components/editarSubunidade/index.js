@@ -110,6 +110,13 @@ export default function Om(){
 
     async function onSubmit( values ){
 
+        values.nomeCompleto = values.nomeCompleto.trim();
+        values.nomeSubunidade = values.nomeSubunidade.trim();
+
+        if( values.nomeCompleto == '' || values.nomeSubunidade == ''){
+            return;
+        }
+
         let omFinal = Object.assign(values, {om: omParaVincular});
         omFinal =  Object.assign(values, {id: id});
   

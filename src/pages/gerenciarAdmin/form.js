@@ -87,8 +87,6 @@ function Editable( props ) {
       
       formatUser( omList, perfilList ); // define a om dos usuarios
 
-      console.log("omList", omList)
-
       let colunas = gerenciarAdminColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       
       

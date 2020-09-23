@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from '../../routes';
@@ -31,7 +31,7 @@ function PersistentDrawerLeft( props ) {
           <div style={{minHeight: "100% !important"}}>
               <AppBar open={open} setOpen={setOpen} classes={classes} useStyles={useStyles} renderNavbar={props.renderNavbar}/>
               <Hidden smDown>
-                <LeftDrawner open={open} renderNavbar={props.renderNavbar}/>  
+                <LeftDrawner open={open} renderNavbar={props.renderNavbar}/>
               </Hidden>
           </div>
         }

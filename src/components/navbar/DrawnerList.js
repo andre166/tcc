@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { adminDrawner, cadastradorDrawner, gerencialDrawner, userDrawner } from './list';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { Link } from 'react-router-dom';
 import useStyles from './sidenavStyles';
+import { getNavbarItem } from '../../components/services/localStorgeService';
 
-export default function GenerateList( { perfil, renderNavbar } ){
+import { connect } from 'react-redux';
+
+import { 
+    renderNavbar, renderLeftDrawner
+} from '../../components/actions/navbarActions';
+
+import { bindActionCreators } from 'redux';
+
+function GenerateList( props ){
+
+    // console.log("aaa", props)
+    // function GenerateList( { perfil, setRenderClasses } ){
+
+
+    const item = getNavbarItem();
 
     const classes = useStyles();
 
@@ -26,9 +41,13 @@ export default function GenerateList( { perfil, renderNavbar } ){
         if(text.func){
     
             return(
-                <ListItem button key={text.nome} className={classes.link} onClick={() => text.func(renderNavbar)}>
+                <Link to={text.link} className={classes.link}> 
+
+                <ListItem button key={text.nome} className={text.id == item && classes.active || classes.link} onClick={() => text.func(props.renderLeftDrawner)}>
                     <span style={{ marginRight: 10 }}>{text.icone} </span> {text.nome}  
                 </ListItem>
+                </Link>
+
             )
     
         }else{
@@ -45,13 +64,13 @@ export default function GenerateList( { perfil, renderNavbar } ){
     
     }
 
-    if( perfil == 'ROLE_ADMIN'){
+    if( props.perfil == 'ROLE_ADMIN'){
         return list( adminDrawner );
 
-    }else if( perfil == 'ROLE_CHEFE_INFO'){
+    }else if( props.perfil == 'ROLE_CHEFE_INFO'){
         return list( cadastradorDrawner );
 
-    }else if( perfil == 'ROLE_BRIGADA'){
+    }else if( props.perfil == 'ROLE_BRIGADA'){
         return list( gerencialDrawner );
 
     }else{
@@ -61,3 +80,8 @@ export default function GenerateList( { perfil, renderNavbar } ){
 
     
 } 
+
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
+  
+const mapStateToProps =  state => state;
+export default connect( mapStateToProps, mapDispatchToProps )(GenerateList)

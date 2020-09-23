@@ -4,3 +4,10 @@ export function renderNavbar( e ){
         payLoad: e
     }
 }
+
+export function renderLeftDrawner( e ){
+    return {
+        type: 'LEFTDRAWNER_RENDER',
+        payLoad: e
+    }
+}

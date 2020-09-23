@@ -80,12 +80,6 @@ function CadastrarAdmin2(){
     let [loading, setLoading] = useState(true);
     let [om, setOm] = useState([]);
 
-    let [nome, setNome] = useState("Billi");
-    let [cpf, setCpf] = useState("1587447");
-    let [nomeUsuario, setNomeUsuario] = useState("The Kid");
-    let [senha, setSenha] = useState("123");
-    let [perfil, setPerfil] = useState("");
-
     const history = useHistory();
 
     const theme = useTheme();
@@ -102,7 +96,6 @@ function CadastrarAdmin2(){
 
         let listaSu = await listarSubunidades( om );
 
-        console.log("listaSu", listaSu);
         setListaDePerfis(perfilList);
         setLoading(false);
 
@@ -160,7 +153,6 @@ function CadastrarAdmin2(){
       <Paper className={classes.paper}>
 
       <Grid container direction="row" justify="space-between" alignItems="center">
-            {/* <Grid item xs={4} sm={4} > */}
                   <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
                       <Button
                           size='small'
@@ -172,15 +164,12 @@ function CadastrarAdmin2(){
                           {!xsDownMedia && 'Voltar'}
                       </Button>
                   </Link>
-            {/* </Grid> */}
 
             <Grid item xs>
                 <Grid container alignItems="center" justify="center">
                   <h2>Cadastrar Usuário</h2>
                 </Grid>
             </Grid>
-
-            {/* <Grid item xs={4} sm={1}></Grid> */}
 
           </Grid>
 

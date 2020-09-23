@@ -13,23 +13,32 @@ import ListIcon from '@material-ui/icons/List';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import GroupIcon from '@material-ui/icons/Group';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-
+import { useHistory } from 'react-router-dom';
 
 const sair = ( ) => {
+    localStorage.removeItem("navBarItem");
+    localStorage.removeItem("userInfo");
     window.location.assign("/")
 }
 
-const blanck = () => {
-    return;
+const blanck = ( setRenderClasses, id ) => {
+
+    let test = localStorage.getItem("navBarItem");
+    
+    if(test == id){
+        return;
+    }
+    localStorage.setItem("navBarItem", id);
+    setRenderClasses(false);
 }
 
 export const adminDrawner = [
 
-    {nome: 'Página inicial', link: '/Home', icone: <HomeIcon />},
-    {nome: 'OM', link: '/Om', icone: <HomeWorkIcon /> },
-    {nome: 'Subunidade', link: '/Subunidade', icone: <SupervisedUserCircleIcon /> },
-    {nome: 'Usuários', link: '/GerenciarAdmin', icone: <GroupIcon /> },
-    {nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
+    {id: 1, nome: 'Página inicial', link: '/Home', icone: <HomeIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 1)},
+    {id: 2, nome: 'OM', link: '/Om', icone: <HomeWorkIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2)},
+    {id: 3, nome: 'Subunidade', link: '/Subunidade', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 3)},
+    {id: 4, nome: 'Usuários', link: '/GerenciarAdmin', icone: <GroupIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 4) },
+    {id: 5, nome: 'Sair',  icone: <ExitToAppIcon />, func: () =>  sair()}
     
 ]
 

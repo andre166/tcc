@@ -138,7 +138,13 @@ export default function FormCadastro(){
       
       Object.assign(values, omObj)
       
-      console.log("aaa",values)
+      values.nomeCompleto = values.nomeCompleto.trim();
+      values.nomeSubunidade = values.nomeSubunidade.trim();
+
+      if( values.nomeCompleto == '' || values.nomeSubunidade == ''){
+        return;
+      }
+
       await cadastrarSubunidade(values);
 
       let info = {

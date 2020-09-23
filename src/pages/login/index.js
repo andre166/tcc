@@ -81,6 +81,7 @@ function Login( props ){
         }
 
         localStorage.setItem("userInfo", JSON.stringify(info)); 
+        localStorage.setItem("navBarItem", 1)
         history.push('/Home');
         props.renderNavbar(true);
       }

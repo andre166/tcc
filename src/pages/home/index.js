@@ -34,7 +34,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
 
 import { 
-    renderNavbar, 
+    renderNavbar, renderLeftDrawner
 } from '../../components/actions/navbarActions';
 
 import { bindActionCreators } from 'redux';
@@ -75,6 +75,18 @@ const useStyles = makeStyles((theme) => ({
 
 function Home( props ){
 
+    const changeLeftDrawner = ( id ) => {
+
+        let test = localStorage.getItem("navBarItem");
+        
+        if(test == id){
+            return;
+        }
+        localStorage.setItem("navBarItem", id);
+    
+        props.renderLeftDrawner(false);
+    }
+
     const classes = useStyles();
 
     const colunas =  [
@@ -83,37 +95,43 @@ function Home( props ){
             icon: <SettingsIcon className={classes.avatarIcon}/>, 
             title: 'Configurações', desc: 'Configurações de usuário', 
             subDesc: 'Editar configuraçõs pré-estabelecidas e informações do próprio usuário',
-            link: '/userConfig'
+            link: '/userConfig',
+            func: () => ''
         },
         { 
             icon: <HomeWorkIcon className={classes.avatarIcon}/>, 
             title: 'Organização Militar[OM]', 
             desc: "Gerenciamento de OM", subDesc: "Cadastrar, editar, excluir e listar Organizações Militares com suas devidas subunidades",
-            link: '/Om'
+            link: '/Om',
+            func: () => changeLeftDrawner(2)
         },
         { 
             icon: <SupervisedUserCircleIcon className={classes.avatarIcon}/>, 
             title: 'Subunidade[SU]', desc: "Gerenciamento de SU", 
             subDesc: 'Cadastrar, editar, excluir e lista de Subunidades com seu devido efetivo e suas informações por ano',
-            link: '/Subunidade'
+            link: '/Subunidade',
+            func: () => changeLeftDrawner(3)
         },
         { 
             icon: <GroupIcon className={classes.avatarIcon}/>, 
             title: 'Usuários', desc: "Gerenciamento de Usuários", 
             subDesc: 'Cadastrar, editar, excluir, alterar senha de usuários do sistema, lista de usuários por OM',
-            link: '/GerenciarAdmin'
+            link: '/GerenciarAdmin',
+            func: () => changeLeftDrawner(4)
         },
         { 
             icon: <ContactMailRoundedIcon className={classes.avatarIcon}/>, 
             title: 'Administrador geral', desc: 'Fale aqui', 
             subDesc: 'Contato do administrador geral do sistema para relatar erros, pedidos,  dúvidas em geral',
-            link: '/Error'
+            link: '/Error',
+            func: () => ''
         },
         { 
             icon: <HelpIcon className={classes.avatarIcon}/>, 
             title: 'Ajuda', desc: 'Assistência para utililar o sistema', 
             subDesc: 'Dúvidas sobre o sistema e suas funcionalidades, regras de cadastro',
-            link: '/Error'
+            link: '/Error',
+            func: () => ''
         }
     ]
 
@@ -150,7 +168,7 @@ function Home( props ){
     
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
   
 const mapStateToProps =  state => state;
 export default connect( mapStateToProps, mapDispatchToProps )(withWidth()(Home))

@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
 import { listUser, deleteUser, getUserOm, editUser } from '../../../components/services/usuarioService';
+import { getUserId } from '../../../components/services/localStorgeService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useParams } from 'react-router-dom';
 import { perfilList } from '../../../utils/perfilList';
@@ -129,7 +130,23 @@ function CadastrarAdmin2( props ){
       Object.assign(values, {id: usuario.id});
 
       await editUser(values);
-      history.push('/GerenciarAdmin');
+
+      if(usuario.id == getUserId()){
+
+      history.push('/');
+
+      }else{
+        
+        let info = {
+          severityType: 'info',
+          type: 'user',
+        }
+  
+        localStorage.setItem("snackBarAlert", JSON.stringify(info));
+
+        history.push('/GerenciarAdmin');
+      }
+
 
     }
 

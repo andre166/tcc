@@ -20,6 +20,7 @@ import withWidth from '@material-ui/core/withWidth';
 import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getUserName } from '../../services/localStorgeService';
+import { Link } from 'react-router-dom';
 
 function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     
@@ -58,6 +59,8 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
   };
 
   const sair = ( renderNavBar ) => {
+    localStorage.removeItem("navBarItem");
+    localStorage.removeItem("userInfo");
     window.location.assign("/")
     renderNavBar(false);
   }
@@ -72,8 +75,11 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
               <div style={{display: matches && 'none'}}>
                 <XsDrawner renderNavbar={renderNavbar}/>
               </div>
-
-            <Typography variant="h6" className={classes.grow}> SCEM </Typography>
+              <Typography variant="h6" className={classes.grow}> 
+                <Link to={'/Home'} style={{textDecoration: 'none', color: '#fff'}}>
+                  SCEM 
+                </Link>
+              </Typography>
 
             <IconButton ref={anchorRef} aria-controls={open ? 'menu-list-grow' : undefined}
               aria-haspopup="true" onClick={handleToggle} edge="start" className={classes.menuButtonTeste}

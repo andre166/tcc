@@ -71,31 +71,110 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
     
             { 
                 title: 'Nome de usuario', 
-                field: 'userName'
+                field: 'userName',
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                },
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                    textAlign: 'center',
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                },
             },
             { 
                 title: 'Cpf',
-                field: 'cpf'
+                field: 'cpf',
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                },
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                    textAlign: 'center',
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 200,
+                },
             },
     
             { 
-              title: 'Om', 
-              field: 'nomeOm', 
-              renderGraph: true
+                title: 'Om', 
+                field: 'nomeOm',
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                },
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                    textAlign: 'center',
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                },
+                renderGraph: true
             },
             {
               title: 'Perfil',
               field: 'perfil',
-              renderGraph: true
+              renderGraph: true,
+              filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                },
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 260,
+                    textAlign: 'center',
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 260,
+                },
             },
     
-            { title: 'Senha', 
-              field: 'senha', 
-              hidden: true
-            },
+            // { 
+            //     title: 'Senha', 
+            //     field: 'senha', 
+            //     hidden: true,
+            //     filterCellStyle: {
+            //         textAlign: 'center',
+            //         width: '100%', 
+            //     },
+            //     cellStyle: { 
+            //         width: '100%', 
+            //         maxWidth: 400,
+            //         textAlign: 'center',
+            //     }, 
+            //     headerStyle: { 
+            //         width: '100%', 
+            //         maxWidth: 400,
+            //     },
+            // },
             { 
                 title: 'Nome Completo', 
-                field: 'nome'
+                field: 'nome',
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                },
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 430,
+                    textAlign: 'center',
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 430,
+                },
             }
         ]
     )

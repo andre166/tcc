@@ -57,7 +57,15 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       fontSize: '14pt',
     }
-  }
+  },
+  buttonSuccess: {
+    backgroundColor: '#1d3724',
+    '&:hover': {
+      background: "#4a5442",
+   },
+   marginTop: theme.spacing(3),
+   marginLeft: theme.spacing(1),
+  },
 
 }));
 
@@ -180,7 +188,7 @@ export default function Checkout( {rowInfo, handleClose} ) {
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
-                    className={classes.button}
+                    className={activeStep === 0 && classes.buttonSuccess || classes.button}
                   >
                     {activeStep === 0 && 'Sim'}
                     {activeStep === 1 && 'Confirmar'}

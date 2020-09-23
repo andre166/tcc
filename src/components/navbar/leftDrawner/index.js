@@ -1,22 +1,43 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import useStyles from '../sidenavStyles';
 import { getUserPerfil } from '../../services/localStorgeService';
 import DrawneList from '../DrawnerList';
 
-export default function LeftDrawner( { open, renderNavbar } ){
+import { connect } from 'react-redux';
+
+import { 
+    renderNavbar, renderLeftDrawner
+} from '../../../components/actions/navbarActions';
+
+import { bindActionCreators } from 'redux';
+
+function LeftDrawner( props ){
 
     const classes = useStyles();
+    // const [ renderClasses, setRenderClasses ] = useState(true);
 
     const perfil = getUserPerfil();
+    
+    useEffect(() => {
+
+        props.renderLeftDrawner(true);
+
+    }, [props.navbarState.leftDrawnerRender]);
 
     return (
 
-        <Drawer className={classes.drawer} variant="permanent" anchor="left" open={open} classes={{ paper: classes.drawerPaper }}>
+        <Drawer className={classes.drawer} variant="permanent" anchor="left" open={props.navbarState.open} classes={{ paper: classes.drawerPaper }}>
 
             <div style={{marginTop: 65}}></div>
-            <DrawneList perfil={perfil} renderNavbar={renderNavbar}/>
+            {/* {props.navbarState.leftDrawnerRender && <DrawneList setRenderClasses={setRenderClasses} perfil={perfil}/>} */}
+            {props.navbarState.leftDrawnerRender && <DrawneList perfil={perfil}/>}
 
         </Drawer>
     )
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
+  
+const mapStateToProps =  state => state;
+export default connect( mapStateToProps, mapDispatchToProps )(LeftDrawner)

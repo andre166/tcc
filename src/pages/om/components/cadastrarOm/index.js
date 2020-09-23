@@ -25,7 +25,14 @@ export default function FormCadastro(){
 
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
-    async function onSubmit( values, action ){
+    async function onSubmit( values ){
+
+      values.nomeAbrev = values.nomeAbrev.trim();
+      values.nomeOm = values.nomeOm.trim();
+
+      if( values.nomeOm == '' || values.nomeAbrev == ''){
+        return;
+      }
 
       await cadastrarOm(values);
 

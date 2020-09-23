@@ -105,6 +105,13 @@ export default function Om(){
 
     async function onSubmit( values ){
 
+        values.nomeAbrev = values.nomeAbrev.trim();
+        values.nomeOm = values.nomeOm.trim();
+
+        if( values.nomeOm == '' || values.nomeAbrev == ''){
+            return;
+          }
+
         let omFinal = Object.assign(values, {id: om.id})
   
         await editarOm(omFinal);

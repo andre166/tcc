@@ -1,19 +1,12 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
-import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import { useStyles } from './cardStyle';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
 
 export default function SimpleCard( { info } ) {
 
@@ -21,9 +14,9 @@ export default function SimpleCard( { info } ) {
   
     return (
       
-        <Card className={classes.root}>
+        <Card className={classes.root} onClick={info.func}>
           <Link to={info.link} style={{textDecoration: 'none'}}>
-        <CardContent>
+        <CardContent className={classes.rootContent}>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {info.title}
           </Typography>

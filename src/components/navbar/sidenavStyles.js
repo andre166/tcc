@@ -3,6 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  active: {
+    background: '#bfdcae',
+    transition: 'filter 300ms',
+    '&:hover': {
+      backgroundColor: '#bfdcae86 !important',
+      color: '#1d3724 !important',
+    }
+   
+  },
   root: {
     width: '100% !important',
     height:'100% !important',

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: -2,
       textAlign: 'center',
       letterSpacing: 0.5,
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: 500,
       color: '#81b214'
     },
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: -2,
       textAlign: 'center',
       letterSpacing: 0.5,
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: 500,
       color: '#a35d6a'
     },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: -2,
       textAlign: 'center',
       letterSpacing: 0.5,
-      fontSize: 18,
+      fontSize: 16,
       fontWeight: 500,
      color: '#40a8c4'
     },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import DrawnerList from '../DrawnerList';
@@ -31,6 +31,7 @@ const useStyles = makeStyles({
 export default function SwipeableTemporaryDrawer( { renderNavbar } ) {
   const classes = useStyles();
   const [state, setState] = React.useState({left: false});
+  const [ renderClasses, setRenderClasses ] = useState(true);
 
   const perfil = getUserPerfil();
 
@@ -52,7 +53,7 @@ export default function SwipeableTemporaryDrawer( { renderNavbar } ) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
 
-      <DrawnerList perfil={perfil}/>
+      <DrawnerList setRenderClasses={setRenderClasses} perfil={perfil}/>
 
     </div> 
   );
