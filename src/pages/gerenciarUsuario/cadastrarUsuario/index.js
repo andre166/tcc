@@ -8,7 +8,7 @@ import { listarOm } from '../../../components/services/omServices';
 import { addUser } from '../../../components/services/usuarioService';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { perfilList } from '../../../utils/perfilList';
+import { perfilListUser } from '../../../utils/perfilList';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import cadastroUsuarioSchema from '../../../utils/schemas/cadastrarUsuario';
 import { Paper } from '@material-ui/core';
@@ -160,7 +160,7 @@ function CadastrarAdmin2(){
                   onChange={handleChange}
                   select
                 >
-                  {perfilList.map( (p, i) => (
+                  {perfilListUser.map( (p, i) => (
 
                     <MenuItem key={i} value={ p.perfilSpring } className="option">
                         {p.perfil}

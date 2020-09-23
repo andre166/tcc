@@ -50,9 +50,6 @@ function Editable( props ) {
 
       o.usuario.map( user => {
 
-        // user.cpf = maskCpf(user.cpf);
-        // user.perfil = masckPerfil(user.perfil);
-
         userComOm.push( Object.assign( user, { idOm: o.id, nomeOm: o.nomeAbrev }) );
 
       })

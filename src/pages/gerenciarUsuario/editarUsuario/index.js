@@ -8,7 +8,7 @@ import { listarOm } from '../../../components/services/omServices';
 import { deleteUser } from '../../../components/services/usuarioService';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useParams} from 'react-router-dom';
-import { perfilList } from '../../../utils/perfilList';
+import { perfilListUser } from '../../../utils/perfilList';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -203,7 +203,7 @@ function CadastrarAdmin2( props ){
                   onChange={handleChange}
                   select
                 >
-                {perfilList.map( (p, i) => (
+                {perfilListUser.map( (p, i) => (
 
                   <MenuItem key={i} value={ p.perfilSpring } className="option">
                       {p.perfil}

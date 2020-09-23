@@ -73,32 +73,80 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
             },
             { 
                 title: 'Nome de usuario', 
-                field: 'userName'
+                field: 'userName',
+                cellStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+                  maxWidth: 400,
+                  textAlign: 'center',
+              }, 
+              headerStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+                  maxWidth: 400,
+              },
+              filterCellStyle: {
+                  textAlign: 'center',
+                  width: '100%', 
+              }
             },
             { 
                 title: 'Cpf', 
-                field: 'cpf'
-            },
-        
-            { 
-                title: 'Om', 
-                field: 'nomeOm', 
-                renderGraph: true
+                field: 'cpf',
+                cellStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+                  textAlign: 'center',
+              }, 
+              headerStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+              },
+              filterCellStyle: {
+                  textAlign: 'center',
+                  width: '100%', 
+              }
             },
             {
                 title: 'Perfil',
                 field: 'perfil',
-                renderGraph: true
+                renderGraph: true,
+                cellStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+                  textAlign: 'center',
+              }, 
+              headerStyle: { 
+                  width: '100%', 
+                  minWidth: 250,
+              },
+              filterCellStyle: {
+                  textAlign: 'center',
+                  width: '100%', 
+              }
             },
         
             {   
                 title: 'Senha', 
                 field: 'senha', 
-                hidden: true
+                hidden: true,
             },
             {   
                 title: 'Nome Completo', 
-                field: 'nome'
+                field: 'nome',
+                cellStyle: { 
+                  width: '100%', 
+                  minWidth: 600,
+                  textAlign: 'center',
+              }, 
+              headerStyle: { 
+                  width: '100%', 
+                  minWidth: 600,
+              },
+              filterCellStyle: {
+                  textAlign: 'center',
+                  width: '100%', 
+              }
             }
         ]
 

@@ -10,9 +10,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import ShowRelatorio from '@lestetelecom/showrelatorio/lib/index';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import CheckoutPassword from './stepperAlterSenha/checkout';
+import CheckoutPassword from '../gerenciarAdmin/stepperAlterSenha/checkout';
 import { getUserId } from '../../components/services/localStorgeService';
 import { gerenciarUsuarioColumn } from '../../utils/columns/gerenciarUsuarioColuna';
+import { maskCpf } from '../../utils/maskAndValidators/cpf';
+import { masckPerfil } from '../../utils/maskAndValidators/perfil';
 
 function Editable( props ) {
 
@@ -40,6 +42,31 @@ function Editable( props ) {
     })
   };
 
+  const formatUser = ( perfilList ) => {
+
+    let userComOm = [];
+
+    perfilList.map( (p, i) => {
+
+      if( !p.nomeOm){
+        p.cpf = maskCpf(p.cpf);
+        p.perfil = masckPerfil(p.perfil);
+      }
+      
+      userComOm.map( user => {
+
+        if( p.id === user.id ){
+          user.cpf = maskCpf(user.cpf);
+          user.perfil = masckPerfil(user.perfil);
+          perfilList[i] = user
+        }
+      })
+
+    })
+
+    return userComOm;
+
+  }
 
     const inicializarForm = async () => {
 
@@ -47,6 +74,8 @@ function Editable( props ) {
   
       let omList = await getUserOm( userPerfil );
       let perfilList = omList.usuario
+
+      formatUser(perfilList)
 
       let columnList = gerenciarUsuarioColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       
@@ -120,7 +149,7 @@ function Editable( props ) {
                   </DialogActions>
                   
                 </>
-              :
+              : //Dialog para redefinir senha
 
               rowInfo && <CheckoutPassword rowInfo={rowInfo} handleClose={handleClose.bind(this)}/>
 

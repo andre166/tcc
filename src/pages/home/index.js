@@ -32,7 +32,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
-
+import { getUserPerfil } from '../../components/services/localStorgeService';
 import { 
     renderNavbar, renderLeftDrawner
 } from '../../components/actions/navbarActions';
@@ -88,6 +88,7 @@ function Home( props ){
     }
 
     const classes = useStyles();
+    const perfil = getUserPerfil();
 
     const colunas =  [
 
@@ -116,8 +117,8 @@ function Home( props ){
             icon: <GroupIcon className={classes.avatarIcon}/>, 
             title: 'Usuários', desc: "Gerenciamento de Usuários", 
             subDesc: 'Cadastrar, editar, excluir, alterar senha de usuários do sistema, lista de usuários por OM',
-            link: '/GerenciarAdmin',
-            func: () => changeLeftDrawner(4)
+            link: perfil == 'ROLE_ADMIN' ? '/GerenciarAdmin' : '/GerenciarUsuario',
+            func: () => changeLeftDrawner(perfil == 'ROLE_ADMIN' ? 4 : 3)
         },
         { 
             icon: <ContactMailRoundedIcon className={classes.avatarIcon}/>, 
