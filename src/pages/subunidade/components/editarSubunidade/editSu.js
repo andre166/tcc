@@ -14,25 +14,25 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
     },
     paperCadastrarOm: {
-    width: '100%',
-    maxWidth: 600,
-    padding: 15
+        width: '100%',
+        maxWidth: 600,
+        padding: 15
     },
     buttonSuccess: {
-    backgroundColor: '#1d3724',
-    height: 35,
-    margin: '15px 0px 10px 0px',
-    '&:hover': {
-        background: "#4a5442",
-    }
+        backgroundColor: '#1d3724',
+        height: 35,
+        margin: '15px 0px 10px 0px',
+        '&:hover': {
+            background: "#4a5442",
+        }
     },
     buttonDanger: {
         backgroundColor: '#ed3237',
         height: 35,
         margin: '15px 0px 10px 0px',
         '&:hover': {
-          background: "#7f3436",
-       },
+            background: "#7f3436",
+        },
       },
     edtitarOmContainer:{
         width: '100%',

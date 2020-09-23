@@ -1,12 +1,18 @@
 export const styles = theme => ({
+    containerUser: {
+      marginTop: -22,
+      [theme.breakpoints.down('xs')]: {
+        marginTop: -25,
+      },
+      display: 'flex',
+      flexDirection: 'column',
+    },
     container: {
       display: 'flex',
       flexDirection: 'column',
-      // padding: 5
     },
     containerSubunidades: {
       background: '#fff',
-      // marginBottom: 5,
       height: '100%',
     },
     firstRow: {
@@ -26,10 +32,10 @@ export const styles = theme => ({
       backgroundColor: '#1d3724',
       '&:hover': {
         background: "#4a5442",
-     },
-     [theme.breakpoints.down('xs')]: {
-      fontSize: 10,
-    },
+      },
+      [theme.breakpoints.down('xs')]: {
+        fontSize: 10,
+      },
     },
     buttonDanger: {
       backgroundColor: '#ed3237',

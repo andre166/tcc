@@ -10,7 +10,7 @@ import { listarSubunidades, editarSubunidade} from '../../../../components/servi
 import { listarOm } from '../../../../components/services/omServices';
 import { useParams, useHistory} from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
-import Modal from '../formulario/testeTableCard/components/modal/modal';
+import Modal from '../formulario/tableCard/components/modal/modal';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';

@@ -22,7 +22,7 @@ import VerificarOm from './pages/om/components/verificarOm';
 
 import CadastrarSubunidade from './pages/subunidade/components/cadastrarSubunidade';
 import EditarSubunidade from './pages/subunidade/components/editarSubunidade';
-import VerificarSubunidade from './pages/subunidade/components/formulario/testeTableCard/components/verificarSubunidade';
+import VerificarSubunidade from './pages/subunidade/components/formulario/tableCard/components/verificarSubunidade';
 
 import CadastrarTurma from './pages/efetivo/cadastrarTurma';
 import EditarTurma from './pages/efetivo/editarTurma';
