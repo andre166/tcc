@@ -140,25 +140,6 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     minWidth: 260,
                 },
             },
-    
-            // { 
-            //     title: 'Senha', 
-            //     field: 'senha', 
-            //     hidden: true,
-            //     filterCellStyle: {
-            //         textAlign: 'center',
-            //         width: '100%', 
-            //     },
-            //     cellStyle: { 
-            //         width: '100%', 
-            //         maxWidth: 400,
-            //         textAlign: 'center',
-            //     }, 
-            //     headerStyle: { 
-            //         width: '100%', 
-            //         maxWidth: 400,
-            //     },
-            // },
             { 
                 title: 'Nome Completo', 
                 field: 'nome',

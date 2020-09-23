@@ -30,6 +30,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import { useParams, useHistory} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -79,6 +82,10 @@ function CadastrarAdmin2(){
     let [listaDePerfis, setListaDePerfis] = useState("");
     let [loading, setLoading] = useState(true);
     let [om, setOm] = useState([]);
+    const [ showPassword, setShowPassword ] = useState({
+      eye1: false,
+      eye2: false
+    });
 
     const history = useHistory();
 
@@ -285,7 +292,7 @@ function CadastrarAdmin2(){
 
             <Grid item xs={12} sm={6}>
 
-            <FormControl style={{width:'100%'}}>
+            {/* <FormControl style={{width:'100%'}}>
               <InputLabel htmlFor="input-with-icon-adornment">Senha</InputLabel>
               <Input
                 autoComplete="off"
@@ -301,7 +308,44 @@ function CadastrarAdmin2(){
                 }
               type="password"
               />
+            </FormControl> */}
+
+<FormControl style={{width: '100%'}}>
+              <InputLabel htmlFor="standard-adornment-password">Repita a nova senha</InputLabel>
+              <Input
+                fullWidth
+                id="standard-adornment-password"
+                type={showPassword.eye2 ? 'text' : 'password'}
+                onChange={handleChange}
+                value={values.senha}
+                name="senha"
+                endAdornment={
+                  <>
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword({
+                        eye1: showPassword.eye1,
+                        eye2: !showPassword.eye2,
+
+                      })}
+                      // onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword.eye2 ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                  
+                </>
+                }
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+                
+              />
             </FormControl>
+
         <ErrorMessage name="senha">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
             </Grid>

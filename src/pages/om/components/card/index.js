@@ -9,8 +9,6 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import IconButton from '@material-ui/core/IconButton';
 import SimpleDialogDemo from '../modal/modal';
 import { Link } from 'react-router-dom';
-import { maskCnpj } from '../../../../utils/maskAndValidators/cnpj';
-import { maskCep } from '../../../../utils/maskAndValidators/cep';
 import LightTooltip from '../../../../utils/toolTip';
 import { useStyles } from './cardStyle';
 import List from '@material-ui/core/List';
@@ -27,7 +25,6 @@ export default function SimpleCard( props ) {
     return qtdMilitarSu;
 
   }
-
 
   return (
     <Card className={classes.root}>

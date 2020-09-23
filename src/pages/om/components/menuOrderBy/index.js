@@ -3,15 +3,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import ClearIcon from '@material-ui/icons/Clear';
-import IconButton from '@material-ui/core/IconButton';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { listarOm } from '../../../../components/services/omServices';
+import LightTooltip from '../../../../utils/toolTip'
 
 const StyledMenu = withStyles({
   paper: {
@@ -41,16 +39,6 @@ const StyledMenuItem = withStyles((theme) => ({
     justifyContent: 'space-around',
   },
 }))(MenuItem);
-
-const LightTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: "#222831",
-    color: theme.palette.common.white,
-    boxShadow: theme.shadows[1],
-    fontSize: 14,
-    padding: '8px 12px 8px 12px'
-  },
-}))(Tooltip);
 
 export default function CustomizedMenus({listaDeOm, setListaDeOm, setRenderCard, setListaDeOmState, setPaginaAtual}) {
 

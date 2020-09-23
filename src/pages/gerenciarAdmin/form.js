@@ -89,7 +89,6 @@ function Editable( props ) {
 
       let colunas = gerenciarAdminColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       
-      
       setData(perfilList);
 
       setColumns(colunas);

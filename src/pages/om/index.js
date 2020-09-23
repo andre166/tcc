@@ -2,7 +2,6 @@ import React, {useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { listarOm } from '../../components/services/omServices';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './components/card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -11,7 +10,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import RelatorioTable from '@lestetelecom/showrelatorio/lib/index';
-import { omColuns } from '../../utils/columns/omColumns';
+import { omColumns } from '../../utils/columns/omColumns';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -22,17 +21,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuOrderBy from './components/menuOrderBy';
 import Snackbar from '../../components/snackbar';
 import { Link} from 'react-router-dom';
-import Modal from './components/modal/modal';
-import EditIcon from '@material-ui/icons/Edit';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
-import LightTooltip from '../../utils/toolTip';
 import { useStyles } from './omStyles';
 import { maskCnpj } from '../../utils/maskAndValidators/cnpj';
 import { maskCep } from '../../utils/maskAndValidators/cep';
+import LoadingPage from  '../../components/loading'
 
 export default withWidth()(Om);
 
@@ -49,15 +45,16 @@ function Om( props ){
     let [listaDeOm, setListaDeOm] = useState("");
     let [loading, setLoading] = useState(true);
     const [modoTabela, setModoTabela] = useState(true);
-    let [mostrarModal, setMostrarModal] = useState(false);
     let [listaDeOmState, setListaDeOmState] = useState(false);
-
+    
     let [searchInput, setSearchInput] = useState("");
     let [renderCard, setRenderCard] = useState(true);
-
+    
     let [error, setError] = useState("");
     let [ renderSnackBar, setRenderSnackBar] = useState(false);
-
+    
+    let [mostrarModal, setMostrarModal] = useState(false);
+    let [omColuns, setOmColuns] = useState([]);
 
     //States para paginação
     const [paginaAtual, setPaginaAtual] = useState(1); //Define a primeira página e fica sendo observado pelo UseEffect para mudar o css da paginação 
@@ -86,47 +83,6 @@ function Om( props ){
         
       }
 
-      function gerarActionsButtons(){
-
-       if(omColuns[0].title != 'Ações'){
-         let btns = { 
-           title: 'Ações',
-           render: rowData => <ActionBtns rowData={rowData}/>
-         }
-  
-         omColuns.unshift(btns);
-       }
-
-
-      }
-
-      const ActionBtns = ( {rowData} ) => {
-      
-        return (
-          <div className="actionBtns" >
-      
-          <Link to={{pathname: `/EditarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
-            <LightTooltip title="Editar" size="small">
-              <IconButton color="primary" component="span"> 
-                <EditIcon size="small" className={classes.buttonInfoIcon}/> 
-              </IconButton>
-            </LightTooltip>
-          </Link>
-      
-          <Modal om={ rowData } btnTable={true}/>
-
-          <Link to={{pathname: `/VerificarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
-            <LightTooltip title="Detalhar OM">
-                <IconButton size="small" aria-label="delete" ><FindInPageIcon/></IconButton>
-            </LightTooltip>
-          </Link>
-
-          </div>
-        )
-      }
-
-      gerarActionsButtons();
-
       const maskCepAndCnpj = ( response ) => {
 
         response.map( e => {
@@ -143,6 +99,8 @@ function Om( props ){
       const loadPage = async () => {
 
         const resp = await listarOm( null );
+
+        let colunas = omColumns( classes );
 
         let response = maskCepAndCnpj(resp);
         
@@ -165,7 +123,8 @@ function Om( props ){
             qtdUsu: quantidadeDeUsuarios,
           });
           setListaDeOm(response);
-          setListaDeOmState(response)
+          setListaDeOmState(response);
+          setOmColuns(colunas)
           setLoading(false);
         }
 
@@ -174,14 +133,6 @@ function Om( props ){
       
       loadPage();
     }, []);
-
-    if(loading){ // caso a página esteja carregando mostra uma msg de loading
-        return(
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )
-      }
 
       const filterOm = (e) => {
 
@@ -286,7 +237,8 @@ function Om( props ){
 
     }
 
-      
+    if(loading){ return <LoadingPage/>}
+
     return(
           <Grid container direction="column" justify="center" alignItems="center" className={classes.containerGeral}>
 

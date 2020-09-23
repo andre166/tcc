@@ -150,7 +150,6 @@ export default function Review( {handleNext, rowInfo}) {
                         eye2: !showPassword.eye2,
 
                       })}
-                      // onMouseDown={handleMouseDownPassword}
                     >
                       {showPassword.eye2 ? <Visibility /> : <VisibilityOff />}
                     </IconButton>

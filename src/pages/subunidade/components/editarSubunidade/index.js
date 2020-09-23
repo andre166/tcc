@@ -1,16 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import cadastroSu from '../../../../utils/schemas/cadastroSu';
 import { Button, Paper } from '@material-ui/core';
-import HelpIcon from '@material-ui/icons/Help';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { withStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
 import GenerateAlert from '../../../../components/errorAlert';
 import { listarSubunidades, editarSubunidade} from '../../../../components/services/subunidadeService';
 import { listarOm } from '../../../../components/services/omServices';
@@ -20,68 +14,14 @@ import Modal from '../formulario/testeTableCard/components/modal/modal';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-
-const LightTooltip = withStyles((theme) => ({
-    tooltip: {
-      backgroundColor: "#222831",
-      color: theme.palette.common.white,
-      boxShadow: theme.shadows[1],
-      fontSize: 14,
-      padding: '8px 12px 8px 12px'
-    },
-  }))(Tooltip);
-  
-    const useStyles = makeStyles((theme) => ({
-        containerGeral:{
-            marginTop: 63,
-            padding: 5,
-            [theme.breakpoints.down('xs')]: {
-                marginTop: 55,
-            },
-        },
-        root: {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        paperCadastrarOm: {
-        width: '100%',
-        maxWidth: 600,
-        padding: 15
-        },
-        buttonSuccess: {
-        backgroundColor: '#1d3724',
-        height: 35,
-        margin: '15px 0px 10px 0px',
-        '&:hover': {
-            background: "#4a5442",
-        }
-        },
-        buttonDanger: {
-            backgroundColor: '#ed3237',
-            height: 35,
-            margin: '15px 0px 10px 0px',
-            '&:hover': {
-              background: "#7f3436",
-           },
-          },
-        edtitarOmContainer:{
-            width: '100%',
-            maxWidth: 1100,
-        },
-        inputTxt:{
-            marginTop: 12
-        }
-    }));
-  
+import { useStyles } from './editSu';
+import LoadingPage from '../.../../../../../components/loading';
 
 export default function Om(){
      
     const classes = useStyles();
-
     let idParams = useParams();
     const history = useHistory();
-
     const theme = useTheme();
 
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
@@ -90,6 +30,7 @@ export default function Om(){
 
     let [ om, setOm ] = useState("");
     let [ omParaVincular, setOmParaVincular ] = useState("");
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -99,12 +40,13 @@ export default function Om(){
             let _om = await listarSubunidades( id );
             let omVinc = await listarOm( idOm );
 
-            setOm(_om)
-            setOmParaVincular(omVinc)
+            setOm(_om);
+            setOmParaVincular(omVinc);
+            setLoading(false);
 
         }
 
-        getOm(id)
+        getOm(id);
         
     }, []);
 
@@ -141,30 +83,30 @@ export default function Om(){
         }
 
   
-      }
+    }
   
-      const verificarErro = ( msg ) => {
-  
+    const verificarErro = ( msg ) => {
+
         let tipo = 'warning';
-  
+
         if( msg == 'Não é um CNPJ válido.' || msg == 'Não é um CEP válido.' ){
-          tipo = 'error'
+            tipo = 'error'
         }
-  
+
         return(
             <GenerateAlert alertConfig={ {msg: msg, tipo: tipo} } />
         )
-  
-      }
 
-      function generatBackBtn(){
+    }
 
-        let response = JSON.parse(localStorage.getItem("userInfo"));
-  
-        let userPerfil = response.perfil;
-  
+    function generatBackBtn(){
+
+    let response = JSON.parse(localStorage.getItem("userInfo"));
+
+    let userPerfil = response.perfil;
+
         if( userPerfil == "ROLE_ADMIN"){
-          return (
+            return (
             <Link to={`/Subunidade/${idParams.idOm}`}  style={{textDecoration: 'none'}}>
                 <Button
                     size="small"
@@ -173,30 +115,31 @@ export default function Om(){
                     color="primary"
                     startIcon={<KeyboardReturnIcon />}
                 >
-                  { !xsDownMedia && 'Voltar'}
+                    { !xsDownMedia && 'Voltar'}
                 </Button>
             </Link>
-          )
-  
+            )
+
         }else{
   
-          return (
-            <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
-                <Button
-                    size="small"
-                    style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<KeyboardReturnIcon />}
-                >
-                  { !xsDownMedia && 'Voltar'}
-                </Button>
-            </Link>
-          )
-  
+            return (
+                <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
+                    <Button
+                        size="small"
+                        style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<KeyboardReturnIcon />}
+                    >
+                        { !xsDownMedia && 'Voltar'}
+                    </Button>
+                </Link>
+            )
+
         }
-      }
+    }
   
+    if(loading){ return <LoadingPage/>}
 
     return(
         <Grid container className={classes.containerGeral} direction="row" alignItems="flex-start" justify="center">

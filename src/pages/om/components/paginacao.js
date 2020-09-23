@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import Pagination from '@material-ui/lab/Pagination';
 
-export default function Paginacao(
-
-    { 
-        contatos, contatosPorPagina, paginar, zerarPaginacao, paginaAtual, setPaginaAtual
-    }
-    ){
+export default function Paginacao( { contatos, contatosPorPagina, paginar, zerarPaginacao, paginaAtual, setPaginaAtual } ){
 
     const pageNumber = [];
 
@@ -26,7 +21,6 @@ export default function Paginacao(
 
     return(
         <Pagination count={pageNumber.length} page={paginaAtual} variant="outlined" color="primary" onChange={handleChange}/>
-
     );
 
 }
