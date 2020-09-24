@@ -310,7 +310,7 @@ function CadastrarAdmin2(){
               />
             </FormControl> */}
 
-<FormControl style={{width: '100%'}}>
+            <FormControl style={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-password">Repita a nova senha</InputLabel>
               <Input
                 fullWidth

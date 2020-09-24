@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { deleteUser } from '../../../components/services/usuarioService';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { deleteUser, listUser } from '../../../components/services/usuarioService';
+import { listarSubunidadesPorOm } from '../../../components/services/subunidadeService';
 import { useParams} from 'react-router-dom';
 import { perfilListUser } from '../../../utils/perfilList';
 import Button from '@material-ui/core/Button';
@@ -24,12 +23,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import GenerateAlert from '../../../components/errorAlert';
+import { useStyles } from './editUsuStyle';
+import LoadingPage from  '../../../components/loading'
 
 function CadastrarAdmin2( props ){
 
     let [loading, setLoading] = useState(true);
 
     let [om, setOm] = useState([]);
+    let [user, setUser] = useState([]);
 
     const [open, setOpen] = React.useState(false);
 
@@ -41,12 +44,16 @@ function CadastrarAdmin2( props ){
     };
 
     let idParams = useParams();
+    const { id } = idParams;
 
     useEffect(() => {
 
       const inicializarForm = async () => {
         
         let response = await listarOm();
+        let u = await listUser( id );
+
+        setUser(u)
         setOm(response);
         setLoading(false)
         
@@ -54,50 +61,6 @@ function CadastrarAdmin2( props ){
 
       inicializarForm();
     }, []);
-
-    const useStyles = makeStyles((theme) => ({
-       paper: {
-        padding: '10px 20px',
-        marginTop: 70,
-        [theme.breakpoints.down('xs')]: {
-          marginTop: 55,
-        },
-        maxWidth: 380
-
-       },
-        avatar: {
-          margin: theme.spacing(1),
-          backgroundColor: theme.palette.secondary.main,
-        },
-        form: {
-          width: '100%', // Fix IE 11 issue.
-        },
-        submit: {
-          margin: theme.spacing(3, 0, 2),
-        },
-        buttonSuccess: {
-          backgroundColor: '#1d3724',
-          '&:hover': {
-            background: "#4a5442",
-         },
-        },
-        buttonInfo: {
-          backgroundColor: '#0064a6',
-          '&:hover': {
-            background: "#195493",
-         },
-        },
-        CcontainerEditarSenha: {
-          marginTop: 10,
-          padding: 10
-        },
-        buttonDanger: {
-          backgroundColor: '#ed3237',
-          '&:hover': {
-            background: "#7f3436",
-         },
-        }
-    }));
 
     const classes = useStyles();
 
@@ -113,18 +76,12 @@ function CadastrarAdmin2( props ){
 
     }
 
-    if(loading){
-        return(
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )
-      }
-
     async function onSubmit( values, action ){
 
       console.log("aaaa", values)
     }
+
+    if(loading){ return <LoadingPage/>}
 
     return(
 
@@ -158,14 +115,14 @@ function CadastrarAdmin2( props ){
           validationSchema={editarUsuarioSchema}
           onSubmit={onSubmit}
           initialValues={{
-            nome: '',
-            cpf: '',
-            perfil: '',
-            userName: ''
+            nome: user.nome,
+            cpf: user.cpf,
+            perfil: user.perfil,
+            userName: user.userName
           }}
           render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
-          <Form onSubmit={handleSubmit} className={classes.form}>
+          <Form onSubmit={handleSubmit} className={classes.form} autoComplete="off">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -175,6 +132,8 @@ function CadastrarAdmin2( props ){
                   value={values.nome}
                   onChange={handleChange}
                 />
+                <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -184,6 +143,8 @@ function CadastrarAdmin2( props ){
                   value={values.userName}
                   onChange={handleChange}
                 />
+                <ErrorMessage name="userName">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -193,6 +154,8 @@ function CadastrarAdmin2( props ){
                   value={values.cpf}
                   onChange={handleChange}
                 />
+                <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -212,6 +175,7 @@ function CadastrarAdmin2( props ){
                   ))}
 
                 </TextField>
+                <ErrorMessage name="perfil">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
               </Grid>
 
@@ -243,6 +207,7 @@ function CadastrarAdmin2( props ){
                 </Button>
 
               </Grid>
+
             </Grid>
 
           </Form>

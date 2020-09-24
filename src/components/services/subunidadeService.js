@@ -67,3 +67,17 @@ export const listarSubunidades = async ( id ) => {
   return response.data;
 
 }
+
+export const listarSubunidadesPorOm = async ( id ) => {
+
+  let token = getToken();
+
+  let host = hearderContent( token );
+
+  let response = await axios.get(`${localHost}/subunidade/listarPorOm/${id}`, {
+    headers: host
+  });
+
+  return response.data;
+
+}

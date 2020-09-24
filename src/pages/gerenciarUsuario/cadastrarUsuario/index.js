@@ -2,14 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { makeStyles, fade } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import { listarOm } from '../../../components/services/omServices';
-import { addUser } from '../../../components/services/usuarioService';
+import { addUserComOm, getUserOm } from '../../../components/services/usuarioService';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { perfilListUser } from '../../../utils/perfilList';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import cadastroUsuarioSchema from '../../../utils/schemas/cadastrarUsuario';
 import { Paper } from '@material-ui/core';
 import GenerateAlert from '../../../components/errorAlert';
@@ -27,45 +24,38 @@ import LockIcon from '@material-ui/icons/Lock';
 import { useHistory} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: '10px 20px',
-    marginTop: 70,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 56,
-    },
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: 380
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-    },
-    buttonSuccess: {
-      backgroundColor: '#1d3724',
-      '&:hover': {
-        background: "#4a5442",
-     },
-    },
-    buttonInfo: {
-      backgroundColor: '#0064a6',
-      '&:hover': {
-        background: "#195493",
-     },
-    },
-}))
+import { getUserId } from '../../../components/services/localStorgeService';
+import { useStyles } from './cadUsuStyle';
+import LoadingPage from  '../../../components/loading'
 
 function CadastrarAdmin2(){
 
     const classes = useStyles();
-
     const history = useHistory();
-
     const theme = useTheme();
-
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
+
+    const [om, setOm] = useState([]);
+    const [subunidades, setSubunidades] = useState([]);
+    let [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+      const loadPage = async () => {
+
+        let uId = getUserId();
+
+        let _om = await getUserOm(uId);
+
+        setOm( _om );
+        setSubunidades( _om.subunidades );
+        setLoading(false);
+
+      }
+
+      loadPage()
+
+    }, []);
 
     async function onSubmit( values, action ){
 
@@ -76,11 +66,17 @@ function CadastrarAdmin2(){
 
       localStorage.setItem("snackBarAlert", JSON.stringify(info));
 
-      await addUser( values );
+      Object.assign(values, {om: om});
+
+      let idSu = values.subunidade;
+
+      await addUserComOm( values, idSu );
       
-      history.push('/GerenciarAdmin');
+      history.push('/GerenciarUsuario');
 
     }
+
+    if(loading){ return <LoadingPage/>}
 
     return(
 
@@ -119,7 +115,8 @@ function CadastrarAdmin2(){
             cpf: '',
             perfil: '',
             userName: '',
-            senha:''
+            senha:'',
+            subunidade: '',
           }}
           render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
@@ -150,9 +147,9 @@ function CadastrarAdmin2(){
                 <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
               </Grid>
 
-              <Grid item xs={12} sm={12}>
+              <Grid item xs={12} sm={12} style={{marginTop: 10}}>
                 <TextField
-                  
+                  variant="outlined"
                   fullWidth
                   label="Perfil"
                   name="perfil"
@@ -174,6 +171,29 @@ function CadastrarAdmin2(){
               </Grid>
 
               <Grid item xs={12} sm={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  label="Subunidade"
+                  name="subunidade"
+                  value={values.subunidade}
+                  onChange={handleChange}
+                  select
+                >
+                  {subunidades.map( (s, i) => (
+
+                    <MenuItem key={i} value={ s.id } className="option">
+                        {s.nomeSubunidade}
+                    </MenuItem>
+
+                  ))}
+
+                </TextField>
+                <ErrorMessage name="subunidade">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
+              </Grid>
+
+              <Grid item xs={12} sm={12} style={{marginTop: 10}}>
 
                 <FormControl style={{width:'100%'}}>
                   <InputLabel htmlFor="input-with-icon-adornment">Nome de usuário</InputLabel>

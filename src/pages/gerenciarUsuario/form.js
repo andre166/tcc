@@ -26,6 +26,7 @@ function Editable( props ) {
   const [open, setOpen] = useState(false);
   const [openAlterKey, setOpenAlterKey] = useState(false);
 
+
   const [ rowInfo, setRowInfo] = useState(false);
 
   const handleClickOpen = () => {
@@ -73,7 +74,12 @@ function Editable( props ) {
       let userPerfil = getUserId();
   
       let omList = await getUserOm( userPerfil );
+
+      console.log("omList", omList)
       let perfilList = omList.usuario
+
+      console.log("aaaaaa", perfilList)
+      // let perfilList = []
 
       formatUser(perfilList)
 

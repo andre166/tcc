@@ -8,6 +8,10 @@ import LightTooltip from '../../utils/toolTip';
 
 export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickOpen, classes } ) => {
 
+    if(rowData.perfil == 'Administrador'){ //Evita o usuário de fazer crud no administrador
+      return '';
+    }
+
     let id = '';
     let idOm = '';
 

@@ -14,6 +14,23 @@ export const addUser = async ( usuario ) => {
     .catch((error) => { return error });
 }
 
+export const addUserComOm = async ( usuario, su ) => {
+
+    let u = {
+        usuario: usuario,
+        su: su
+    }
+
+    let token = getToken();
+
+    let host = hearderContent( token );
+ 
+    await axios.post(`http://localhost:8080/usuario/salvarComSu`, u, {
+        headers: host
+      })
+    .catch((error) => { return error });
+}
+
 export const getUserOm = async ( id ) => {
 
     let token = getToken();

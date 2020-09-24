@@ -252,7 +252,7 @@ function CadastrarAdmin2( props ){
 
             </Grid>
 
-{console.log("aaaaa", values.om)}
+
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
