@@ -6,14 +6,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
 import { listUser, deleteUser, getUserOm, editUser } from '../../../components/services/usuarioService';
 import { getUserId } from '../../../components/services/localStorgeService';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { useParams } from 'react-router-dom';
 import { perfilList } from '../../../utils/perfilList';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { Paper } from '@material-ui/core';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form, ErrorMessage } from 'formik';
 import editarAdminSchema from '../../../utils/schemas/editarAdminSchema';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link, useHistory } from 'react-router-dom';
@@ -26,6 +25,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './editStyle';
 import GenerateAlert from '../../../components/errorAlert';
+import LoadingPage from '../../../components/loading';
 
 function CadastrarAdmin2( props ){
 
@@ -117,14 +117,6 @@ function CadastrarAdmin2( props ){
 
     }
 
-    if(loading){ // caso a página esteja carregando mostra uma msg de loading
-        return(
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )
-      }
-
     async function onSubmit( values ){
 
       Object.assign(values, {id: usuario.id});
@@ -150,6 +142,8 @@ function CadastrarAdmin2( props ){
 
     }
 
+    if(loading){ return <LoadingPage/>}
+    
     return(
 
       <Container component="main" maxWidth="sm" style={{padding: 5}}>

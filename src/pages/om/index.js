@@ -288,7 +288,6 @@ function Om( props ){
 
                     { !modoTabela &&
                     <Grid item xs={12} sm={7} style={{display: 'flex', justifyContent: 'flex-end'}}>
-                      {/* <Grid container direction="row" alignItems="center" justify="flex-end" > */}
 
                       <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -315,12 +314,10 @@ function Om( props ){
                         />
                         
                       </div>
-                  {/* </Grid> */}
+
                   </Grid>
                     }
 
-                {/* </Grid>
-                </Grid> */}
               </Grid>
               </div>
 

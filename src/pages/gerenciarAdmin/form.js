@@ -15,6 +15,7 @@ import CheckoutPassword from './stepperAlterSenha/checkout';
 import { gerenciarAdminColumn } from '../../utils/columns/colunaGerenciarAdmin';
 import { maskCpf } from '../../utils/maskAndValidators/cpf';
 import { masckPerfil } from '../../utils/maskAndValidators/perfil';
+import LoadingPage from '../../components/loading';
 
 function Editable( props ) {
 
@@ -22,6 +23,7 @@ function Editable( props ) {
 
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
+  let [loading, setLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
   const [openAlterKey, setOpenAlterKey] = useState(false);
@@ -114,6 +116,8 @@ function Editable( props ) {
       window.location.reload();
 
     }
+
+    if(loading){ return <LoadingPage/>}
 
     return (
       <>

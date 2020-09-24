@@ -179,6 +179,8 @@ function SimpleDialogWrapped( props ){
       window.location.assign(`/Subunidade/${props.omParaVincular.id}`);
     }else if( props.btnModalType == 'edit' && userPerfil !== 'ROLE_ADMIN'){
       history.push(`/Subunidade`);
+    }else if( props.btnModalType !== 'edit' && userPerfil !== 'ROLE_ADMIN' ){
+      window.location.reload();
     }
 
   }

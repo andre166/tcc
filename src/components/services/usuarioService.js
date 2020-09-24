@@ -95,6 +95,27 @@ export const listUserComSu = async ( idOm ) => {
 
 }
 
+export const listUsuarioUnicoComSubunidade = async ( id ) => {
+    
+    let token = getToken();
+
+    let host = hearderContent( token );
+
+    let response = [];
+    
+    if( id ){
+
+        response = await axios.get(`${localHost}/usuario/listUsuarioUnicoComSubunidade/${id}`,{
+            headers: host
+          })
+        .catch((error) => { return error });
+
+    }
+
+    return response.data;
+
+}
+
 export const deleteUser = async ( id ) => {
 
     let token = getToken();
@@ -115,6 +136,25 @@ export const editUser = async ( user ) => {
     let host = hearderContent( token );
 
     await axios.put(`${localHost}/usuario/editar`, user, {
+        headers: host
+    })
+    .catch((error) => { return error });
+
+
+}
+
+export const editUserComSu = async ( user, su ) => {
+
+    let token = getToken();
+
+    let host = hearderContent( token );
+
+    let u = {
+        usuario: user,
+        su: su
+    }
+
+    await axios.put(`${localHost}/usuario/editarComSu`, u, {
         headers: host
     })
     .catch((error) => { return error });

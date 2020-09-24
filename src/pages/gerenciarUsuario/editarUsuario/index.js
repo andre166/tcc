@@ -4,7 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { deleteUser, listUser } from '../../../components/services/usuarioService';
+import { deleteUser, listUsuarioUnicoComSubunidade, getUserOm, editUserComSu } from '../../../components/services/usuarioService';
+import { getUserId } from '../../../components/services/localStorgeService';
 import { listarSubunidadesPorOm } from '../../../components/services/subunidadeService';
 import { useParams} from 'react-router-dom';
 import { perfilListUser } from '../../../utils/perfilList';
@@ -26,13 +27,17 @@ import { useTheme } from '@material-ui/core/styles';
 import GenerateAlert from '../../../components/errorAlert';
 import { useStyles } from './editUsuStyle';
 import LoadingPage from  '../../../components/loading'
+import { useHistory} from 'react-router-dom';
 
 function CadastrarAdmin2( props ){
 
-    let [loading, setLoading] = useState(true);
+    const history = useHistory();
 
-    let [om, setOm] = useState([]);
+    let [loading, setLoading] = useState(true);
     let [user, setUser] = useState([]);
+    let [userSu, setUserSu] = useState([]);
+    let [om, setOm] = useState([]);
+    const [subunidades, setSubunidades] = useState([]);
 
     const [open, setOpen] = React.useState(false);
 
@@ -50,12 +55,19 @@ function CadastrarAdmin2( props ){
 
       const inicializarForm = async () => {
         
-        let response = await listarOm();
-        let u = await listUser( id );
+        let usuario = await listUsuarioUnicoComSubunidade( id );
+        usuario = usuario[0];
 
-        setUser(u)
-        setOm(response);
-        setLoading(false)
+        let uId = getUserId();
+        let _om = await getUserOm(uId);
+
+        let suDoUsuario = _om.subunidades.find( e=> e.id == usuario.idSU);
+
+        setOm(_om);
+        setSubunidades(_om.subunidades);
+        setUserSu(suDoUsuario);
+        setUser(usuario);
+        setLoading(false);
         
       }
 
@@ -76,9 +88,24 @@ function CadastrarAdmin2( props ){
 
     }
 
-    async function onSubmit( values, action ){
+    async function onSubmit( values ){
 
-      console.log("aaaa", values)
+      let info = {
+        severityType: 'info',
+        type: 'user', 
+      }
+
+      localStorage.setItem("snackBarAlert", JSON.stringify(info));
+
+      Object.assign(values, {om: om});
+      Object.assign(values, { id: user.userId });
+
+      let idSu = values.subunidade.id;
+
+      await editUserComSu(values, idSu);
+      
+      history.push('/GerenciarUsuario');
+
     }
 
     if(loading){ return <LoadingPage/>}
@@ -118,7 +145,8 @@ function CadastrarAdmin2( props ){
             nome: user.nome,
             cpf: user.cpf,
             perfil: user.perfil,
-            userName: user.userName
+            userName: user.userName,
+            subunidade: userSu
           }}
           render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
@@ -159,6 +187,7 @@ function CadastrarAdmin2( props ){
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  variant="outlined"
                   fullWidth
                   label="Perfil"
                   name="perfil"
@@ -176,6 +205,29 @@ function CadastrarAdmin2( props ){
 
                 </TextField>
                 <ErrorMessage name="perfil">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
+
+              </Grid>
+
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  label="Subunidade"
+                  name="subunidade"
+                  value={values.subunidade}
+                  onChange={handleChange}
+                  select
+                >
+                  {subunidades.map( (s, i) => (
+
+                    <MenuItem key={i} value={ s } className="option">
+                        {s.nomeSubunidade}
+                    </MenuItem>
+
+                  ))}
+
+                </TextField>
+                <ErrorMessage name="subunidade">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
               </Grid>
 

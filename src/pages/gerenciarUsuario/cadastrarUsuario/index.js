@@ -53,7 +53,7 @@ function CadastrarAdmin2(){
 
       }
 
-      loadPage()
+      loadPage();
 
     }, []);
 

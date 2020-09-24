@@ -2,13 +2,10 @@ import React, {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import { makeStyles, fade } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
 import { addUser } from '../../../components/services/usuarioService';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { perfilList } from '../../../utils/perfilList';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import cadastroAdminAchema from '../../../utils/schemas/cadastroAdminAchema';
@@ -17,9 +14,7 @@ import GenerateAlert from '../../../components/errorAlert';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Input from '@material-ui/core/Input';
@@ -27,52 +22,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import LockIcon from '@material-ui/icons/Lock';
-import { useParams, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: '10px 20px',
-    marginTop: 70,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 56,
-    },
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      // marginTop: theme.spacing(1),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-    },
-    buttonSuccess: {
-      backgroundColor: '#1d3724',
-      '&:hover': {
-        background: "#4a5442",
-     },
-    },
-    buttonInfo: {
-      backgroundColor: '#0064a6',
-      '&:hover': {
-        background: "#195493",
-     },
-    },
-    CcontainerEditarSenha: {
-      // marginTop: 10,
-      // padding: 10
-    }
-}))
+import { useStyles } from './cadAdminStyle';
+import LoadingPage from '../../../components/loading';
 
 function CadastrarAdmin2(){
 
@@ -143,15 +100,7 @@ function CadastrarAdmin2(){
     }
 
 
-    if(loading){ // caso a página esteja carregando mostra uma msg de loading
-        return(
-          <div className="loading-container">
-            <CircularProgress />
-          </div>
-        )
-      }
-
-
+    if(loading){ return <LoadingPage/>}
 
     return(
 
@@ -292,24 +241,6 @@ function CadastrarAdmin2(){
 
             <Grid item xs={12} sm={6}>
 
-            {/* <FormControl style={{width:'100%'}}>
-              <InputLabel htmlFor="input-with-icon-adornment">Senha</InputLabel>
-              <Input
-                autoComplete="off"
-                fullWidth
-                name="senha"
-                value={values.senha}
-                onChange={handleChange}
-                id="input-with-icon-adornment"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              type="password"
-              />
-            </FormControl> */}
-
             <FormControl style={{width: '100%'}}>
               <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
               <Input
@@ -329,7 +260,7 @@ function CadastrarAdmin2(){
                         eye2: !showPassword.eye2,
 
                       })}
-                      // onMouseDown={handleMouseDownPassword}
+
                     >
                       {showPassword.eye2 ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
