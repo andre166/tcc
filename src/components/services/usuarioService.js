@@ -74,6 +74,27 @@ export const listUser = async ( id ) => {
 
 }
 
+export const listUserComSu = async ( idOm ) => {
+    
+    let token = getToken();
+
+    let host = hearderContent( token );
+
+    let response = [];
+    
+    if( idOm ){
+
+        response = await axios.get(`${localHost}/usuario/listaUsuariosComSubunidades/${idOm}`,{
+            headers: host
+          })
+        .catch((error) => { return error });
+
+    }
+
+    return response.data;
+
+}
+
 export const deleteUser = async ( id ) => {
 
     let token = getToken();

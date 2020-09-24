@@ -55,7 +55,7 @@ export const colunaSubunidade = [
     },
     { 
         title: 'Nome Abreviado', 
-        field: 'nomeSubunidade', 
+        field: 'usuarios.length', 
         type: 'string', 
         renderGraph: false,
         cellStyle: { 

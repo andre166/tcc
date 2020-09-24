@@ -18,7 +18,13 @@ export default function AddressForm( { authOk, setAuthOk, handleNext, rowInfo } 
 
   async function onSubmit( values, action ){
 
-    const userId = rowInfo.id
+    let userId = '';
+
+    if( rowInfo.id ){
+      userId = rowInfo.id;
+    }else{
+      userId = rowInfo.userId;
+    }
 
     let user = {id: userId, userName: values.nome, senha: values.senha}
 

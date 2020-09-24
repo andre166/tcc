@@ -26,7 +26,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
       handleClickOpen();
     }
   
-    id = rowData.id;
+    id = rowData.userId;
     
     if( rowData.idOm){
   
@@ -94,6 +94,24 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                   width: '100%', 
               }
             },
+            { 
+              title: 'Subunidade', 
+              field: 'nomeSu',
+              renderGraph: true,
+              cellStyle: { 
+                width: '100%', 
+                minWidth: 250,
+                textAlign: 'center',
+            }, 
+            headerStyle: { 
+                width: '100%', 
+                minWidth: 250,
+            },
+            filterCellStyle: {
+                textAlign: 'center',
+                width: '100%', 
+            }
+          },
             { 
                 title: 'Cpf', 
                 field: 'cpf',

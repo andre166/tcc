@@ -55,7 +55,13 @@ export default function Review( {handleNext, rowInfo}) {
 
     const {senha1, senha2} = values;
 
-    const userId = rowInfo.id;
+    let userId = '';
+    
+    if( rowInfo.id ){
+      userId = rowInfo.id;
+    }else{
+      userId = rowInfo.userId;
+    }
 
     if( senha1 != senha2 ){
       setErro(true)

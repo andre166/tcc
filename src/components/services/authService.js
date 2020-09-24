@@ -6,7 +6,7 @@ export const verificarLogin = async ( user ) => {
     .catch(e => {
         return { invalidUser: e.message};
     });
-    
+
     return response;
 
 }

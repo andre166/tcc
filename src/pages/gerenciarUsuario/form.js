@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { Link} from 'react-router-dom';
-import { deleteUser, getUserOm } from '../../components/services/usuarioService';
+import { deleteUser, getUserOm, listUserComSu } from '../../components/services/usuarioService';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,14 +19,10 @@ import { masckPerfil } from '../../utils/maskAndValidators/perfil';
 function Editable( props ) {
 
   const { classes } = props;
-
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
-
   const [open, setOpen] = useState(false);
   const [openAlterKey, setOpenAlterKey] = useState(false);
-
-
   const [ rowInfo, setRowInfo] = useState(false);
 
   const handleClickOpen = () => {
@@ -73,15 +69,11 @@ function Editable( props ) {
 
       let userPerfil = getUserId();
   
-      let omList = await getUserOm( userPerfil );
+      let userOm = await getUserOm( userPerfil );
 
-      console.log("omList", omList)
-      let perfilList = omList.usuario
+      let perfilList = await listUserComSu(userOm.id);
 
-      console.log("aaaaaa", perfilList)
-      // let perfilList = []
-
-      formatUser(perfilList)
+      formatUser(perfilList);
 
       let columnList = gerenciarUsuarioColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       
@@ -99,7 +91,7 @@ function Editable( props ) {
 
     const excluirUsuario = async ( ) => {
       
-      let userId = rowInfo.id;
+      let userId = rowInfo.userId;
 
       await deleteUser(userId);
 
@@ -126,7 +118,7 @@ function Editable( props ) {
           </div>
 
           {data.length > 0 && columns.length > 0 && 
-            <div style={{background: '#fff'}}>
+            <div className={classes.tabelaContainer}>
               <ShowRelatorio relatorio={data} customColumns={columns}/>
             </div>
           }

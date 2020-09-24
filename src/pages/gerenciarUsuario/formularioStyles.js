@@ -1,4 +1,10 @@
 export const styles = theme => ({
+    tabelaContainer: {
+      width: 'calc(100vw - 240px)',
+      [theme.breakpoints.down('sm')]: {
+       width: '100vw'
+      },
+    },
     container: {
       display: 'flex',
       flexDirection: 'column',
