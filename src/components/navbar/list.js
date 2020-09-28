@@ -59,13 +59,9 @@ export const gerencialDrawner = [
 ]
 
 export const userDrawner = [
-    {nome: 'Efetivo', link: '/Efetivo', icone: <ListIcon />, func: () =>  blanck() },
-    {nome: 'Recrutas', link: '/Recrutas', icone: <ListIcon />, func: () =>  blanck() },
-    {nome: 'Página inicial', link: '/Home', icone: <HomeIcon />, func: () =>  blanck() },
-    {nome: 'Lista de militares', link: '/ListaDeMilitares', icone: <AssignmentIndIcon />, func: () =>  blanck()}, 
-    {nome: 'Cadastrar militar', link: '/CadastrarMilitar', icone: <PostAddIcon />, func: () =>  blanck()}, 
-    {nome: 'Estatística', icone: <PieChartIcon />, func: () =>  blanck()}, 
-    {nome: 'Testes', link: '/Teste', icone: <InboxIcon />, func: () =>  blanck()},
-    {nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
-
+    {id: 1, nome: 'Página inicial', link: '/UserHome', icone: <HomeIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 1) },
+    {id: 2, nome: 'Efetivo', link: '/Efetivo', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
+    {id: 5, nome: 'Cadastrar militar', link: '/CadastrarMilitar', icone: <PostAddIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 5) },
+    {id: 6, nome: 'Estatística', icone: <PieChartIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 6) },
+    {id: 8, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
 ]

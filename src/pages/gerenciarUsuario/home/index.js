@@ -75,6 +75,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Home( props ){
 
+    
+
     const changeLeftDrawner = ( id ) => {
 
         let test = localStorage.getItem("navBarItem");

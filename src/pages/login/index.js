@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { verificarLogin } from '../../components/services/authService';
+import { listUsuarioUnicoComSubunidade } from '../../components/services/usuarioService';
 import { connect } from 'react-redux';
 import { renderNavbar } from '../../components/actions/navbarActions';
 import { setNameAndToken } from '../../components/actions/userAction';
@@ -74,10 +75,20 @@ function Login( props ){
       }else{
 
         let info = {
+          token: login.data.data.token,
+        }
+
+        localStorage.setItem("userInfo", JSON.stringify(info)); 
+        localStorage.setItem("navBarItem", 1)
+
+        let userSu = await listUsuarioUnicoComSubunidade( login.data.usuario.id );
+
+        info = {
           name: nome,
           token: login.data.data.token,
           perfil:  login.data.usuario.perfil,
-          userId: login.data.usuario.id
+          userId: login.data.usuario.id,
+          userSu: userSu[0].idSU,
         }
 
         localStorage.setItem("userInfo", JSON.stringify(info)); 
@@ -91,8 +102,8 @@ function Login( props ){
           history.push('/UserHome');
         }
 
-
         props.renderNavbar(true);
+
       }
 
     }
@@ -135,7 +146,7 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'nerdz',
+          nome: 'sgtee',
           senha: '12345'
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (

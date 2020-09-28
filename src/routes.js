@@ -1,12 +1,12 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import Home from './pages/home';
+import UserHome from './pages/usuario/home';
 import ChInfoHome from './pages/gerenciarUsuario/home';
 import AdminHome from './pages/gerenciarAdmin/home';
 
-import Efetivo from './pages/efetivo';
-import CadastrarMilitar from './pages/efetivo/cadastrarMilitar';
+import Efetivo from './pages/usuario/efetivo';
+import CadastrarMilitar from './pages/usuario/efetivo/cadastrarMilitar';
 import Login from './pages/login';
 import Om from './pages/om';
 import Subunidade from './pages/subunidade/index';
@@ -27,10 +27,8 @@ import CadastrarSubunidade from './pages/subunidade/components/cadastrarSubunida
 import EditarSubunidade from './pages/subunidade/components/editarSubunidade';
 import VerificarSubunidade from './pages/subunidade/components/formulario/tableCard/components/verificarSubunidade';
 
-import CadastrarTurma from './pages/efetivo/cadastrarTurma';
-import EditarTurma from './pages/efetivo/editarTurma';
-
-import Teste from './pages/teste';
+import CadastrarTurma from './pages/usuario/efetivo/cadastrarTurma';
+import EditarTurma from './pages/usuario/efetivo/editarTurma';
 
 import Erro from './pages/erro';
 
@@ -39,7 +37,7 @@ const Routes = ( ) => {
     return (
         <Switch  style={{height: "100%"}}>
 
-            <Route exact path='/Home' component={Home}/>
+            <Route exact path='/UserHome' component={UserHome}/>
             <Route exact path='/ChInfoHome' component={ChInfoHome}/>
             <Route exact path='/AdminHome' component={AdminHome}/>
 
@@ -70,9 +68,7 @@ const Routes = ( ) => {
             <Route exact path='/CadastrarTurma' component={CadastrarTurma}/>
             <Route exact path='/EditarTurma/:id/:idSu' component={EditarTurma}/>
 
-
             <Route exact path='/Om' component={Om}/>
-            <Route exact path='/Teste' component={Teste} />
     
             <Route path="*" component={Erro}/> 
 

@@ -29,7 +29,7 @@ import withWidth from '@material-ui/core/withWidth';
 import { useStyles } from './omStyles';
 import { maskCnpj } from '../../utils/maskAndValidators/cnpj';
 import { maskCep } from '../../utils/maskAndValidators/cep';
-import LoadingPage from  '../../components/loading'
+import LoadingPage from  '../../components/loading';
 
 export default withWidth()(Om);
 
