@@ -180,6 +180,11 @@ function CadastrarAdmin2(){
                   onChange={handleChange}
                   select
                 >
+
+                  <MenuItem>
+                    <option aria-label="None" value="" />
+                  </MenuItem>
+                  
                   {subunidades.map( (s, i) => (
 
                     <MenuItem key={i} value={ s.id } className="option">

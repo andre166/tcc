@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { listarOm } from '../../components/services/omServices';
+import { getUserPerfil } from '../../components/services/localStorgeService';
 import Card from './components/card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -20,7 +21,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuOrderBy from './components/menuOrderBy';
 import Snackbar from '../../components/snackbar';
-import { Link} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -73,7 +74,15 @@ function Om( props ){
       qtdUsu: 0,
     });
 
+    const history = useHistory();
+
     useEffect(() => {
+
+      let userPerfil = getUserPerfil();
+
+      if( userPerfil !== 'ROLE_ADMIN'){
+        history.push('/error')
+      }
 
       if( localStorage.getItem("snackBarAlert") ){
 

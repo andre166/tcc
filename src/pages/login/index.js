@@ -82,7 +82,16 @@ function Login( props ){
 
         localStorage.setItem("userInfo", JSON.stringify(info)); 
         localStorage.setItem("navBarItem", 1)
-        history.push('/Home');
+
+        if( login.data.usuario.perfil == 'ROLE_ADMIN' ){
+          history.push('/AdminHome');
+        }else if( login.data.usuario.perfil == 'ROLE_CHEFE_INFO' ){
+          history.push('/ChInfoHome');
+        }else if( login.data.usuario.perfil !== 'ROLE_CHEFE_INFO' && login.data.usuario.perfil !== 'ROLE_ADMIN'){
+          history.push('/UserHome');
+        }
+
+
         props.renderNavbar(true);
       }
 

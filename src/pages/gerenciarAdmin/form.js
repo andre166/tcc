@@ -91,6 +91,7 @@ function Editable( props ) {
       setData(perfilList);
 
       setColumns(colunas);
+      setLoading(false);
 
     }
 

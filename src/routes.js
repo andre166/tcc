@@ -2,6 +2,9 @@ import React from 'react';
 import { Switch, Route, BrowserRouter} from 'react-router-dom';
 
 import Home from './pages/home';
+import ChInfoHome from './pages/gerenciarUsuario/home';
+import AdminHome from './pages/gerenciarAdmin/home';
+
 import Efetivo from './pages/efetivo';
 import CadastrarMilitar from './pages/efetivo/cadastrarMilitar';
 import Login from './pages/login';
@@ -37,6 +40,9 @@ const Routes = ( ) => {
         <Switch  style={{height: "100%"}}>
 
             <Route exact path='/Home' component={Home}/>
+            <Route exact path='/ChInfoHome' component={ChInfoHome}/>
+            <Route exact path='/AdminHome' component={AdminHome}/>
+
             <Route exact path='/Efetivo' component={Efetivo}/>
             <Route exact path='/' render={props => <Login {...props}/>}/>
 

@@ -16,10 +16,6 @@ import { bindActionCreators } from 'redux';
 
 function GenerateList( props ){
 
-    // console.log("aaa", props)
-    // function GenerateList( { perfil, setRenderClasses } ){
-
-
     const item = getNavbarItem();
 
     const classes = useStyles();

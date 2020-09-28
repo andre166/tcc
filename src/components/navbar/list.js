@@ -45,9 +45,9 @@ export const adminDrawner = [
 export const cadastradorDrawner = [
 
     {id: 1, nome: 'Página inicial', link: '/Home', icone: <HomeIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 1) },
-    {id: 2, nome: 'Subunidade', link: '/Subunidade', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
-    {id: 3, nome: 'Usuários', link: '/GerenciarUsuario', icone: <GroupIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 3) },
-    {id: 4, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
+    {id: 3, nome: 'Subunidade', link: '/Subunidade', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 3) },
+    {id: 4, nome: 'Usuários', link: '/GerenciarUsuario', icone: <GroupIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 4) },
+    {id: 5, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
 
 ]
 

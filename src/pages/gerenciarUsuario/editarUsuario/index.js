@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { deleteUser, listUsuarioUnicoComSubunidade, getUserOm, editUserComSu } from '../../../components/services/usuarioService';
+import { deleteUser, editUser, listUsuarioUnicoComSubunidade, getUserOm, editUserComSu } from '../../../components/services/usuarioService';
 import { getUserId } from '../../../components/services/localStorgeService';
 import { listarSubunidadesPorOm } from '../../../components/services/subunidadeService';
 import { useParams} from 'react-router-dom';
@@ -90,6 +90,8 @@ function CadastrarAdmin2( props ){
 
     async function onSubmit( values ){
 
+      console.log("values", values)
+
       let info = {
         severityType: 'info',
         type: 'user', 
@@ -99,10 +101,14 @@ function CadastrarAdmin2( props ){
 
       Object.assign(values, {om: om});
       Object.assign(values, { id: user.userId });
+      
+      if( values.subunidade ){
+        let idSu = values.subunidade.id;
+        await editUserComSu(values, idSu);
+      }else{
+        await editUser(values);
+      }
 
-      let idSu = values.subunidade.id;
-
-      await editUserComSu(values, idSu);
       
       history.push('/GerenciarUsuario');
 
@@ -218,6 +224,11 @@ function CadastrarAdmin2( props ){
                   onChange={handleChange}
                   select
                 >
+
+                  <MenuItem>
+                    <option aria-label="None" value="" />
+                  </MenuItem>
+
                   {subunidades.map( (s, i) => (
 
                     <MenuItem key={i} value={ s } className="option">
