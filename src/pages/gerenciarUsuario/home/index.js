@@ -100,25 +100,18 @@ function Home( props ){
             func: () => ''
         },
         { 
-            icon: <HomeWorkIcon className={classes.avatarIcon}/>, 
-            title: 'Organização Militar[OM]', 
-            desc: "Gerenciamento de OM", subDesc: "Cadastrar, editar, excluir e listar Organizações Militares com suas devidas subunidades",
-            link: '/Om',
-            func: () => changeLeftDrawner(2)
-        },
-        { 
             icon: <SupervisedUserCircleIcon className={classes.avatarIcon}/>, 
             title: 'Subunidade[SU]', desc: "Gerenciamento de SU", 
             subDesc: 'Cadastrar, editar, excluir e lista de Subunidades com seu devido efetivo e suas informações por ano',
             link: '/Subunidade',
-            func: () => changeLeftDrawner(3)
+            func: () => changeLeftDrawner(2)
         },
         { 
             icon: <GroupIcon className={classes.avatarIcon}/>, 
             title: 'Usuários', desc: "Gerenciamento de Usuários", 
             subDesc: 'Cadastrar, editar, excluir, alterar senha de usuários do sistema, lista de usuários por OM',
             link: perfil == 'ROLE_ADMIN' ? '/GerenciarAdmin' : '/GerenciarUsuario',
-            func: () => changeLeftDrawner(perfil == 'ROLE_ADMIN' ? 4 : 3)
+            func: () => changeLeftDrawner(3)
         },
         { 
             icon: <ContactMailRoundedIcon className={classes.avatarIcon}/>, 

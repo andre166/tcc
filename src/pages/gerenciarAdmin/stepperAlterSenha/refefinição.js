@@ -10,6 +10,7 @@ import loginSchema from '../../../utils/schemas/loginSchema';
 import Button from '@material-ui/core/Button';
 import GenerateAlert from '../../../components/errorAlert';
 import { verifiUser } from '../../../components/services/usuarioService';
+import { getUserId } from '../../../components/services/localStorgeService';
 
 
 export default function AddressForm( { authOk, setAuthOk, handleNext, rowInfo } ) {
@@ -18,13 +19,15 @@ export default function AddressForm( { authOk, setAuthOk, handleNext, rowInfo } 
 
   async function onSubmit( values, action ){
 
-    let userId = '';
+    let userId = getUserId();
 
-    if( rowInfo.id ){
-      userId = rowInfo.id;
-    }else{
-      userId = rowInfo.userId;
-    }
+    // if( rowInfo.id ){
+    //   userId = rowInfo.id;
+    // }else{
+    //   userId = rowInfo.userId;
+    // }
+
+
 
     let user = {id: userId, userName: values.nome, senha: values.senha}
 
