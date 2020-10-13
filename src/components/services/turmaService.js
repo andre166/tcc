@@ -55,6 +55,18 @@ export const editarTurma = async ( turma ) => {
   
 };
 
+export const excluirTurma = async ( id ) => {
+  
+  let token = getToken();
+  let host = hearderContent( token );
+   
+  await axios.delete(`${localHost}/turma/excluir/${id}`, {
+    headers: host
+  })
+  .catch((error) => { return error })
+  
+};
+
 
 
 

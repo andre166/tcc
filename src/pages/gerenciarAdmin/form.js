@@ -25,10 +25,11 @@ function Editable( props ) {
   const [columns, setColumns] = useState([]);
   let [loading, setLoading] = useState(true);
 
-  const [open, setOpen] = useState(false);
   const [openAlterKey, setOpenAlterKey] = useState(false);
-
+  
   const [ rowInfo, setRowInfo] = useState(false);
+  
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

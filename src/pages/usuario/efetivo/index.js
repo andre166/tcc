@@ -195,7 +195,7 @@ function Efetivo( props ){
             icon: <DeleteForeverIcon className={classes.avatarIcon}/>, 
             title: 'Excluir', desc: 'Excluir Efetivo', 
             subDesc: 'Exclui um ano e todo o efetivo relacionado ao mesmo.',
-            link: '/userConfig',
+            link: '/ExcluirTurma',
             button: <Button size="small" color="primary" variant="contained" className={classes.buttonDanger} >Exluir</Button>,
             func: () => ''
 

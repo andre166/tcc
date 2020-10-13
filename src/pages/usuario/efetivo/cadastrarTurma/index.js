@@ -71,7 +71,7 @@ export default function CadastrarTurma( props ){
 
       await cadastrarTurma(turmaFinal);
 
-      history.push('/Efetivo')
+      history.push('/Efetivo');
     }
 
 
@@ -112,7 +112,8 @@ export default function CadastrarTurma( props ){
         <Divider style={{marginBottom: 10}}/>
 
         <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmit}>
-        {error && <Alert style={{marginBottom: 10}} severity="error">Efetivo referente ao ano de <strong>{new Date(date).getFullYear().toString()}</strong> já existe!</Alert>}
+
+          {error && <Alert style={{marginBottom: 10}} severity="error">Efetivo referente ao ano de <strong>{new Date(date).getFullYear().toString()}</strong> já existe!</Alert>}
 
             <div className={classes.datePicker}>
                 <DatePickerCustom date={date} changeDate={changeDate}/>

@@ -31,6 +31,7 @@ import VerificarSubunidade from './pages/subunidade/components/formulario/tableC
 
 import CadastrarTurma from './pages/usuario/efetivo/cadastrarTurma';
 import EditarTurma from './pages/usuario/efetivo/editarTurma';
+import ExcluirTurma from './pages/usuario/efetivo/excluirTurma';
 
 import Erro from './pages/erro';
 
@@ -71,6 +72,7 @@ const Routes = ( ) => {
 
             <Route exact path='/CadastrarTurma' component={CadastrarTurma}/>
             <Route exact path='/EditarTurma' component={EditarTurma}/>
+            <Route exact path='/ExcluirTurma' component={ExcluirTurma}/>
 
             <Route exact path='/Om' component={Om}/>
     

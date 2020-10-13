@@ -1,45 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Switch from '@material-ui/core/Switch';
-import ClearIcon from '@material-ui/icons/Clear';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useParams, useHistory} from 'react-router-dom';
-import { DatePicker } from "@material-ui/pickers";
+import { useHistory } from 'react-router-dom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { listarCidadaoPorTurma } from '../../../../components/services/cidadaoService';
-import ShowRelatorio from '@lestetelecom/showrelatorio';
-import { colunaCidadao } from '../../../../utils/columns/colunaCidadao';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link} from 'react-router-dom';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
-import { withStyles } from '@material-ui/core/styles';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import { listarTurma, editarTurma, excluirTurma } from '../../../../components/services/turmaService';
-import { getUserSu } from '../../../../components/services/localStorgeService';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import HelpIcon from '@material-ui/icons/Help';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import { useStyles } from './editarTurmaStyle';
+import { listarTurma, excluirTurma } from '../../../../components/services/turmaService';
+import { useStyles } from './excluirTurmaStyle';
 import GenerateAlert from '../../../../components/errorAlert';
 import { Formik, Form, ErrorMessage } from 'formik';
 import Container from '@material-ui/core/Container';
@@ -52,7 +23,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default function EditarTurma( props ){
+export default function ExcluirTurma( props ){
   
   const classes = useStyles();
   const theme = useTheme();
@@ -64,6 +35,7 @@ export default function EditarTurma( props ){
 
   let [loading, setLoading] = useState(true);
   let [listaTurma, setListaTurma] = useState([]);
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -73,23 +45,6 @@ export default function EditarTurma( props ){
   const handleClose = async () => {
     setOpen(false);
   };
-
-  const excluir = async ( turma ) => {
-
-    let id = turma.id;
-
-    await excluirTurma( id );
-
-    let info = {
-      severityType: 'error',
-      type: 'Turma', 
-    }
-
-    localStorage.setItem("snackBarAlert", JSON.stringify(info));
-
-    history.push('/Efetivo');
-
-  }
 
   useEffect(() => {
 
@@ -126,46 +81,23 @@ export default function EditarTurma( props ){
 
   }, [ date ]);
 
-  async function onSubmit( values ){
-    
-    let cadastrar = true;
+  async function onSubmit( values ){  
+    return;
+  }
 
-    let ano = new Date(date).getFullYear().toString();
+  const excluir = async ( turma ) => {
 
-    let response = await listarTurma();
+    let id = turma.id;
 
-    response.map( t => {
-      if(t.turma == ano){
-        cadastrar = false;
-      }
-    });
+    await excluirTurma( id );
 
-
-    if( cadastrar ){
-
-      values.turma.turma = ano;
-      let userSu = getUserSu();
-
-      let turmaComSu = {
-        turma: values.turma,
-        su: userSu,
-      }
-
-      let info = {
-        severityType: 'info',
-        type: 'Turma', 
-      }
-
-      localStorage.setItem("snackBarAlert", JSON.stringify(info));
-
-      await editarTurma( turmaComSu );
-
-      history.push('/Efetivo')
-
-    }else{
-      setError(true);
-
+    let info = {
+      severityType: 'error',
+      type: 'Turma', 
     }
+
+    localStorage.setItem("snackBarAlert", JSON.stringify(info));
+    history.push('/Efetivo');
 
   }
               
@@ -182,7 +114,7 @@ export default function EditarTurma( props ){
               <Link to={'/Efetivo'}  style={{textDecoration: 'none'}}>
                   <Button
                       size="small"
-                      style={{marginTop: '-46px',marginLeft: '-16px', position: 'absolute'}}
+                      style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
                       variant="outlined"
                       color="primary"
                       startIcon={<KeyboardReturnIcon />}
@@ -192,8 +124,8 @@ export default function EditarTurma( props ){
               </Link>
 
               <Grid item xs>
-                  <Grid container alignItems="center" justify="center" style={{marginTop: 15 }}>
-                    <h2>Editar efetivo</h2>
+                  <Grid container alignItems="center" justify="center">
+                    <h2>Excluir Turma</h2>
                   </Grid>
               </Grid>
 
@@ -202,11 +134,11 @@ export default function EditarTurma( props ){
           {error && <Alert style={{marginBottom: 10}} severity="error">Efetivo referente ao ano de <strong>{new Date(date).getFullYear().toString()}</strong> já existe!</Alert>}
 
           <Formik
-          validationSchema={editarTurmaSchema}
-          onSubmit={onSubmit}
-          initialValues={{
-            turma: '',
-          }}
+            validationSchema={editarTurmaSchema}
+            onSubmit={onSubmit}
+            initialValues={{
+              turma: '',
+            }}
           render={( { values, handleChange, handleSubmit, errors, touched }) => (
 
           <Form className={classes.form} autoComplete="off">
@@ -216,7 +148,7 @@ export default function EditarTurma( props ){
                 <TextField
                   variant="outlined"
                   fullWidth
-                  label="Selecione o ano"
+                  label="Selecione a turma"
                   name="turma"
                   value={values.turma}
                   onChange={handleChange}
@@ -232,24 +164,8 @@ export default function EditarTurma( props ){
                   ))}
 
                 </TextField>
+
                 <ErrorMessage name="subunidade">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
-
-              </Grid>
-
-              <Grid item xs={12}>
-
-                {values.turma && 
-                  <DatePicker
-                    fullWidth
-                    style={{textAlign: 'center'}}
-                    views={["year"]}
-                    label="Selecione um novo ano"
-                    value={date}
-                    onChange={setDate}
-                  />
-                }
-
-                <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
               </Grid>
 
@@ -257,26 +173,15 @@ export default function EditarTurma( props ){
 
             <Grid item xs={12} sm={12}>
               <Grid container direction="row" justify="center" alignItems="center">
-                <Button
-                  disabled={ values.turma === '' ? true : false}
-                  style={{margin: '20px 0px 15px 0px'}}
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className={classes.buttonSuccess}
-                >
-                  Editar
-                </Button>
-
-                <div style={{width: 15}}></div>
 
                 <Button
                   disabled={ values.turma === '' ? true : false}
-                  style={{margin: '20px 0px 15px 0px'}}
+                  fullWidth
+                  style={{margin: '15px 0px'}}
                   variant="contained"
                   color="primary"
                   className={classes.buttonDanger}
-                  onClick={handleClickOpen}
+                  onClick={ handleClickOpen }
                 >
                   excluir
                 </Button>
@@ -285,7 +190,8 @@ export default function EditarTurma( props ){
 
             </Grid>
 
-            <Dialog
+            {values.turma && 
+              <Dialog
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
@@ -294,7 +200,7 @@ export default function EditarTurma( props ){
               >
                 <>
 
-                  <DialogTitle id="alert-dialog-title"> Deseja excluir o efetivo de <strong>{values.turma.turma}</strong> e todos os militares vinculados ao mesmo? </DialogTitle>
+                  <DialogTitle id="alert-dialog-title"> Deseja excluir a turma de <strong>{values.turma.turma}</strong> e todo efetivo vinculado ao mesmo? </DialogTitle>
                   
                   <Divider style={{marginBottom: 10}}/>
                 
@@ -309,12 +215,12 @@ export default function EditarTurma( props ){
                   
                 </>
               </Dialog>
+            }
 
           </Form>
           )}
         />
       </Paper>
-
       </MuiPickersUtilsProvider>
 
 
