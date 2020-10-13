@@ -10,7 +10,6 @@ import { Link} from 'react-router-dom';
 import { listarTurma, cadastrarTurma } from '../../../../components/services/turmaService';
 import { listarSubunidades } from '../../../../components/services/subunidadeService';
 import { getUserSu } from '../../../../components/services/localStorgeService';
-import GenerateAlert from '../../../../components/errorAlert';
 import DatePickerCustom from './datePickerCustom';
 import Alert from '@material-ui/lab/Alert';
 import { useStyles } from './turmaStyles';

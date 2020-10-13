@@ -7,6 +7,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CardActions from '@material-ui/core/CardActions';
+import { Link } from 'react-router-dom';
 
 export default function SimpleCard( { info } ) {
 
@@ -42,10 +43,18 @@ export default function SimpleCard( { info } ) {
 
         </CardContent>
 
-        {info.button &&
+        {info.button && !info.link &&
           <CardActions className={classes.rootContentActions}>
             {info.button}
           </CardActions>
+        }
+
+        {info.button && info.link &&
+        <Link to={info.link} style={{textDecoration: 'none'}}>
+          <CardActions className={classes.rootContentActions}>
+            {info.button}
+          </CardActions>
+        </Link>
         }
 
       </Card>

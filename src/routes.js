@@ -70,7 +70,7 @@ const Routes = ( ) => {
             <Route exact path='/VerificarSubunidade/:id/:idOm' component={VerificarSubunidade}/>
 
             <Route exact path='/CadastrarTurma' component={CadastrarTurma}/>
-            <Route exact path='/EditarTurma/:id/:idSu' component={EditarTurma}/>
+            <Route exact path='/EditarTurma' component={EditarTurma}/>
 
             <Route exact path='/Om' component={Om}/>
     

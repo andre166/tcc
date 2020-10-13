@@ -43,6 +43,20 @@ export const listarTurma = async ( id ) => {
 
 };
 
+export const editarTurma = async ( turma ) => {
+  
+  let token = getToken();
+  let host = hearderContent( token );
+   
+  await axios.put(`${localHost}/turma/editar`, turma, {
+    headers: host
+  })
+  .catch((error) => { return error })
+  
+};
+
+
+
 
 
 

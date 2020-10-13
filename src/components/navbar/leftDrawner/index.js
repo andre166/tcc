@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import useStyles from '../sidenavStyles';
 import { getUserPerfil } from '../../services/localStorgeService';
@@ -15,7 +15,6 @@ import { bindActionCreators } from 'redux';
 function LeftDrawner( props ){
 
     const classes = useStyles();
-    // const [ renderClasses, setRenderClasses ] = useState(true);
 
     const perfil = getUserPerfil();
     
@@ -29,8 +28,7 @@ function LeftDrawner( props ){
 
         <Drawer className={classes.drawer} variant="permanent" anchor="left" open={props.navbarState.open} classes={{ paper: classes.drawerPaper }}>
 
-            <div style={{marginTop: 65}}></div>
-            {/* {props.navbarState.leftDrawnerRender && <DrawneList setRenderClasses={setRenderClasses} perfil={perfil}/>} */}
+            <div style={{marginTop: 58}}></div>
             {props.navbarState.leftDrawnerRender && <DrawneList perfil={perfil}/>}
 
         </Drawer>

@@ -187,7 +187,7 @@ function Efetivo( props ){
             icon: <EditIcon className={classes.avatarIcon}/>, 
             title: 'Editar', desc: 'Editar Efetivo', 
             subDesc: 'Edita o ano referente a um efetivo já criado. EX: mudar o efetivo de 2012 para 2014.',
-            link: '/userConfig',
+            link: '/EditarTurma',
             button: <Button size="small" color="primary" variant="contained" className={classes.buttonInfo} >Editar</Button>,
             func: () => ''
         },
