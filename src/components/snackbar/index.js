@@ -27,6 +27,9 @@ export default function CustomizedSnackbars( { info } ) {
     }else if(type == 'subunidade'){
       tipo = 'Subunidade'
       gen = 'a'
+    }else if(type == 'Turma'){
+      tipo = 'Turma'
+      gen = 'a'
     }
 
     if( severityType == 'success'){

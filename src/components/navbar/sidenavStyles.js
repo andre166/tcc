@@ -4,10 +4,11 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   active: {
+    borderLeft: '6px solid #1d3724',
     background: '#bfdcae',
     transition: 'filter 300ms',
     '&:hover': {
-      backgroundColor: '#bfdcae86 !important',
+      backgroundColor: '#bfdcae !important',
       color: '#1d3724 !important',
     }
    

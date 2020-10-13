@@ -48,16 +48,19 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import withWidth from '@material-ui/core/withWidth';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import Snackbar from '../../../components/snackbar';
 
 function Efetivo( props ){
     
     const classes = useStyles();
+    const history = useHistory();
 
     let [loading, setLoading] = useState(true);
 
     let [listaTurma, setListaTurma] = useState([]);
     let [turma, setTurma] = useState('');
     let [showTable, setShowTable] = useState('');
+    let [ renderSnackBar, setRenderSnackBar] = useState(false);
 
     let [ nenhumCadastroMsg, setNenhumCadastroMsg] = useState(false);
 
@@ -68,6 +71,14 @@ function Efetivo( props ){
     const loadPage = async ( ) =>{
 
         let response = await listarTurma( );
+
+        if( localStorage.getItem("snackBarAlert") ){
+
+            let msg = JSON.parse(localStorage.getItem("snackBarAlert"));
+    
+            setRenderSnackBar(msg)
+            
+        }
 
         if(response.length > 0){
             
@@ -104,9 +115,16 @@ function Efetivo( props ){
   
     }
 
+    const listaDeEfetivo = () => {
+        history.push(`/ListaEfetivo/${turma.id}`);
+    }
+
     const listarEfetivo = () => {
          return (
              <div className={classes.selecionarEfetivoContainer}>
+
+                {renderSnackBar && <Snackbar info={renderSnackBar} />}
+
                 <div className={classes.formControlContainer}>
 
                     <h3 style={{marginBottom: -8}}>Efetivo: </h3>
@@ -130,10 +148,10 @@ function Efetivo( props ){
 
                 <Button 
                     style={{width: '100%'}}
-                    className={classes.buttonSuccessSm}  
+                    className={classes.buttonSelecionar}  
                     size="small"
-                    variant="contained" color="primary"
-                    onClick={() => setShowTable(true)}
+                    variant="contained" color="default"
+                    onClick={() => listaDeEfetivo()}
                 >
                     Selecionar
                 </Button>
@@ -150,7 +168,6 @@ function Efetivo( props ){
             title: 'Listar Efetivo', desc: 'Selecione um ano para listar seu efetivo', 
             subDesc: listarEfetivo(),
             link: '/userConfig',
-            // button: <Button size="small" color="primary" variant="contained" >teste</Button>,
             func: () => ''
         },
         { 
@@ -158,7 +175,12 @@ function Efetivo( props ){
             title: 'Cadastrar', desc: 'Cadastrar Efetivo', 
             subDesc: 'Cadastra um ano para alocar o efetivo referente ao mesmo. Ex: 2012, 2013...',
             link: '/userConfig',
-            button: <Button size="small" color="primary" variant="contained" className={classes.buttonSuccess} >Cadastrar</Button>,
+            button: 
+            <Link to={{pathname: `/cadastrarTurma`}} style={{textDecoration: 'none'}}>
+                <Button size="small" color="primary" variant="contained" className={classes.buttonSuccess} >
+                    Cadastrar
+                </Button>
+            </Link>,
             func: () => ''
         },
         { 

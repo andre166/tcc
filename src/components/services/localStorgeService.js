@@ -43,3 +43,11 @@ export const getNavbarItem = () => {
 
     return responseStorage;
 }
+
+export const getUserSu = () => {
+
+    let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
+    let userId = responseStorage.userSu;
+    return userId;
+
+}

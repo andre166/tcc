@@ -86,12 +86,10 @@ export const omColumns = ( classes  ) => {
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
-                    // minWidth: 300,
                     textAlign: 'center'
                 }, 
                 headerStyle: { 
                     width: '100%', 
-                    // minWidth: 300,
                     textAlign: 'center'
                 }
             },
@@ -102,12 +100,10 @@ export const omColumns = ( classes  ) => {
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
-                    // minWidth: 180,
                     textAlign: 'center'
                 }, 
                 headerStyle: { 
                     width: '100%', 
-                    // minWidth: 180,
                     textAlign: 'center'
                 }
             },
@@ -123,7 +119,6 @@ export const omColumns = ( classes  ) => {
                 }, 
                 headerStyle: { 
                     width: '100%', 
-                    // minWidth: 180,
                     textAlign: 'center'
                 }
             },
@@ -139,7 +134,6 @@ export const omColumns = ( classes  ) => {
                 }, 
                 headerStyle: { 
                     width: '100%', 
-                    // minWidth: 180,
                     textAlign: 'center'
                 }
             }

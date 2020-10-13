@@ -5,16 +5,12 @@ import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-// import cadastroOmShema from '../../../../utils/schemas/cadastroOmShema';
 import HelpIcon from '@material-ui/icons/Help';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-// import GenerateAlert from '../../../../components/errorAlert';
-// import { editarOm, listarOm } from '../../../../components/services/omServices';
 import { useParams, useHistory} from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
-// import Modal from '../modal/modal';
 import { Button, Paper } from '@material-ui/core';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 

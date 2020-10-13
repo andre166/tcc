@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
+    
     root: {
         "& .MuiCardContent-root": {
             padding: '10px 20px 10px 20px'
@@ -26,4 +27,5 @@ export const useStyles = makeStyles((theme) => ({
     rootContentActions: {
         paddingBottom: 12
     }
+
 }));

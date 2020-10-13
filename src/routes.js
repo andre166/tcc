@@ -6,6 +6,8 @@ import ChInfoHome from './pages/gerenciarUsuario/home';
 import AdminHome from './pages/gerenciarAdmin/home';
 
 import Efetivo from './pages/usuario/efetivo';
+import ListaEfetivo from './pages/usuario/efetivo/listaEfetivo';
+
 import CadastrarMilitar from './pages/usuario/efetivo/cadastrarMilitar';
 import Login from './pages/login';
 import Om from './pages/om';
@@ -42,6 +44,8 @@ const Routes = ( ) => {
             <Route exact path='/AdminHome' component={AdminHome}/>
 
             <Route exact path='/Efetivo' component={Efetivo}/>
+            <Route exact path='/ListaEfetivo/:id' component={ListaEfetivo}/>
+
             <Route exact path='/' render={props => <Login {...props}/>}/>
 
             <Route exact path='/CadastrarMilitar' component={CadastrarMilitar}/>
