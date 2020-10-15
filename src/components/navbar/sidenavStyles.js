@@ -4,8 +4,9 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   active: {
-    borderLeft: '6px solid #1d3724',
-    background: '#bfdcae',
+    // borderLeft: '6px solid #1d3724',
+    // background: '#bfdcae',
+    backgroundImage: 'linear-gradient(to left, #bfdcae 97%, #1d3724 3%)',
     transition: 'filter 300ms',
     '&:hover': {
       backgroundColor: '#bfdcae !important',

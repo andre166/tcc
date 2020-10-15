@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 import './cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import FormEndereco from './components/formEndereco';
-import FormPessoal from './components/formPessoal';
-import FormMilitar from './components/formMilitar';
 import Button from '@material-ui/core/Button';
-
+import { Formik, Form, ErrorMessage} from 'formik';
+import TextField from '@material-ui/core/TextField';
+import cadastrarMilitarSchema from '../../../../utils/schemas/cadastrarMilitarSchema';
+import { cadastrarCidadao } from '../../../../components/services/cidadaoService';
+import MenuItem from '@material-ui/core/MenuItem';
+import ErrorIcon from '@material-ui/icons/Error';
 
 export default function AddContato() {
+
+    let dataAtual = new Date();
+    let diaAtual = dataAtual.getDate();
+    let mesAtual = dataAtual.getMonth() + 1;
+    let anoAtual = dataAtual.getFullYear();
+    
+    if( mesAtual < 10){
+        mesAtual = "0" + mesAtual;
+    }
+
+    if( diaAtual < 10 ){
+        diaAtual = "0" + diaAtual;
+    }
+
+    let dataString = anoAtual + '-' + mesAtual + '-' + diaAtual;
 
     //Form PESSOAL
     let [nomeCompleto, setNomeCompleto] = useState("");
@@ -59,115 +75,519 @@ export default function AddContato() {
         'I', 'R', 'B', 'MB', 'E'
     ]
 
-    const enviarForm = (e) => {
-
-        e.preventDefault();
-
-        if(idiomas.length > 0){
-            var idiomasInArray = idiomas.split(',')
-    
-            var listaDeIdiomas = [];
-    
-            idiomasInArray.map( idi => {
-                listaDeIdiomas.push(idi.trim());
-            })
-
+    async function onSubmit( values ){
+        
+        let usuario = {
+            nomeCompleto: values.nomeCompleto,
+            cpf: values.cpf ,
+            rg: values.rg ,
+            genero: values.genero ,
+            dataNasc: values.dataNasc ,
+            email: values.email ,
+            nomeMae: values.nomeMae ,
+            nomePai: values.nomePai ,
+            estadoCivil: values.estadoCivil,
+            tipo: values.tipo ,
+            telefone: values.telefone ,
+            numero: values.numero ,
+            ra: values.ra ,
+            nomeDeGuerra: values.nomeDeGuerra ,
+            qm: values.qm ,
+            cpto: values.cpto ,
+            dataPraca: values.dataPraca ,
+            postGrad: values.postGrad ,
         }
 
-        let omId = localStorage.getItem("om");
-        let subunidadeId = localStorage.getItem("subunidade");
-
-        let usuario = {
-            nomeCompleto: nomeCompleto,
-            dataNasc: dataNasc,
-            genero: genero == 'Feminino' ? 'F' : 'M',
-            cpf: cpf,
-            rg: rg,
-            email: email,
-            rg: rg,
-            nomePai: nomePai,
-            nomeMae: nomeMae,
-            estadoCivil: estadoCivil,
-            idiomas: listaDeIdiomas,
-            telefones: telefones,
-            numero: numero,
-            ra: ra,
-            nomeDeGuerra: nomeDeGuerra,
-            qm: qm,
-            cpto: cpto,
-            dataPraca: dataPraca,
-            postGrad: postGrad,
-            estado:estado,
-            cidade: cidade,
-            bairro: bairro,
-            ruaLote: ruaLote,
-            om: omId,
-            subunidade: subunidadeId
-        };
-
-        // cadastrarUsuario( usuario );
-
+        let endereco = {
+            estado: values.estado ,
+            cidade: values.cidade ,
+            bairro: values.bairro ,
+            ruaLote: values.ruaLote ,
+        }
+        
+        cadastrarCidadao( values ); 
     }
    
     return(
-        <Grid  container direction="row" justify="space-evenly" alignItems="center" className="container-cadastrarContato">
+        <Grid container direction="column"  alignContent="center"  className="container-cadastrarContato">
 
-            <form className="container-form" onSubmit={(e) => enviarForm(e)}>
 
-                <Grid container alignItems="center" justify="center">
-                    <h2>Cadastrar militar</h2>
+            <Grid container direction="column"  alignContent="center">
+            
+            <Formik
+                onSubmit={onSubmit}
+                validationSchema={cadastrarMilitarSchema}
+                initialValues={{
+                    //Form pessoal
+                    nomeCompleto:'',
+                    cpf:'15066443762',
+                    rg:'',
+                    genero:'Masculino',
+                    dataNasc: dataString,
+                    email:'',
+                    nomeMae:'',
+                    nomePai:'',
+                    estadoCivil:'Solteiro',
+                    tipo: 'Celular',
+                    telefone: '',
+                    //Form militar
+                    numero:'',
+                    ra:'999999',
+                    nomeDeGuerra:'Mesquita',
+                    qm:'',
+                    cpto:'B',
+                    dataPraca: dataString,
+                    postGrad:'SD EP',
+                    //Form endereço
+                    estado: '',
+                    cidade: '',
+                    bairro:'',
+                    ruaLote:'',
+
+                }}
+                render={( { values, handleChange, handleSubmit, errors }) => (
+
+                <Form autoComplete="off" style={{marginTop: 5, padding: 10, maxWidth: 1300}}>
+
+                    <Grid container direction="row" alignItems="center"  justify="flex-start">
+                        <div style={{background: "#fff", padding: '5px 20px', borderRadius: 4 }}>
+                            <h4>Cadastrar Militar</h4>
+                        </div>
+                    </Grid>
+
+                    <Grid  container direction="row" alignItems="center" justify="flex-start" spacing={2} style={{
+                        padding: 10, boxShadow: '2px 2px 2px #bdbfc1', borderRadius: 4, background: "#fff"
+                        }} 
+                    >
+
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.nomeCompleto}
+                                autoComplete="off"
+                                fullWidth
+                                label="Nome completo"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                name="nomeCompleto"
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={2}>
+
+                            <TextField
+                                value={values.cpf}
+                                autoComplete="off"
+                                fullWidth
+                                label="CPF"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                                name="cpf"
+                            />
+
+                            <ErrorMessage name="cpf">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
+
+                        </Grid>
+          
+                        <Grid item xs={12} sm={4} lg={2}>
+
+                            <TextField
+                                value={values.rg}
+                                name="rg"
+                                autoComplete="off"
+                                fullWidth
+                                label="RG"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={2}>
+
+                            <TextField
+                                value={values.genero}
+                                name="genero"
+                                autoComplete="off"
+                                fullWidth
+                                label="Genero"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                style={{width: '100%', maxWidth: 150}}
+                                select
+                                onChange={handleChange}
+                            >
+
+                                {arrayDeGeneros.map( (genero, index) => (
+
+                                <MenuItem  key={index} value={ genero}>
+                                    {genero}
+                                </MenuItem >
+
+                                ))}
+
+                            </TextField>
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.nomePai}
+                                fullWidth
+                                autoComplete="off"
+                                id="outlined-required"
+                                label="Nome do pai"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                                name="nomePai"
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.nomeMae}
+                                name="nomeMae"
+                                autoComplete="off"
+                                fullWidth
+                                id="outlined-required"
+                                label="Nome da mãe"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.email}
+                                autoComplete="off"
+                                fullWidth
+                                id="outlined-required"
+                                label="Email"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                                name="email"
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.dataNasc}
+                                name="dataNasc"
+                                style={{width: '100%', maxWidth: 150}}
+                                autoComplete="off"
+                                fullWidth
+                                label="Data de nascimento"
+                                type="date"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                // defaultValue={dataString}
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={12} sm={4} lg={3}>
+                            <TextField
+                                value={values.estadoCivil}
+                                autoComplete="off"
+                                fullWidth
+                                label="Estado Civil"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                select
+                                value={values.estadoCivil}
+                                onChange={handleChange}
+                                name="estadoCivil"
+                            >
+
+                                {arrayDeEstadoCivil.map( (tipo, index) => (
+
+                                <option key={index} value={ tipo} className="option">
+                                    {tipo}
+                                </option>
+
+                                ))}
+
+                            </TextField>
+
+                        </Grid>
+
+
+                    <Grid item xs={12} sm={6} lg={3} style={{minWidth: 340 }}>
+
+                        <TextField
+                            value={values.tipo}
+                            autoComplete="off"
+                            label="Tipo"
+                            margin="dense"
+                            variant="outlined"
+                            select
+                            style={{width: '100%', maxWidth: 120}}
+                            onChange={handleChange}
+                            name="tipo"
+                            value={values.tipo}
+                        >
+
+                            {arrayDeTiposDeTelefones.map( (tipo, index) => (
+
+                            <option key={index} value={ tipo} className="option">
+                                {tipo}
+                            </option>
+
+                            ))}
+
+                        </TextField>
+
+                        <TextField
+                            value={values.telefone}
+                            name="telefone"
+                            style={{width: 'calc(100% - 130px)'}}
+                            label="Telefone"
+                            margin="dense"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
+
+                    </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.ra}
+                                name="ra"
+                                style={{width: '100%', maxWidth: 200}}
+                                label="RA"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}                          
+                            />
+
+                            <ErrorMessage name="ra">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
+                            
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={1} style={{ minWidth: 250}}>
+
+                            <TextField
+                                value={values.nomeDeGuerra}
+                                name="nomeDeGuerra"
+                                style={{width: '100%'}}
+                                id="outlined-required"
+                                label="Nome de guerra"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+                            
+                            <ErrorMessage name="nomeDeGuerra">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3} >
+
+                            <TextField
+                                value={values.qm}
+                                name="qm"
+                                style={{width: '100%', maxWidth: 150}}
+                                id="outlined-required"
+                                label="QM"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}                      
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3}>
+    
+                            <TextField
+                                value={values.cpto}
+                                name="cpto"
+                                style={{width: '100%', maxWidth: 180}}
+                                select
+                                id="outlined-required"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                label="Comportamento"
+                                onChange={handleChange}
+                            >
+
+                                {arrayDeComportamentos.map( (tipo, index) => (
+
+                                    <option key={index} value={ tipo } className="option">
+                                        { tipo }
+                                    </option>
+
+                                ))}
+
+                            </TextField>
+
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.dataPraca}
+                                label="data de praça"
+                                style={{width: '100%', maxWidth: 150}}
+                                type="date"
+                                id="outlined-required"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                // defaultValue={dataString}
+                                onChange={handleChange}
+                                name="dataPraca"
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.postGrad}
+                                style={{width: '100%', maxWidth: 150}}
+                                select
+                                id="outlined-required"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                label="Post/Grad"
+                                onChange={handleChange}
+                                name="postGrad"
+                            > 
+
+                                {arrayDeGraduacoes.map( graduacao => (
+
+                                    <option key={graduacao.grad} value={graduacao.grad} className="option">
+                                        {graduacao.grad}
+                                    </option>
+
+                                ))}
+
+                            </TextField>
+
+                        </Grid>
+
+                        {values.postGrad == 'SD EV' && <Grid item xs={6} sm={4} lg={2}>
+
+                            <TextField
+                                value={values.numero}
+                                style={{width: '100%', maxWidth: 100}}
+                                label="Nº"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                type="number"
+                                min="1"
+                                onChange={handleChange}
+                                name="numero"
+                            />
+
+                        </Grid>}
+
+                        <Grid item xs={6} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.estado}
+                                label="Estado"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                                name="estado"
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.cidade}
+                                name="cidade"
+                                id="outlined-required"
+                                label="Cidade"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                        <Grid item xs={6} sm={4} lg={3}>
+
+                            <TextField
+                                value={values.bairro}
+                                name="bairro"
+                                id="outlined-required"
+                                margin="dense"
+                                style={{marginBottom: 0}}
+                                variant="outlined"
+                                label="Bairro"
+                                onChange={handleChange}
+                            />
+
+                        </Grid>
+
+                <Grid item xs={12} sm={4} lg={3}>
+
+                    <TextField
+                        value={values.ruaLote}
+                        fullWidth
+                        id="outlined-required"
+                        margin="dense"
+                        style={{marginBottom: 0}}
+                        variant="outlined"
+                        label="Rua/lote"
+                        onChange={handleChange }
+                        name="ruaLote"
+                    />
+
                 </Grid>
 
-                <FormPessoal  
-                    arrayDeGeneros={arrayDeGeneros} 
-                    arrayDeEstadoCivil={arrayDeEstadoCivil} 
-                    arrayDeTiposDeTelefones={arrayDeTiposDeTelefones}
-                    setNomeCompleto={setNomeCompleto}
-                    setCpf={setCpf}
-                    setRg={setRg}
-                    setGenero={setGenero}
-                    setDataNasc={setDataNasc}
-                    setEmail={setEmail}
-                    setRa={setRa}
-                    setNomeMae={setNomeMae}
-                    setNomePai={setNomePai}
-                    setEstadoCivil={setEstadoCivil}
-                    setIdiomas={setIdiomas}
-                    setTelefones={setTelefones}
-                    telefones={telefones}
-                />
+                    <div style={{minHeigth: 1, height: 1, width: '100%', background: '#bdbfc1', borderRadius: 2, margin: '10px 0px'}}>
+                    </div>
 
-                <FormMilitar 
-                    arrayDeGraduacoes={arrayDeGraduacoes} 
-                    arrayDeComportamentos={arrayDeComportamentos}
-                    setNumero={setNumero}
-                    setRa={setRa}
-                    setNomeDeGuerra={setNomeDeGuerra}
-                    setQm={setQm}
-                    setCpto={setCpto}
-                    setDataPraca={setDataPraca}
-                    setPostGrad={setPostGrad}
-                />
+                    <Grid container direction="row" justify="center" alignItems="center">
 
-                <FormEndereco 
-                    setEstado={setEstado}
-                    setCidade={setCidade}
-                    setBairro={setBairro}
-                    setRuaLote={setRuaLote}
-                /> 
+                        <Button variant="contained" color="primary" className="btn-success" type="submit" style={{margin: '10px 0px'}}>
+                            Cadastrar
+                        </Button>
 
-                <Divider className="divider" />
-
-                <Grid container direction="row" justify="center" alignItems="center">
-
-                    <Button variant="contained" color="primary" className="btn-success" type="submit">
-                        Cadastrar
-                    </Button>
-
-                </Grid>
-
-                
-            </form>
+                    </Grid>
+                    </Grid>
+            </Form>
+          )}
+          />
+          </Grid>
         </Grid>
               
     );

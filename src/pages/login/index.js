@@ -96,14 +96,15 @@ function Login( props ){
 
         if( login.data.usuario.perfil == 'ROLE_ADMIN' ){
           history.push('/AdminHome');
+          props.renderNavbar(true);
         }else if( login.data.usuario.perfil == 'ROLE_CHEFE_INFO' ){
           history.push('/ChInfoHome');
+          props.renderNavbar(true);
         }else if( login.data.usuario.perfil !== 'ROLE_CHEFE_INFO' && login.data.usuario.perfil !== 'ROLE_ADMIN'){
-          history.push('/UserHome');
+          history.push('/Efetivo');
+          // props.renderNavbar(true);
         }
-
-        props.renderNavbar(true);
-
+        
       }
 
     }
@@ -146,7 +147,7 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'sgtee',
+          nome: 'SGT_ANDRE_MESQ',
           senha: '12345'
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (

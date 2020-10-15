@@ -52,6 +52,10 @@ export default function ExcluirTurma( props ){
 
       let response = await listarTurma();
   
+      response.sort(function(a, b) {
+        return b.turma - a.turma;
+      });
+
       setListaTurma(response);
       setLoading(false);
 
@@ -125,7 +129,7 @@ export default function ExcluirTurma( props ){
 
               <Grid item xs>
                   <Grid container alignItems="center" justify="center">
-                    <h2>Excluir Turma</h2>
+                    <h2>Excluir Efetivo</h2>
                   </Grid>
               </Grid>
 
@@ -200,7 +204,7 @@ export default function ExcluirTurma( props ){
               >
                 <>
 
-                  <DialogTitle id="alert-dialog-title"> Deseja excluir a turma de <strong>{values.turma.turma}</strong> e todo efetivo vinculado ao mesmo? </DialogTitle>
+                <DialogTitle id="alert-dialog-title"> Deseja excluir o efetivo de <strong>{values.turma.turma}</strong> e todos os militares vinculados ao mesmo? </DialogTitle>
                   
                   <Divider style={{marginBottom: 10}}/>
                 

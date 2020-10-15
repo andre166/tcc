@@ -51,7 +51,7 @@ export default function SimpleCard( { info } ) {
 
         {info.button && info.link &&
           <CardActions className={classes.rootContentActions}>
-            <Link to={info.link} style={{textDecoration: 'none'}}>
+            <Link to={info.link} style={{textDecoration: 'none', marginTop: -5}}>
               {info.button}
             </Link>
           </CardActions>

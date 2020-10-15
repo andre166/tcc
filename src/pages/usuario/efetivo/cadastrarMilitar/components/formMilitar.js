@@ -1,97 +1,83 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
 
-export default function FormMilitar( 
-        { 
-
-            arrayDeGraduacoes, arrayDeComportamentos,
-            setNumero, setRa, setNomeDeGuerra,
-            setQm, setCpto, setDataPraca, setPostGrad
-
-        } 
-    ){
+export default function FormMilitar( { 
+        arrayDeGraduacoes, arrayDeComportamentos,
+        setNumero, setRa, setNomeDeGuerra,
+        setQm, setCpto, setDataPraca, setPostGrad
+    }){
     
     return(
 
-        <>
-
-            <Divider className="divider" />
-
-            <Grid container alignItems="center" justify="center" className="h4Form">
-                <h5>Militar</h5>
-            </Grid>
+        <Grid container direction="row" alignItems="center" justify="center">
             
-            <Grid container direction="row" justify="flex-start" alignItems="center">
+            <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
 
-                <div className="mr-4">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <TextField
-                        className="txtField"
+                        style={{width: '100%', maxWidth: 100}}
                         id="outlined-required"
                         label="Nº"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
-                        style={{width: 120}}
                         type="number"
                         min="1"
                         onChange={e => setNumero(e.target.value) }
-                        
                     />
 
-                </div>
+                </Grid>
 
-                <div className="mr-4">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <TextField
-                        className="txtField"
+                        style={{width: '100%', maxWidth: 200}}
                         id="outlined-required"
                         label="RA"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
                         onChange={e => setRa(e.target.value) }
                         
                     />
 
-                </div>
+                </Grid>
 
-                <div className="mr-4">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <TextField
-                        className="txtField"
+                        style={{width: '100%', maxWidth: 200}}
                         id="outlined-required"
                         label="Nome de guerra"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
                         onChange={e => setNomeDeGuerra(e.target.value) }
                     />
 
-                </div>
+                </Grid>
 
-                <div className="mr-4">
+                <Grid item xs={12} sm={4} lg={2} >
 
                     <TextField
-                        className="txtField"
+                        style={{width: '100%', maxWidth: 150}}
                         id="outlined-required"
                         label="QM"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
                         onChange={e => setQm(e.target.value) }
                     />
 
-                </div>
+                </Grid>
 
-                <div className="mr-4">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <TextField
+                        style={{width: '100%', maxWidth: 180}}
                         select
-                        className="txtField"
                         id="outlined-required"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
-                        style={{width: 170}}
                         label="Comportamento"
                         onChange={e => setCpto(e.target.value) }
                     >
@@ -106,50 +92,51 @@ export default function FormMilitar(
 
                     </TextField>
 
-                </div>
+                </Grid>
 
 
-                <div className="inputDataNascimento mr-4">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <label className="labelDataNascimento">Data de praça:</label>
 
                     <TextField
+                        style={{width: '100%', maxWidth: 150}}
                         type="date"
                         id="outlined-required"
-                        margin="0"
+                        margin="dense"
                         defaultValue="2017-05-24"
                         onChange={e => setDataPraca(e.target.value) }
                     />
 
-                </div>
+                </Grid>
 
 
-                <div className="mr-3">
+                <Grid item xs={12} sm={4} lg={2}>
 
                     <TextField
+                        style={{width: '100%', maxWidth: 150}}
                         select
-                        className="txtField"
                         id="outlined-required"
-                        margin="normal"
+                        margin="dense"
                         variant="outlined"
-                        style={{width: 120}}
                         label="Post/Grad"
                         onChange={e => setPostGrad(e.target.value) }
                     > 
-                    {arrayDeGraduacoes.map( graduacao => (
 
-                        <option key={graduacao.grad} value={graduacao.grad} className="option">
-                            {graduacao.grad}
-                        </option>
+                        {arrayDeGraduacoes.map( graduacao => (
 
-                    ))}
+                            <option key={graduacao.grad} value={graduacao.grad} className="option">
+                                {graduacao.grad}
+                            </option>
+
+                        ))}
 
                     </TextField>
 
-                </div>
+                </Grid>
 
             </Grid>
-        </>
+        </Grid>
 
     );
 

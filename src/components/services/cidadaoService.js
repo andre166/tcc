@@ -17,3 +17,19 @@ export const listarCidadaoPorTurma = async ( turma ) => {
     return response.data;
 
   };
+
+export const cadastrarCidadao = async ( cidadao ) => {
+
+  let token = getToken();
+
+  let host = hearderContent( token );
+
+
+  const response = await axios.post(`${localHost}/cidadao/salvar`, cidadao, {
+  headers: host
+  })
+  .catch((error) => { return error });
+
+  return response.data;
+
+};

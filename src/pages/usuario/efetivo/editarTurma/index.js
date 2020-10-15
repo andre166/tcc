@@ -96,6 +96,10 @@ export default function EditarTurma( props ){
     const loadPage = async() => {
 
       let response = await listarTurma();
+
+      response.sort(function(a, b) {
+        return b.turma - a.turma;
+      });
   
       setListaTurma(response);
       setLoading(false);

@@ -19,10 +19,14 @@ export default function GenerateAlert( obj ){
 
     const classes = useStyles();
 
-    let { msg, tipo, variant, largura, larguraMax, showIcon} = obj.alertConfig;
+    let { msg, tipo, variant, largura, larguraMax, showIcon, pad } = obj.alertConfig;
 
     if(showIcon === ''){
       showIcon = true
+    }
+
+    if( !pad ){
+      pad = '0px 8px 0px 8px'
     }
 
     let alertClass = '';
@@ -39,9 +43,9 @@ export default function GenerateAlert( obj ){
     }
 
     return (
-      <div style={{width: largura || '100%', maxWidth: larguraMax || '100%'}}>
-        <Alert variant={variant} icon={showIcon} severity={tipo} className={alertClass} style={{padding: '0px 8px 0px 8px'}}>
-          <Typography variant={variantTipoGraf} color="#fff" align="center">
+      <div style={{width: largura || '100%', maxWidth: larguraMax || '100%', padding: 0}}>
+        <Alert variant={variant} icon={showIcon} severity={tipo} className={alertClass} style={{padding: pad}}>
+          <Typography variant={variantTipoGraf} color="#fff" align="center" >
             {msg}
           </Typography> 
         </Alert>

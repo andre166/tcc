@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
     
     root: {
         "& .MuiCardContent-root": {
-            padding: '10px 20px 10px 20px'
+            padding: '10px 20px 0px 20px',
         },
         borderLeft: '6px solid #335d2d',
         width:'100%',
@@ -18,6 +18,7 @@ export const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('xl')]: {
             height: "99%",
+            minHeight: 200,
         },
     },
     title: {

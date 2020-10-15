@@ -51,3 +51,10 @@ export const getUserSu = () => {
     return userId;
 
 }
+
+export const getTurma = () => {
+
+    let responseStorage = JSON.parse(localStorage.getItem("turma"));
+    return responseStorage;
+
+}

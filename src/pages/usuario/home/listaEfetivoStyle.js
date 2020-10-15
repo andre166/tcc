@@ -4,8 +4,9 @@ export const useStyles = makeStyles((theme) => ({
     root: {
         background: '#eeeeee',
         width:'100%',
+        marginTop: 65,
         padding: 10,
-        minHeight: '100vh',
+        minHeight: 'calc(100vh - 65px)',
         [theme.breakpoints.down('xs')]: {
             marginTop: 55,
         },
@@ -30,13 +31,14 @@ export const useStyles = makeStyles((theme) => ({
             height: theme.spacing(7),
         },
     },
+
     formControl: {
         margin: theme.spacing(1),
         minWidth: 100,
-    },
-    selectEmpty: {
+      },
+      selectEmpty: {
         marginTop: theme.spacing(2),
-    },
+      },
     containerPrincipal: {
         width: '100%',
         height: 'calc(90vh - 80px) !important',
