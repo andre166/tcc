@@ -16,8 +16,17 @@ import { useStyles } from './turmaStyles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import LoadingPage from  '../../../../components/loading';
+//redux
+import { connect } from 'react-redux';
+import { 
+    renderNavbar, renderLeftDrawner
+} from '../../../../components/actions/navbarActions';
+
+import { bindActionCreators } from 'redux';
   
-export default function CadastrarTurma( props ){
+function CadastrarTurma( props ){
+  
+  props.renderNavbar(false);
     
   const classes = useStyles();
   const history = useHistory();
@@ -132,6 +141,10 @@ export default function CadastrarTurma( props ){
     
 }
 
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
+  
+const mapStateToProps =  state => state;
+export default connect( mapStateToProps, mapDispatchToProps )( CadastrarTurma )
   
   
 

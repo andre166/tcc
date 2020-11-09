@@ -7,7 +7,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: 10,
         minHeight: '100vh',
         [theme.breakpoints.down('xs')]: {
-            marginTop: 55,
+            // marginTop: 55,
         },
     },
     cardsContainer: {

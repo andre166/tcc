@@ -4,10 +4,10 @@ export const useStyles = makeStyles((theme) => ({
 
   paper: {
     padding: '10px 20px',
-    marginTop: 64,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 55,
-    },
+    // marginTop: 64,
+    // [theme.breakpoints.down('xs')]: {
+    //   marginTop: 55,
+    // },
     maxWidth: 380
 
    },

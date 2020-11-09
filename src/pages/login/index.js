@@ -102,7 +102,6 @@ function Login( props ){
           props.renderNavbar(true);
         }else if( login.data.usuario.perfil !== 'ROLE_CHEFE_INFO' && login.data.usuario.perfil !== 'ROLE_ADMIN'){
           history.push('/Efetivo');
-          // props.renderNavbar(true);
         }
         
       }

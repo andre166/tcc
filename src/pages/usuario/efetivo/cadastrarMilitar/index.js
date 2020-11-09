@@ -6,8 +6,12 @@ import { Formik, Form, ErrorMessage} from 'formik';
 import TextField from '@material-ui/core/TextField';
 import cadastrarMilitarSchema from '../../../../utils/schemas/cadastrarMilitarSchema';
 import { cadastrarCidadao } from '../../../../components/services/cidadaoService';
+import { getTurma } from '../../../../components/services/localStorgeService';
+import { listarTurma } from '../../../../components/services/turmaService';
 import MenuItem from '@material-ui/core/MenuItem';
 import ErrorIcon from '@material-ui/icons/Error';
+import moment from 'moment';
+
 
 export default function AddContato() {
 
@@ -76,36 +80,61 @@ export default function AddContato() {
     ]
 
     async function onSubmit( values ){
+
+        let turmaId = await getTurma();
+
+        let id = turmaId.id;
+
+        let turma = await listarTurma( id );
+
+        console.log("turmaId ==>" , turmaId.id)
+        console.log("turma ==>" , turma)
+
+        let numeroDeRecruta = null;
+
+        if( values.postGrad == 'SD EV' ){
+            numeroDeRecruta = values.numero
+        }
         
-        let usuario = {
+        let cidadao = {
+            cidadaosStatus: 0,
             nomeCompleto: values.nomeCompleto,
             cpf: values.cpf ,
             rg: values.rg ,
             genero: values.genero ,
-            dataNasc: values.dataNasc ,
+            dataDeNascimento: moment( values.dataNasc ).utc().format('DD/MM/YYYY'),
             email: values.email ,
             nomeMae: values.nomeMae ,
             nomePai: values.nomePai ,
             estadoCivil: values.estadoCivil,
             tipo: values.tipo ,
             telefone: values.telefone ,
-            numero: values.numero ,
+            numero: numeroDeRecruta ,
             ra: values.ra ,
             nomeDeGuerra: values.nomeDeGuerra ,
             qm: values.qm ,
-            cpto: values.cpto ,
-            dataPraca: values.dataPraca ,
+            comportamento: values.cpto ,
+            dataDePraca:  moment( values.dataPraca ).utc().format('DD/MM/YYYY'),
             postGrad: values.postGrad ,
+            turma: turma
         }
 
         let endereco = {
+            id: null,
             estado: values.estado ,
             cidade: values.cidade ,
             bairro: values.bairro ,
-            ruaLote: values.ruaLote ,
+            rua: values.ruaLote ,
+            cidadao: null
         }
+
+        let CidadaoComEndereco = {
+            cidadao: cidadao,
+            endereco: endereco
+        }
+
         
-        cadastrarCidadao( values ); 
+        cadastrarCidadao( CidadaoComEndereco ); 
     }
    
     return(
@@ -119,30 +148,30 @@ export default function AddContato() {
                 validationSchema={cadastrarMilitarSchema}
                 initialValues={{
                     //Form pessoal
-                    nomeCompleto:'',
+                    nomeCompleto:'Andre de souza',
                     cpf:'15066443762',
-                    rg:'',
+                    rg:'275896',
                     genero:'Masculino',
                     dataNasc: dataString,
-                    email:'',
-                    nomeMae:'',
-                    nomePai:'',
+                    email:'andre@mesqui',
+                    nomeMae:'asbajbs',
+                    nomePai:'aosjajs',
                     estadoCivil:'Solteiro',
                     tipo: 'Celular',
-                    telefone: '',
+                    telefone: '218956684',
                     //Form militar
                     numero:'',
                     ra:'999999',
                     nomeDeGuerra:'Mesquita',
-                    qm:'',
+                    qm:'11/47',
                     cpto:'B',
                     dataPraca: dataString,
                     postGrad:'SD EP',
                     //Form endereço
-                    estado: '',
-                    cidade: '',
-                    bairro:'',
-                    ruaLote:'',
+                    estado: 'rj',
+                    cidade: 'niterói',
+                    bairro:'maria paula',
+                    ruaLote:'itaboraí',
 
                 }}
                 render={( { values, handleChange, handleSubmit, errors }) => (
@@ -496,9 +525,10 @@ export default function AddContato() {
 
                         </Grid>
 
-                        {values.postGrad == 'SD EV' && <Grid item xs={6} sm={4} lg={2}>
+                        <Grid item xs={6} sm={4} lg={2}>
 
                             <TextField
+                                disabled={ values.postGrad == 'SD EV' ? false : true }
                                 value={values.numero}
                                 style={{width: '100%', maxWidth: 100}}
                                 label="Nº"
@@ -511,7 +541,7 @@ export default function AddContato() {
                                 name="numero"
                             />
 
-                        </Grid>}
+                        </Grid>
 
                         <Grid item xs={6} sm={4} lg={3}>
 

@@ -7,7 +7,6 @@ export const listarCidadaoPorTurma = async ( turma ) => {
     let token = getToken();
   
     let host = hearderContent( token );
-
   
     const response = await axios.post(`${localHost}/cidadao/listarPorTurma`, turma, {
     headers: host
@@ -24,6 +23,7 @@ export const cadastrarCidadao = async ( cidadao ) => {
 
   let host = hearderContent( token );
 
+  console.log("values", cidadao)
 
   const response = await axios.post(`${localHost}/cidadao/salvar`, cidadao, {
   headers: host

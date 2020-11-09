@@ -23,6 +23,8 @@ export const listarTurma = async ( id ) => {
 
   if( id ){
 
+    console.log("aqui =======>>>>>", id)
+
     response = await axios.get(`${localHost}/turma/listar/${id}`,{
       headers: host
     })

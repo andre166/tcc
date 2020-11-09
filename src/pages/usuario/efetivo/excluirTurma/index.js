@@ -22,8 +22,17 @@ import Alert from '@material-ui/lab/Alert';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+//redux
+import { connect } from 'react-redux';
+import { 
+    renderNavbar, renderLeftDrawner
+} from '../../../../components/actions/navbarActions';
 
-export default function ExcluirTurma( props ){
+import { bindActionCreators } from 'redux';
+
+function ExcluirTurma( props ){
+
+  props.renderNavbar(false);
   
   const classes = useStyles();
   const theme = useTheme();
@@ -232,6 +241,11 @@ export default function ExcluirTurma( props ){
     );
     
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
+  
+const mapStateToProps =  state => state;
+export default connect( mapStateToProps, mapDispatchToProps )( ExcluirTurma )
 
   
   

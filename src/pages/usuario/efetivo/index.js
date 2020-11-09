@@ -29,7 +29,7 @@ import { bindActionCreators } from 'redux';
 
 function Efetivo( props ){
 
-    props.renderNavbar(false)
+    props.renderNavbar(false);
     
     const classes = useStyles();
     const history = useHistory();
@@ -105,8 +105,10 @@ function Efetivo( props ){
         }
           
         localStorage.setItem("turma", JSON.stringify(info)); 
+        localStorage.setItem("navBarItem", 1);
 
-        history.push(`/ListaEfetivo/${turma.id}`);
+        history.push(`/UserHome`);
+
     }
 
     const listarEfetivo = () => {
@@ -197,9 +199,9 @@ function Efetivo( props ){
     return(
 
         <div className={classes.root}>
-            <GridList cellHeight={'100%'} cols={defineCols()} spacing={10}>
+            <GridList cellHeight={220} cols={defineCols()} spacing={5}>
                 {colunas.map( (col, i) => (
-                    <GridListTile key={i} cols={1}>
+                    <GridListTile key={i} cols={1} style={{padding: 5}}>
                         <Card info={col}/>
                     </GridListTile>
                 ))}

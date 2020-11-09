@@ -14,6 +14,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import GroupIcon from '@material-ui/icons/Group';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import { useHistory } from 'react-router-dom';
+import { getTurma } from '../../components/services/localStorgeService';
 
 const sair = ( ) => {
     localStorage.removeItem("navBarItem");
@@ -59,9 +60,11 @@ export const gerencialDrawner = [
 ]
 
 export const userDrawner = [
+
     {id: 1, nome: 'Página inicial', link: '/UserHome', icone: <HomeIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 1) },
-    {id: 2, nome: 'Efetivo', link: '/Efetivo', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
     {id: 5, nome: 'Cadastrar militar', link: '/CadastrarMilitar', icone: <PostAddIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 5) },
     {id: 6, nome: 'Estatística', icone: <PieChartIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 6) },
+    {id: 2, nome: `Efetivo`, link: '/Efetivo', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
     {id: 8, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
+
 ]

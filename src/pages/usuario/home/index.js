@@ -28,8 +28,10 @@ function ListaEfetivo( props ){
         let turma = getTurma();
 
         if( !turma ){
-            history.push('/')
+            history.push('/');
         }
+
+        
 
         setLoading(false);
 

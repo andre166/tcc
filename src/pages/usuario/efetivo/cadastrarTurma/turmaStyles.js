@@ -10,10 +10,10 @@ export const useStyles = makeStyles((theme) => ({
         
     },
     containerGeral:{
-        marginTop: 65,
-        [theme.breakpoints.down('xs')]: {
-            marginTop: 55,
-        },
+        // marginTop: 65,
+        // [theme.breakpoints.down('xs')]: {
+        //     marginTop: 55,
+        // },
         padding: 5
     },
     paperCadastrarOm: {
