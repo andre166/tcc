@@ -28,6 +28,11 @@ import GenerateAlert from '../../../components/errorAlert';
 import { useStyles } from './editUsuStyle';
 import LoadingPage from  '../../../components/loading'
 import { useHistory} from 'react-router-dom';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import { cpfMasck } from '../../../components/masks/cpfMasck';
+import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
 
 function CadastrarAdmin2( props ){
 
@@ -90,7 +95,7 @@ function CadastrarAdmin2( props ){
 
     async function onSubmit( values ){
 
-      console.log("values", values)
+      values.cpf = retirarMaskCpf( values.cpf );
 
       let info = {
         severityType: 'info',
@@ -181,13 +186,19 @@ function CadastrarAdmin2( props ){
 
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Cpf"
-                  name="cpf"
-                  value={values.cpf}
-                  onChange={handleChange}
-                />
+                <FormControl className={classes.inputTxt} style={{width: '100%'}}>
+
+                  <InputLabel htmlFor="my-input">Cpf</InputLabel>
+
+                  <Input
+                    name="cpf"
+                    value={values.cpf}
+                    inputComponent={cpfMasck}
+                    onChange={handleChange}
+                  />
+
+                </FormControl>
+
                 <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
 
               </Grid>

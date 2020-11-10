@@ -26,6 +26,11 @@ import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './editStyle';
 import GenerateAlert from '../../../components/errorAlert';
 import LoadingPage from '../../../components/loading';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import { cpfMasck } from '../../../components/masks/cpfMasck';
+import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
 
 function CadastrarAdmin2( props ){
 
@@ -118,6 +123,8 @@ function CadastrarAdmin2( props ){
     }
 
     async function onSubmit( values ){
+
+      values.cpf = retirarMaskCpf( values.cpf );
 
       Object.assign(values, {id: usuario.id});
 
@@ -212,13 +219,18 @@ function CadastrarAdmin2( props ){
 
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Cpf"
-                name="cpf"
-                value={values.cpf}
-                onChange={handleChange}
-              />
+              <FormControl className={classes.inputTxt}>
+
+                <InputLabel htmlFor="my-input">Cpf</InputLabel>
+
+                <Input
+                  name="cpf"
+                  value={values.cpf}
+                  inputComponent={cpfMasck}
+                  onChange={handleChange}
+                />
+
+              </FormControl>
               <ErrorMessage name="cpf">{(msg) => verificarErro(msg) }</ErrorMessage>
             </Grid>
 

@@ -1,11 +1,14 @@
 export function validateCnpj( cnpjParaFormatar ){
 
     let regex = /^\d{14}$/
-    let testeRegex1 = regex.test(cnpjParaFormatar);
-    
-    if( testeRegex1 ){
+    let regex2 = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
 
-        let cnpj = cnpjParaFormatar.toString();
+    let testeRegex1 = regex.test(cnpjParaFormatar);
+    let testeRegex2 = regex2.test(cnpjParaFormatar);
+
+    let cnpj = cnpjParaFormatar.toString();
+
+    if( testeRegex1 ){
     
         let cnpj1 = cnpj.substring(0,2);
         let cnpj2 = cnpj.substring(2,5);
@@ -16,6 +19,11 @@ export function validateCnpj( cnpjParaFormatar ){
         let cnpjMask = cnpj1 + '.' + cnpj2 + '.' + cnpj3 + '/' + cnpj4 + '-' + cnpj5;
 
         return cnpjValido(cnpjMask);
+
+    }else if( testeRegex2 ){
+
+        return cnpjValido(cnpj);
+        
     }
 
     return false;
@@ -82,5 +90,32 @@ export function maskCnpj( _cnpj ){
     let cnpjMask = cnpj1 + '.' + cnpj2 + '.' + cnpj3 + '/' + cnpj4 + '-' + cnpj5;
 
     return cnpjMask;
+
+}
+
+export function retirarMasckCnpj( _cnpj ){
+
+    let regex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
+
+    let testeRegex = regex.test(_cnpj);
+
+    let cnpj = _cnpj.toString();
+
+    if( testeRegex ){
+
+        let cnpj1 = cnpj.substring(0,2);
+        let cnpj2 = cnpj.substring(3,6);
+        let cnpj3 = cnpj.substring(7,10);
+        let cnpj4 = cnpj.substring(11,15);
+        let cnpj5 = cnpj.substring(16,18);
+        
+        let cnpjMask = cnpj1 + cnpj2 + cnpj3 + cnpj4 + cnpj5;
+    
+        return cnpjMask;
+
+    }
+
+    return _cnpj;
+
 
 }

@@ -46,3 +46,12 @@ export function maskCep( _cep ){
 
 
 }
+
+export function retirarMaskCep( _cep ){
+
+    var cep = _cep.replace(/\D/g, '');
+
+
+    return cep;
+
+}

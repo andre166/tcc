@@ -7,9 +7,14 @@ export function validateCpf( cpfParaFormatar ){
     let cpf = cpfParaFormatar.toString();
 
     let regex = /^\d{11}$/
+    let regex2 = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
+
+
     let testeRegex1 = regex.test(cpfParaFormatar);
+    let testeRegex2 = regex2.test(cpfParaFormatar);
 
     if( testeRegex1 ){
+
         let cpf = cpfParaFormatar.toString();
     
         let cpf1 = cpf.substring(0,3);
@@ -20,6 +25,11 @@ export function validateCpf( cpfParaFormatar ){
         let cpfMask = cpf1 + '.' + cpf2 + '.' + cpf3 + '-' + cpf4
     
         return cpfValido(cpfMask);
+
+    }else if( testeRegex2 ){
+
+        return cpfValido(cpfParaFormatar);
+
     }
 
     return false;
@@ -91,6 +101,12 @@ export function maskCpf( _cpf ){
         return _cpf;
     }
 
+}
 
+export function retirarMaskCpf( _cpf ){
+
+    var cpf = _cpf.replace(/\D/g, '');
+
+    return cpf;
 
 }

@@ -16,6 +16,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import LightTooltip from '../../../../utils/toolTip';
 import { useStyles } from './cadOmStyle';
+import FormControl from '@material-ui/core/FormControl';
+import {  cnpjMasck } from "../../../../components/masks/cnpjMask";
+import {  cepMasck } from "../../../../components/masks/cepMask";
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import { retirarMasckCnpj } from '../../../../utils/maskAndValidators/cnpj';
+import { retirarMaskCep } from '../../../../utils/maskAndValidators/cep';
 
 export default function FormCadastro(){
      
@@ -26,6 +33,9 @@ export default function FormCadastro(){
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     async function onSubmit( values ){
+
+      values.cnpj = retirarMasckCnpj( values.cnpj );
+      values.cep = retirarMaskCep( values.cep );
 
       values.nomeAbrev = values.nomeAbrev.trim();
       values.nomeOm = values.nomeOm.trim();
@@ -129,25 +139,33 @@ export default function FormCadastro(){
                   }}
                 />
                 <ErrorMessage name="nomeAbrev">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
-                      
-                <TextField  
-                  className={classes.inputTxt}
-                  required
-                  label="CNPJ" 
-                  name="cnpj"
-                  value={values.cnpj}
-                  onChange={handleChange}
-                />
+                  <FormControl className={classes.inputTxt}>
+
+                    <InputLabel htmlFor="my-input">CNPJ</InputLabel>
+
+                    <Input
+                      name="cnpj"
+                      value={values.cnpj}
+                      inputComponent={cnpjMasck}
+                      onChange={handleChange}
+                    />
+
+                  </FormControl>
                 <ErrorMessage name="cnpj">{(msg) => verificarErro(msg) }</ErrorMessage>
 
-                <TextField  
-                  className={classes.inputTxt}
-                  required
-                  label="CEP" 
-                  name="cep"
-                  value={values.cep}
-                  onChange={handleChange}
-                />
+                <FormControl className={classes.inputTxt}>
+
+                  <InputLabel htmlFor="my-input">CEP</InputLabel>
+
+                  <Input
+                    name="cep"
+                    value={values.cep}
+                    inputComponent={cepMasck}
+                    onChange={handleChange}
+                  />
+
+                </FormControl>
+
                 <ErrorMessage name="cep">{(msg) => verificarErro(msg) }</ErrorMessage>
 
                 <Button type="submit" variant="contained" color="primary" className={classes.buttonSuccess}>

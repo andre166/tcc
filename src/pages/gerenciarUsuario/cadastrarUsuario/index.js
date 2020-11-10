@@ -16,10 +16,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import withWidth from '@material-ui/core/withWidth';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import { cpfMasck } from '../../../components/masks/cpfMasck';
+import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
 import LockIcon from '@material-ui/icons/Lock';
 import { useHistory} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -57,7 +59,11 @@ function CadastrarAdmin2(){
 
     }, []);
 
-    async function onSubmit( values, action ){
+    async function onSubmit( values ){
+
+      values.cpf = retirarMaskCpf( values.cpf );
+
+      console.log("values.cpf", values.cpf)
 
       let info = {
         severityType: 'success',
@@ -137,13 +143,19 @@ function CadastrarAdmin2(){
               </Grid>
            
               <Grid item xs={12} sm={12}>
-                <TextField
-                  fullWidth
-                  label="Cpf"
-                  name="cpf"
-                  value={values.cpf}
-                  onChange={handleChange}
-                />
+                <FormControl className={classes.inputTxt} style={{width: '100%'}}>
+
+                  <InputLabel htmlFor="my-input">Cpf</InputLabel>
+
+                  <Input
+                    name="cpf"
+                    value={values.cpf}
+                    inputComponent={cpfMasck}
+                    onChange={handleChange}
+                  />
+
+                </FormControl>
+
                 <ErrorMessage name="cpf">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
               </Grid>
 

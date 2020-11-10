@@ -30,6 +30,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from './cadAdminStyle';
 import LoadingPage from '../../../components/loading';
+import { cpfMasck } from '../../../components/masks/cpfMasck';
+import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
 
 function CadastrarAdmin2(){
 
@@ -68,7 +70,9 @@ function CadastrarAdmin2(){
       inicializarForm();
     }, []);
 
-    async function onSubmit( values, action ){
+    async function onSubmit( values ){
+
+      values.cpf = retirarMaskCpf( values.cpf );
 
       let info = {
         severityType: 'success',
@@ -80,8 +84,6 @@ function CadastrarAdmin2(){
       await addUser( values );
       
       history.push('/GerenciarAdmin');
-
-
 
     }
 
@@ -158,14 +160,20 @@ function CadastrarAdmin2(){
             </Grid>
            
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="off"
-                fullWidth
-                label="Cpf"
-                name="cpf"
-                value={values.cpf}
-                onChange={handleChange}
-              />
+
+              <FormControl className={classes.inputTxt}>
+
+                <InputLabel htmlFor="my-input">Cpf</InputLabel>
+
+                <Input
+                  name="cpf"
+                  value={values.cpf}
+                  inputComponent={cpfMasck}
+                  onChange={handleChange}
+                />
+
+              </FormControl>
+
               <ErrorMessage name="cpf">{(msg) =>  verificarErro(msg) }</ErrorMessage>
 
             </Grid>
