@@ -25,7 +25,7 @@ export const colunaSubunidade = [
         title: 'Nome Abreviado', 
         field: 'nomeSubunidade', 
         type: 'string', 
-        renderGraph: true,
+        renderGraph: false,
         cellStyle: { 
             width: '100%', 
             minWidth: 180,
@@ -41,7 +41,7 @@ export const colunaSubunidade = [
         title: 'Nome Abreviado', 
         field: 'nomeSubunidade', 
         type: 'string', 
-        renderGraph: true,
+        renderGraph: false,
         cellStyle: { 
             width: '100%', 
             minWidth: 300,
@@ -73,7 +73,7 @@ export const colunaSubunidade = [
         title: 'Efetivo', 
         field: 'cidadao.length', 
         type: 'string', 
-        renderGraph: true,
+        renderGraph: false,
         cellStyle: { 
             width: '100%', 
             minWidth: 300,

@@ -35,6 +35,10 @@ import { bindActionCreators } from 'redux';
 
 function AdicionarMilitar( props ) {
 
+    if( !props.navbarState.renderNavBar ){
+        props.renderNavbar(true);
+    }
+
     let dataAtual = new Date();
     let diaAtual = dataAtual.getDate();
     let mesAtual = dataAtual.getMonth() + 1;

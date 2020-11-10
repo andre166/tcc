@@ -15,6 +15,8 @@ import { Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { maskCpf } from '../../../../utils/maskAndValidators/cpf';
 import { maskTelefone } from '../../../../utils/maskAndValidators/telefone';
+import { maskRa } from '../../../../utils/maskAndValidators/ra';
+import { maskRg } from '../../../../utils/maskAndValidators/rg';
 import Snackbar from '../../../../components/snackbar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -88,7 +90,7 @@ function ListaEfetivo( props ){
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
 
-        if( cidadaoList.lenght == undefined ){
+        if( cidadaoList[0] == undefined ){
 
             setNenhumaMilitarCadastrado(true);
             setLoading(false);
@@ -99,12 +101,10 @@ function ListaEfetivo( props ){
 
             c.cpf = maskCpf( c.cpf );
             c.telefone = maskTelefone( c.telefone );
-            // c.ra =
-            // c.rg = 
+            c.ra = maskRa( c.ra );
+            c.rg = maskRg( c.rg );
 
         })
-
-        console.log("cidadaoList ===>", cidadaoList.lenght)
   
         let colunas = colunaCidadao( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
         
@@ -116,6 +116,16 @@ function ListaEfetivo( props ){
 
   if(loading){ return <LoadingPage/>}
 
+  const goToAnotherPage = () => {
+
+    localStorage.setItem("navBarItem", 5);
+
+    props.renderNavbar(false);
+
+    history.push('/CadastrarMilitar')
+
+  }
+
   return(
         <div className={classes.container} >
 
@@ -125,11 +135,12 @@ function ListaEfetivo( props ){
                     <List>
                         <ListItem>
                             <ListItemText 
-                                primary="Nenhum Militar cadastrado!" 
+                                primary="Nenhum Militar cadastrado." 
                                 secondary={
                                     <>
                                         Click 
-                                        <Link style={{textDecoration: 'none'}} to={'/CadastrarMilitar'}> Aqui </Link>
+                                        {/* <Link style={{textDecoration: 'none'}} to={'/CadastrarMilitar'}> Aqui </Link> */}
+                                        <Button onClick={goToAnotherPage} size="small" color="default" variant="contained" style={{marginLeft: 5, marginRight: 5}} to={'/CadastrarMilitar'}> Aqui </Button>
                                         para cadastrar um militar.
                                     </>
 

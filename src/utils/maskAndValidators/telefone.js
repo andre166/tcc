@@ -2,8 +2,6 @@ export function maskTelefone( _telefone ){
 
     let telefone = _telefone.replace(/\D/g, '');
 
-    console.log("_telefone", telefone)
-
     let regex = /^\d{9}$/
     let regex2 = /^\d{10}$/
     let testeRegex1 = regex.test(telefone);
