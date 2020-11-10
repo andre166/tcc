@@ -63,6 +63,20 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none !important',
     color: '#1d3724 !important',
     letterSpacing: 1,
+    '& teste': {
+      color: 'red !important',
+      backgroundColor: 'red !important',
+
+    },
+    '&:hover': {
+      backgroundColor: '#1d3724 !important',
+      color: '#fff !important',
+    }
+  },
+  linkIcon:{
+    textDecoration: 'none !important',
+    color: '#1d3724 !important',
+    letterSpacing: 1,
     '&:hover': {
       backgroundColor: '#1d3724 !important',
       color: '#fff !important',

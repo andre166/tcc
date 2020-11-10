@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useStyles } from './listaEfetivoStyle';
 import LoadingPage from  '../../../../components/loading';
 import withWidth from '@material-ui/core/withWidth';
@@ -13,7 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import { Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import { maskCpf } from '../../../../utils/maskAndValidators/cpf';
+import { maskTelefone } from '../../../../utils/maskAndValidators/telefone';
+import Snackbar from '../../../../components/snackbar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -32,10 +37,13 @@ function ListaEfetivo( props ){
     const history = useHistory();
 
     let [loading, setLoading] = useState(true);
+    let [ renderSnackBar, setRenderSnackBar] = useState(false);
     const [data, setData] = useState([]);
     const [openAlterKey, setOpenAlterKey] = useState(false);
     const [ rowInfo, setRowInfo] = useState(false);
     const [open, setOpen] = useState(false);
+
+    const [ nenhumaMilitarCadastrado, setNenhumaMilitarCadastrado] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -61,6 +69,14 @@ function ListaEfetivo( props ){
             history.push('/');
         }
 
+        if( localStorage.getItem("snackBarAlert") ){
+
+            let msg = JSON.parse(localStorage.getItem("snackBarAlert"));
+    
+            setRenderSnackBar(msg)
+            
+        }
+
         inicializarForm();
 
     }, []);
@@ -72,7 +88,23 @@ function ListaEfetivo( props ){
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
 
-        console.log("cidadaoList ===>", cidadaoList)
+        if( cidadaoList.lenght == undefined ){
+
+            setNenhumaMilitarCadastrado(true);
+            setLoading(false);
+            return;
+        }
+
+        cidadaoList.map( c => {
+
+            c.cpf = maskCpf( c.cpf );
+            c.telefone = maskTelefone( c.telefone );
+            // c.ra =
+            // c.rg = 
+
+        })
+
+        console.log("cidadaoList ===>", cidadaoList.lenght)
   
         let colunas = colunaCidadao( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
         
@@ -86,6 +118,30 @@ function ListaEfetivo( props ){
 
   return(
         <div className={classes.container} >
+
+            {renderSnackBar && <Snackbar info={renderSnackBar} />}
+            {nenhumaMilitarCadastrado && 
+                <div style={{borderTop: '1px solid gray', borderBottom: '1px solid #bdbfc1', padding: 5}}> 
+                    <List>
+                        <ListItem>
+                            <ListItemText 
+                                primary="Nenhum Militar cadastrado!" 
+                                secondary={
+                                    <>
+                                        Click 
+                                        <Link style={{textDecoration: 'none'}} to={'/CadastrarMilitar'}> Aqui </Link>
+                                        para cadastrar um militar.
+                                    </>
+
+                                } 
+                            />
+                        </ListItem>
+                    </List>
+                    {/* <h4 style={{marginTop: 17, marginLeft: 20}}></h4> */}
+                </div>
+            }
+
+
             {columns.lenght === 0 ? '' : 
                 <>
 

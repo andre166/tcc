@@ -9,8 +9,6 @@ export default function CustomizedSnackbars( { info } ) {
 
   let { severityType, type,  variantType } = info;
 
-  let msg = '';
-
   function generateMsg(){
 
     let tipo = ''
@@ -30,6 +28,9 @@ export default function CustomizedSnackbars( { info } ) {
     }else if(type == 'Turma'){
       tipo = 'Turma'
       gen = 'a'
+    }else if(type == 'militar'){
+      tipo = 'Militar'
+      gen = 'o'
     }
 
     if( severityType == 'success'){
@@ -57,8 +58,6 @@ export default function CustomizedSnackbars( { info } ) {
     variantType = 'filled'
   }
 
-  const message = generateMsg();
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -72,9 +71,9 @@ export default function CustomizedSnackbars( { info } ) {
   return (
     <div className={classes.root}>
       <Snackbar open={open} 
-      autoHideDuration={4000} 
-      onClose={handleClose}
-      message={generateMsg()}>
+        autoHideDuration={4000} 
+        onClose={handleClose}
+        message={generateMsg()}>
       </Snackbar>
     </div>
   );

@@ -4,7 +4,7 @@ import { validateCpf } from '../maskAndValidators/cpf';
 
 export default Yup.object().shape({
     nomeCompleto: Yup.string(),
-    cpf: Yup.string().required('Digite o cpf.').length(11, "Deve conter 11 números.").test( '', "Não é um CPF válido.", value => validateCpf(value)),
+    cpf: Yup.string().required('Digite o cpf.').test( '', "Não é um CPF válido.", value => validateCpf(value)),
     rg: Yup.string(),
     genero: Yup.string(),
     dataNasc: Yup.string(),
@@ -20,7 +20,7 @@ export default Yup.object().shape({
     qm: Yup.string(),
     cpto: Yup.string(),
     dataPraca: Yup.string(),
-    postGrad: Yup.string(),
+    postGrad: Yup.string().required("Selecione uma graduação."),
     estado:  Yup.string(),
     cidade:  Yup.string(),
     bairro: Yup.string(),

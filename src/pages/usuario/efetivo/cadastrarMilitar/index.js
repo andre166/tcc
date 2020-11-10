@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -11,16 +11,36 @@ import { listarTurma } from '../../../../components/services/turmaService';
 import MenuItem from '@material-ui/core/MenuItem';
 import ErrorIcon from '@material-ui/icons/Error';
 import moment from 'moment';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import { rgMasck } from '../../../../components/masks/rgMasck';
+import { cpfMasck } from '../../../../components/masks/cpfMasck';
+import { telFixoMasck, telMasck } from '../../../../components/masks/telMasck';
+import { raMasck } from '../../../../components/masks/raMasck';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import { postGradList } from '../../../../utils/PostGradList';
+import HelpIcon from '@material-ui/icons/Help';
+import LightTooltip from '../../../../utils/toolTip';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { useHistory}  from 'react-router-dom';
+//redux
+import { connect } from 'react-redux';
+import { 
+    renderNavbar, renderLeftDrawner
+} from '../../../../components/actions/navbarActions';
 
-export default function AddContato() {
+import { bindActionCreators } from 'redux';
+
+function AdicionarMilitar( props ) {
 
     let dataAtual = new Date();
     let diaAtual = dataAtual.getDate();
     let mesAtual = dataAtual.getMonth() + 1;
     let anoAtual = dataAtual.getFullYear();
+
+    const history = useHistory();
     
     if( mesAtual < 10){
         mesAtual = "0" + mesAtual;
@@ -32,39 +52,6 @@ export default function AddContato() {
 
     let dataString = anoAtual + '-' + mesAtual + '-' + diaAtual;
 
-    //Form PESSOAL
-    let [nomeCompleto, setNomeCompleto] = useState("");
-    let [cpf, setCpf] = useState("");
-    let [rg, setRg] = useState("");
-    let [genero, setGenero] = useState("");
-    let [dataNasc, setDataNasc] = useState("");
-    let [email, setEmail] = useState("");
-    let [nomeMae, setNomeMae] = useState("");
-    let [nomePai, setNomePai] = useState("");
-    let [estadoCivil, setEstadoCivil] = useState("");
-    let [idiomas, setIdiomas] = useState("");
-    let [ telefones, setTelefones] = useState([ [null, null, null],[null, null, null]]);
-
-    //Form MILITAR
-    let [numero, setNumero] = useState("");
-    let [ra, setRa] = useState("");
-    let [nomeDeGuerra, setNomeDeGuerra] = useState("");
-    let [qm, setQm] = useState("");
-    let [cpto, setCpto] = useState("");
-    let [dataPraca, setDataPraca] = useState("");
-    let [postGrad, setPostGrad] = useState("");
-
-    //Form ENDEREÇO
-
-    let [estado, setEstado] = useState("");
-    let [cidade, setCidade] = useState("");
-    let [bairro, setBairro] = useState("");
-    let [ruaLote, setRuaLote] = useState("");
-    
-    const arrayDeGraduacoes = [
-        {grad: 'SGT'}, {grad: 'CB'},{grad: 'SD EP'}, {grad: 'SD EV'}
-    ]
-
     const arrayDeGeneros = [
         'Masculino', 'Feminino'
     ]
@@ -74,7 +61,7 @@ export default function AddContato() {
     ]
 
     const arrayDeTiposDeTelefones = [
-        'Fixo', 'Celular', 'Familiar'
+        'Fixo', 'Celular'
     ]
 
     const arrayDeComportamentos = [
@@ -89,8 +76,10 @@ export default function AddContato() {
 
         let turma = await listarTurma( id );
 
-        console.log("turmaId ==>" , turmaId.id)
-        console.log("turma ==>" , turma)
+        values.cpf = values.cpf.replace(/\D/g, '');
+        values.rg = values.rg.replace(/\D/g, '');
+        values.telefone = values.telefone.replace(/\D/g, '');
+        values.ra = values.ra.replace(/\D/g, '');
 
         let numeroDeRecruta = null;
 
@@ -136,7 +125,19 @@ export default function AddContato() {
         }
 
         
-        cadastrarCidadao( CidadaoComEndereco ); 
+        await cadastrarCidadao( CidadaoComEndereco ); 
+
+        let info = {
+            severityType: 'success',
+            type: 'militar', 
+        }
+    
+        localStorage.setItem("snackBarAlert", JSON.stringify(info));
+        localStorage.setItem("navBarItem", 3);
+
+        props.renderNavbar(false);
+    
+        history.push('/ListaEfetivo');
     }
 
     const cabecalho = () => {
@@ -165,7 +166,7 @@ export default function AddContato() {
                     //Form pessoal
                     nomeCompleto:'Andre de souza',
                     cpf:'15066443762',
-                    rg:'275896',
+                    rg:'279343883',
                     genero:'Masculino',
                     dataNasc: dataString,
                     email:'andre@mesqui',
@@ -176,7 +177,7 @@ export default function AddContato() {
                     telefone: '218956684',
                     //Form militar
                     numero:'',
-                    ra:'999999',
+                    ra:'02018483258-0',
                     nomeDeGuerra:'Mesquita',
                     qm:'11/47',
                     cpto:'B',
@@ -223,17 +224,18 @@ export default function AddContato() {
 
                         <Grid item xs={12} sm={4} lg={2}>
 
-                            <TextField
-                                value={values.cpf}
-                                autoComplete="off"
-                                fullWidth
-                                label="CPF"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}
-                                name="cpf"
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">CPF</InputLabel>
+
+                                <Input
+                                    name="cpf"
+                                    value={values.cpf}
+                                    inputComponent={cpfMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                             <ErrorMessage name="cpf">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
 
@@ -241,17 +243,18 @@ export default function AddContato() {
           
                         <Grid item xs={12} sm={4} lg={2}>
 
-                            <TextField
-                                value={values.rg}
-                                name="rg"
-                                autoComplete="off"
-                                fullWidth
-                                label="RG"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">RG</InputLabel>
+
+                                <Input
+                                    name="rg"
+                                    value={values.rg}
+                                    inputComponent={rgMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                         </Grid>
 
@@ -389,7 +392,7 @@ export default function AddContato() {
                             margin="dense"
                             variant="outlined"
                             select
-                            style={{width: '100%', maxWidth: 120}}
+                            style={{width: '100%', maxWidth: 120, marginRight: 5}}
                             onChange={handleChange}
                             name="tipo"
                             value={values.tipo}
@@ -405,30 +408,38 @@ export default function AddContato() {
 
                         </TextField>
 
-                        <TextField
-                            value={values.telefone}
-                            name="telefone"
-                            style={{width: 'calc(100% - 130px)'}}
-                            label="Telefone"
-                            margin="dense"
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
+                        <FormControl>
+
+                            <InputLabel htmlFor="my-input">Telefone</InputLabel>
+
+                            <Input
+                                style={{width: 'calc( 100% - 5px)'}}
+                                variant="outlined"
+                                name="telefone"
+                                value={values.telefone}
+                                inputComponent={values.tipo == 'Celular' ? telMasck : telFixoMasck}
+                                onChange={handleChange}
+                            />
+
+                        </FormControl>
 
                     </Grid>
 
                         <Grid item xs={6} sm={4} lg={3}>
 
-                            <TextField
-                                value={values.ra}
-                                name="ra"
-                                style={{width: '100%', maxWidth: 200}}
-                                label="RA"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}                          
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">RA</InputLabel>
+
+                                <Input
+                                    variant="outlined"
+                                    name="ra"
+                                    value={values.ra}
+                                    inputComponent={raMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                             <ErrorMessage name="ra">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
                             
@@ -473,11 +484,10 @@ export default function AddContato() {
                             <TextField
                                 value={values.cpto}
                                 name="cpto"
-                                style={{width: '100%', maxWidth: 180}}
+                                style={{width: 110, textAlign: 'center'}}
                                 select
                                 id="outlined-required"
                                 margin="dense"
-                                style={{marginBottom: 0}}
                                 variant="outlined"
                                 label="Comportamento"
                                 onChange={handleChange}
@@ -528,10 +538,10 @@ export default function AddContato() {
                                 name="postGrad"
                             > 
 
-                                {arrayDeGraduacoes.map( graduacao => (
+                                {postGradList.map( graduacao => (
 
-                                    <option key={graduacao.grad} value={graduacao.grad} className="option">
-                                        {graduacao.grad}
+                                    <option key={graduacao} value={graduacao} className="option">
+                                        {graduacao}
                                     </option>
 
                                 ))}
@@ -542,19 +552,27 @@ export default function AddContato() {
 
                         <Grid item xs={6} sm={4} lg={2}>
 
-                            <TextField
-                                disabled={ values.postGrad == 'SD EV' ? false : true }
-                                value={values.numero}
-                                style={{width: '100%', maxWidth: 100}}
-                                label="Nº"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                type="number"
-                                min="1"
-                                onChange={handleChange}
-                                name="numero"
-                            />
+                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <TextField
+                                    disabled={ values.postGrad == 'SD EV' ? false : true }
+                                    value={values.numero}
+                                    style={{width: '100%', maxWidth: 100}}
+                                    label="Nº"
+                                    margin="dense"
+                                    style={{marginBottom: 0}}
+                                    variant="outlined"
+                                    type="number"
+                                    min="1"
+                                    onChange={handleChange}
+                                    name="numero"
+                                />
+                                <LightTooltip title="Número de recruta, fica disponível para editar caso o post/grad seja SD EV." style={{marginLeft: 5}}>
+                                    <HelpIcon />
+                                </LightTooltip>
+
+                            </div>
+
+                           
 
                         </Grid>
 
@@ -637,3 +655,8 @@ export default function AddContato() {
               
     );
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, renderLeftDrawner }, dispatch)
+  
+const mapStateToProps =  state => state;
+export default connect( mapStateToProps, mapDispatchToProps )( AdicionarMilitar )

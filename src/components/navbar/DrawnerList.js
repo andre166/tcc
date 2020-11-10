@@ -15,8 +15,10 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { connect } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
+import GavelIcon from '@material-ui/icons/Gavel';
 import { 
     renderNavbar, renderLeftDrawner
 } from '../../components/actions/navbarActions';
@@ -62,10 +64,8 @@ function GenerateList( props ){
                 <>
                     {/* MENU AUXILIAR DE SAÚDE*/}
 
-                    <ListItem button onClick={handleClick}>
-                        <ListItemIcon>
-                        <InboxIcon />
-                        </ListItemIcon>
+                    <ListItem button onClick={handleClick} className={classes.link}>
+                        <span style={{ marginRight: 10 }}><LocalHospitalIcon/> </span>
                         <ListItemText primary="Saúde" />
                         {openSaude ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
@@ -84,10 +84,8 @@ function GenerateList( props ){
 
                     {/* MENU AUXILIAR DE JUSTIÇA */}
 
-                    <ListItem button onClick={handleClickJust}>
-                        <ListItemIcon>
-                        <InboxIcon />
-                        </ListItemIcon>
+                    <ListItem button onClick={handleClickJust} className={classes.link}>
+                        <span style={{ marginRight: 10 }}><GavelIcon/> </span>
                         <ListItemText primary="Justiça e disciplina" />
                         {openJust ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>

@@ -144,7 +144,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 title: 'QM', 
                 field: 'qm', 
                 type: 'string', 
-                renderGraph: true,
+                renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
                     minWidth: 180,
@@ -185,6 +185,22 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 headerStyle: { 
                     width: '100%', 
                     minWidth: 250,
+                    textAlign: 'center'
+                }
+            },
+            {
+                title: 'Telefone', 
+                field: 'telefone', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 200,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 200,
                     textAlign: 'center'
                 }
             },
@@ -335,19 +351,75 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             },
             {
                 title: 'Estado',
-                field: 'endereco.estado'
+                field: 'endereco.estado',
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 220,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
             },
             {
                 title: 'Cidade',
-                field: 'endereco.cidade'
+                field: 'endereco.cidade',
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 200,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 200,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
             },
             {
                 title: 'Bairro',
-                field: 'endereco.bairro'
+                field: 'endereco.bairro',
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 350,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 350,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
             },
             {
                 title: 'Rua',
-                field: 'endereco.rua'
+                field: 'endereco.rua',
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 350,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 350,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
             },
         ]
     )

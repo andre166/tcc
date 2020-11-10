@@ -11,7 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { getUserPerfil } from '../../../components/services/localStorgeService';
+import {getUserName, getUserPerfil } from '../../../components/services/localStorgeService';
+import { masckPerfil } from '../../../utils/maskAndValidators/perfil';
 import { useStyles } from './efetivoStyle';
 import LoadingPage from  '../../../components/loading';
 import Card from './card/card';
@@ -19,6 +20,10 @@ import withWidth from '@material-ui/core/withWidth';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Snackbar from '../../../components/snackbar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -84,9 +89,9 @@ function Efetivo( props ){
         let wd = props.width;
   
         if(wd == 'xl' ){
-          return 3;
+          return 2;
         }else if(wd == 'lg' ){
-          return 3;
+          return 2;
         }else if(wd == 'md' ){
           return 2;
         }else if(wd == 'sm' ){
@@ -113,6 +118,9 @@ function Efetivo( props ){
 
     const listarEfetivo = () => {
          return (
+
+            <>
+                Pode ser alterado a qualquer momento.
              <div className={classes.selecionarEfetivoContainer}>
 
                 {renderSnackBar && <Snackbar info={renderSnackBar} />}
@@ -149,6 +157,7 @@ function Efetivo( props ){
                 </Button>
 
              </div>
+            </>
 
          )
     }
@@ -194,18 +203,49 @@ function Efetivo( props ){
         },
     ]
 
+    const sair = ( ) => {
+        localStorage.removeItem("navBarItem");
+        localStorage.removeItem("userInfo");
+        window.location.assign("/")
+    }
+
     if(loading){ return <LoadingPage/>}
+
+    let userName = getUserName(); 
+    let userPerfil = getUserPerfil();
 
     return(
 
         <div className={classes.root}>
-            <GridList cellHeight={220} cols={defineCols()} spacing={5}>
-                {colunas.map( (col, i) => (
-                    <GridListTile key={i} cols={1} style={{padding: 5}}>
-                        <Card info={col}/>
-                    </GridListTile>
-                ))}
-            </GridList>
+            <div style={{ width: '100%', maxWidth: 1100, padding: 10}}>
+
+                <div>
+                    <List>
+                        <ListItem>
+                            <ListItemText primary={`Bem vindo ${userName}`} secondary={`Perfil: ${ masckPerfil(userPerfil) }`} />
+                        </ListItem>
+                        <Divider/>
+                    </List>
+                </div>
+
+                <GridList cellHeight={ props.width == 'sm' ? 260 : 220} cols={defineCols()} spacing={5}>
+                    {colunas.map( (col, i) => (
+                        <GridListTile key={i} cols={1} style={{padding: 5}}>
+                            <Card info={col}/>
+                        </GridListTile>
+                    ))}
+                </GridList>
+
+                <Divider style={{marginTop: 10}}/>
+
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                    <div style={{width: '100%', maxWidth: 440}}>
+                        <Button fullWidth variant="outlined" color="secondary" onClick={sair}>Sair</Button>
+                    </div>
+                </div>
+
+
+            </div>
             
         </div>
     );

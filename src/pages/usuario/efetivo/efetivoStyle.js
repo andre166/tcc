@@ -2,13 +2,12 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     root: {
+        display: 'flex',
+        justifyContent: 'center',
         background: '#eeeeee',
         width:'100%',
         padding: 10,
-        minHeight: '100vh',
-        [theme.breakpoints.down('xs')]: {
-            // marginTop: 55,
-        },
+        minHeight: 'calc(100vh - 20px)',
     },
     cardsContainer: {
         display: 'flex',
@@ -91,8 +90,6 @@ export const useStyles = makeStyles((theme) => ({
     formControlContainer: {
         width: '100%',
         maxWidth: 420,
-        marginTop: 10,
-        marginBottom: 20,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',

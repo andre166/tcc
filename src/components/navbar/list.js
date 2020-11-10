@@ -66,7 +66,6 @@ export const userDrawner = [
     {id: 3, nome: 'Lista de Militares', link: '/ListaEfetivo', icone: <ListIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 3) },
 
     {id: 5, nome: 'Cadastrar militar', link: '/CadastrarMilitar', icone: <PostAddIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 5) },
-    {id: 6, nome: 'Estatística', icone: <PieChartIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 6) },
     {id: 2, nome: `Efetivo`, link: '/Efetivo', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
     {id: 8, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
 
