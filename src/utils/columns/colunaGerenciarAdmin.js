@@ -30,33 +30,33 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
           
     return (
 
-    <div className="actionBtns" >
+        <div className="actionBtns" >
 
-        <Link to={{pathname: `/EditarAdmin/${id}/${idOm}`}} >
-            <LightTooltip title="Editar">
-                <IconButton size="small" color="primary"> 
-                    <EditIcon size="small" className={classes.buttonInfoIcon}/> 
+            <Link to={{pathname: `/EditarAdmin/${id}/${idOm}`}} >
+                <LightTooltip title="Editar">
+                    <IconButton size="small" color="primary"> 
+                        <EditIcon size="small" className={classes.buttonInfoIcon}/> 
+                    </IconButton>
+                </LightTooltip>
+            </Link>
+
+            <LightTooltip title="Excluir">
+                <IconButton variant="outlined"  size="small" onClick={() => openDialog()}>
+                    <DeleteForeverIcon className={classes.buttonDangerIcon}/>
                 </IconButton>
             </LightTooltip>
-        </Link>
 
-        <LightTooltip title="Excluir">
-            <IconButton variant="outlined"  size="small" onClick={() => openDialog()}>
-                <DeleteForeverIcon className={classes.buttonDangerIcon}/>
-            </IconButton>
-        </LightTooltip>
+            <LightTooltip title="Redefinir senha">
+                <IconButton variant="outlined"  size="small" onClick={() => openDialogAlterPassWord()}>
+                    <LockIcon className={classes.lockIconBtnSm}/>
+                </IconButton>
+            </LightTooltip>
 
-        <LightTooltip title="Redefinir senha">
-            <IconButton variant="outlined"  size="small" onClick={() => openDialogAlterPassWord()}>
-                <LockIcon className={classes.lockIconBtnSm}/>
-            </IconButton>
-        </LightTooltip>
-
-    </div>
+        </div>
 
     )
 
-  }
+}
 
   export const gerenciarAdminColumn = ( setRowInfo, setOpenAlterKey, handleClickOpen, classes  ) => {
 

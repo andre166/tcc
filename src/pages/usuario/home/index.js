@@ -4,6 +4,16 @@ import { useStyles } from './listaEfetivoStyle';
 import LoadingPage from  '../../../components/loading';
 import withWidth from '@material-ui/core/withWidth';
 import { getTurma } from  '../../../components/services/localStorgeService';
+import { colunaCidadao } from '../../../utils/columns/colunaCidadao';
+import { listarCidadaoPorTurma } from '../../../components/services/cidadaoService';
+import ShowRelatorio from '@lestetelecom/showrelatorio/lib/index';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
+import { Link} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -22,6 +32,26 @@ function ListaEfetivo( props ){
     const history = useHistory();
 
     let [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+    const [openAlterKey, setOpenAlterKey] = useState(false);
+    const [ rowInfo, setRowInfo] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = async () => {
+        setOpen(false);
+        new Promise((resolve, reject) => {
+        setTimeout(() => {
+            setOpenAlterKey(false);
+            resolve();
+        }, 100);
+        })
+    };
+
+    const [columns, setColumns] = useState([]);
 
     useEffect(() => {
 
@@ -31,18 +61,33 @@ function ListaEfetivo( props ){
             history.push('/');
         }
 
-        
-
-        setLoading(false);
+        inicializarForm();
 
     }, []);
+
+    const inicializarForm = async () => {
+  
+        // let turma = getTurma();
+        // let turmaId = turma.id;
+
+        // let cidadaoList = await listarCidadaoPorTurma( turmaId );
+
+        // console.log("cidadaoList ===>", cidadaoList)
+  
+        // let colunas = colunaCidadao( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
+        
+        // setData(cidadaoList);
+        // setColumns(colunas);
+        setLoading(false);
+  
+    }
 
   if(loading){ return <LoadingPage/>}
 
   return(
-      <div className={classes.root}>
-          <h1>Lista efetivo</h1>
-      </div>
+        <div className={classes.container} >
+            <h1>Home</h1>
+        </div>
     );
     
 }

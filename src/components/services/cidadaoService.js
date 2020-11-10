@@ -2,13 +2,13 @@ import axios from 'axios';
 import { localHost, hearderContent } from '../../utils/hostHttp';
 import { getToken } from './localStorgeService';
 
-export const listarCidadaoPorTurma = async ( turma ) => {
+export const listarCidadaoPorTurma = async ( id ) => {
 
     let token = getToken();
   
     let host = hearderContent( token );
   
-    const response = await axios.post(`${localHost}/cidadao/listarPorTurma`, turma, {
+    const response = await axios.get(`${localHost}/cidadao/listarPorTurma/${id}`, {
     headers: host
     })
     .catch((error) => { return error });
@@ -22,8 +22,6 @@ export const cadastrarCidadao = async ( cidadao ) => {
   let token = getToken();
 
   let host = hearderContent( token );
-
-  console.log("values", cidadao)
 
   const response = await axios.post(`${localHost}/cidadao/salvar`, cidadao, {
   headers: host

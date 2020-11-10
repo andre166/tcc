@@ -21,6 +21,7 @@ import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { getUserName } from '../../services/localStorgeService';
 import { Link } from 'react-router-dom';
+import { getUserInfo } from '../../services/localStorgeService';
 
 function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     
@@ -64,7 +65,8 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     window.location.assign("/")
     renderNavBar(false);
   }
-    let userName = getUserName();
+
+  let userName = getUserName();
 
     return (
       <>
@@ -109,12 +111,10 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
                   
                   <Paper>
                       <ClickAwayListener onClickAway={handleClose}>
-
-                      <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
-                        <MenuItem onClick={handleClose}><PersonIcon style={{marginRight: 4}}/>Perfil</MenuItem>
-                        <MenuItem onClick={sair}><ExitToAppIcon style={{marginRight: 4}}/>Sair</MenuItem>
-                      </MenuList>
-
+                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown} >
+                          <MenuItem onClick={handleClose}><PersonIcon style={{marginRight: 4}}/>Perfil</MenuItem>
+                          <MenuItem onClick={sair}><ExitToAppIcon style={{marginRight: 4}}/>Sair</MenuItem>
+                        </MenuList>
                       </ClickAwayListener>
                   </Paper>
 

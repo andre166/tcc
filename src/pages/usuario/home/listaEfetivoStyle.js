@@ -1,126 +1,105 @@
 import { makeStyles, fade } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
-    root: {
-        background: '#eeeeee',
-        width:'100%',
-        marginTop: 65,
-        padding: 10,
-        minHeight: 'calc(100vh - 65px)',
-        [theme.breakpoints.down('xs')]: {
-            marginTop: 55,
+export const useStyles = makeStyles( theme => ({
+    buttonSuccess: {
+        backgroundColor: '#1d3724 !important',
+        '&:hover': {
+            background: "#4a5442 !important",
         },
     },
-    cardsContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'nowrap',
-    },
-    avatarIcon: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
-        color: 'rgba(0, 0, 0, 0.54)',
+    container: {
+        marginTop: 60, 
+        background: '#fff', 
+        width: 'calc( 100vw - 240px )', 
+        height: 'calc( 100vh - 60px )',
+
         [theme.breakpoints.down('sm')]: {
-            width: theme.spacing(6),
-            height: theme.spacing(6),
+            width: '100vw'
         },
-        [theme.breakpoints.down('xs')]: {
-            width: theme.spacing(7),
-            height: theme.spacing(7),
+    },
+    paperContainerCadastrar:{
+        padding: 10,
+        marginBottom:5,
+        background: '#fff'
+    },
+    firstRow: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    textField: {
+        marginTop: 0,
+        marginLeft: 15,
+        width: '100%',
+        maxWidth: 250,
+    },
+    menu: {
+        width: 200,
+    },
+   
+
+    buttonDanger: {
+        backgroundColor: '#ed3237',
+        height: 35,
+        marginLeft: 0,
+        '&:hover': {
+            background: "#7f3436",
         },
     },
 
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 100,
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
-    containerPrincipal: {
-        width: '100%',
-        height: 'calc(90vh - 80px) !important',
-    },
-    containerPrincipal2Paper: {
-        marginTop: 65,
-        width: '100%',
-        minHeight: 'calc(100vh - 65px) !important',
-    },
-    datepickerPaper: {
-        width: '100%',
-        maxWidth: 420,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20,
-        padding: 15
-    },
-    btnLinkContainer:{
-        width: '100%',
-        maxWidth: 420,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonSuccess: {
-        backgroundColor: '#1d3724',
+    buttonInfo: {
+        backgroundColor: '#0064a6',
+        height: 35,
+        marginLeft: 10,
+        marginTop: 30,
         '&:hover': {
-          background: "#4a5442",
-       }
+            background: "#195493",
+        },
     },
-    buttonDanger: {
+    lockIconBtnSm: {
+        backgroundColor: '#fefefe',
+        '&:hover': {
+            background: "#eeeeee",
+        },
+    },
+    alterPassWordContainer:{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        overflow: 'hidden',
+        width: 400,
+        height: 400,
+        padding: 10
+    },
+    teste: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        width: '100%',
+        maxWidth: 230,
+        marginTop: 20,
+    },
+    emLinha: {
+        width: '100%',
+        maxWidth: 600,
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    divider: {
+        marginTop: 30,
+        marginBottom: 30,
+    },
+    area: {
+        minHeight: 140,
+    },
+    buttonInfoIcon:{
+        color: '#145374'
+    },
+      buttonDangerSm: {
         backgroundColor: '#ed3237',
         '&:hover': {
           background: "#7f3436",
        },
-      },
-    
-      buttonInfo: {
-        backgroundColor: '#0064a6',
-        '&:hover': {
-          background: "#195493",
-       },
-      },
-
-    buttonSelecionar: {
-    //     backgroundColor: '#1d3724',
-    //     '&:hover': {
-    //       background: "#4a5442",
-    //    }
     },
-    formControlContainer: {
-        width: '100%',
-        maxWidth: 420,
-        marginTop: 10,
-        marginBottom: 20,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 0
+    buttonDangerIcon:{
+      color: '#ed3237'
     },
-    selecionarEfetivoContainer: {
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    helpContainer:{
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '5px 10px 5px 10px'
-    },
-    nenhumEfetivoContainer: {
-        marginTop: 30,
-        width: '100%',
-        maxWidth: 350,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
   }));

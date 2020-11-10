@@ -11,7 +11,9 @@ import { listarTurma } from '../../../../components/services/turmaService';
 import MenuItem from '@material-ui/core/MenuItem';
 import ErrorIcon from '@material-ui/icons/Error';
 import moment from 'moment';
-
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import List from '@material-ui/core/List';
 
 export default function AddContato() {
 
@@ -136,6 +138,19 @@ export default function AddContato() {
         
         cadastrarCidadao( CidadaoComEndereco ); 
     }
+
+    const cabecalho = () => {
+
+        let turma = getTurma();
+
+        let txt = `Efetivo: ${ turma.turma }`
+
+        return (
+            <List>
+                <ListItemText primary="Cadastrar Militar" secondary={txt} />
+            </List>
+        )
+    }
    
     return(
         <Grid container direction="column"  alignContent="center"  className="container-cadastrarContato">
@@ -180,7 +195,7 @@ export default function AddContato() {
 
                     <Grid container direction="row" alignItems="center"  justify="flex-start">
                         <div style={{background: "#fff", padding: '5px 20px', borderRadius: 4 }}>
-                            <h4>Cadastrar Militar</h4>
+                            {cabecalho()}
                         </div>
                     </Grid>
 
