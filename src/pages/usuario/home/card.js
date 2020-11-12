@@ -52,7 +52,8 @@ export default function SimpleCard( { info, userSu } ) {
       
       <Card className={classes.root}>
 
-        <CardHeader
+        <CardHeader 
+          style={{background: '#eeeeee'}}
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               <span style={{background: info.bg || '#eeeeee', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{info.headerIcon}</span>
@@ -71,7 +72,7 @@ export default function SimpleCard( { info, userSu } ) {
           <PieGraph/>
         </div>
 
-          <CardActionArea style={{marginTop: -20, background: '#fff'}}>
+          <CardActionArea style={{marginTop: -20, background: '#fff', borderTop: '1px solid #D1D1D1'}}>
 
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
@@ -87,7 +88,7 @@ export default function SimpleCard( { info, userSu } ) {
 
         </CardActionArea>
 
-        <CardActions>
+        <CardActions style={{background: '#eeeeee'}}>
           <Button size="small" color="primary">
             Share
           </Button>

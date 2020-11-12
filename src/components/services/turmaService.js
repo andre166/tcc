@@ -14,6 +14,20 @@ export const cadastrarTurma = async ( turma ) => {
   
 };
 
+export const listarTurmaPorSu = async ( id ) => {
+  
+  let token = getToken();
+  let host = hearderContent( token );
+
+  let response = await axios.get(`${localHost}/turma/listarPorSu/${id}`,{
+    headers: host
+  })
+  .catch((error) => { return error });
+  
+  return response.data;
+
+};
+
 export const listarTurma = async ( id ) => {
   
   let token = getToken();

@@ -120,7 +120,7 @@ function ListaEfetivo( props ){
         }else if(wd == 'md' ){
         return 2;
         }else if(wd == 'sm' ){
-        return 1;
+        return 2;
         }if(wd == 'xs' ){
         return 1;
         }
@@ -132,7 +132,7 @@ function ListaEfetivo( props ){
   return(
         <div className={classes.container} >
             {/* <h3 style={{marginBottom: 2}}><DashboardIcon/>Dashboard</h3> */}
-            <ListItem style={{marginTop: 5}}>
+            <ListItem style={{marginTop: 10, background: '#fff', width: 'calc(100% - 20px)', borderRadius: 6, boxShadow: '1px 1px 1px #808080'}}>
                 <ListItemAvatar >
                     <Avatar style={{background: '#2d6187'}}>
                         <DashboardIcon />
@@ -143,7 +143,7 @@ function ListaEfetivo( props ){
 
             <Divider style={{width: 'calc(100% - 20px)'}}/>
 
-            <div style={{width: 'calc(100% - 20px)', margin: '10px 0px'}}>
+            <div style={{width: 'calc(100% - 20px)', margin: '10px 0px', borderRadius: 6, padding: 10, background: '#fff', boxShadow: '1px 1px 1px #808080'}}>
                 <BarChart/>
             </div>
 

@@ -48,9 +48,6 @@ export default function EditarContato() {
         const loadPage = async() => {
 
             let cidadaoComEndereco = await listarCidadaoComEndereco( id );
-
-            console.log("aaa", cidadaoComEndereco)
-    
             
             if( cidadaoComEndereco){
 
@@ -91,9 +88,6 @@ export default function EditarContato() {
         let id = turmaId.id;
 
         let turma = await listarTurma( id );
-
-        console.log("turmaId ==>" , turmaId.id)
-        console.log("turma ==>" , turma)
 
         let numeroDeRecruta = null;
 

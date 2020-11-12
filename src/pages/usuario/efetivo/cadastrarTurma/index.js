@@ -7,7 +7,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link} from 'react-router-dom';
-import { listarTurma, cadastrarTurma } from '../../../../components/services/turmaService';
+import { listarTurmaPorSu, cadastrarTurma } from '../../../../components/services/turmaService';
 import { listarSubunidades } from '../../../../components/services/subunidadeService';
 import { getUserSu } from '../../../../components/services/localStorgeService';
 import DatePickerCustom from './datePickerCustom';
@@ -46,12 +46,16 @@ function CadastrarTurma( props ){
 
     e.preventDefault();
     setError(false);
+    
+    let idSu = getUserSu();
 
     let cadastrar = true;
 
-    let turmas = await listarTurma();
+    let turmas = await listarTurmaPorSu(idSu);
     
     let ano = new Date(date).getFullYear().toString();
+
+    console.log("turmas", turmas)
 
     turmas.map( t => {
       if(t.turma == ano){
@@ -61,8 +65,6 @@ function CadastrarTurma( props ){
     });
 
     if(cadastrar){
-
-      let idSu = getUserSu();
 
       let su = await listarSubunidades(idSu);
 

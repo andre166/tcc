@@ -27,7 +27,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import { withStyles } from '@material-ui/core/styles';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import { listarTurma, editarTurma, excluirTurma } from '../../../../components/services/turmaService';
+import { listarTurmaPorSu, editarTurma, excluirTurma } from '../../../../components/services/turmaService';
 import { getUserSu } from '../../../../components/services/localStorgeService';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -62,6 +62,7 @@ import { bindActionCreators } from 'redux';
 function EditarTurma( props ){
 
   props.renderNavbar(false);
+  let userSu = getUserSu();
   
   const classes = useStyles();
   const theme = useTheme();
@@ -104,7 +105,7 @@ function EditarTurma( props ){
 
     const loadPage = async() => {
 
-      let response = await listarTurma();
+      let response = await listarTurmaPorSu( userSu );
 
       response.sort(function(a, b) {
         return b.turma - a.turma;
@@ -145,7 +146,7 @@ function EditarTurma( props ){
 
     let ano = new Date(date).getFullYear().toString();
 
-    let response = await listarTurma();
+    let response = await listarTurmaPorSu( userSu );
 
     response.map( t => {
       if(t.turma == ano){
@@ -157,7 +158,6 @@ function EditarTurma( props ){
     if( cadastrar ){
 
       values.turma.turma = ano;
-      let userSu = getUserSu();
 
       let turmaComSu = {
         turma: values.turma,

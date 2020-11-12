@@ -9,7 +9,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link} from 'react-router-dom';
-import { listarTurma, excluirTurma } from '../../../../components/services/turmaService';
+import { listarTurmaPorSu, excluirTurma } from '../../../../components/services/turmaService';
 import { useStyles } from './excluirTurmaStyle';
 import GenerateAlert from '../../../../components/errorAlert';
 import { Formik, Form, ErrorMessage } from 'formik';
@@ -22,6 +22,8 @@ import Alert from '@material-ui/lab/Alert';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { getUserSu } from '../../../../components/services/localStorgeService';
+
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -33,6 +35,7 @@ import { bindActionCreators } from 'redux';
 function ExcluirTurma( props ){
 
   props.renderNavbar(false);
+  let userSu = getUserSu();
   
   const classes = useStyles();
   const theme = useTheme();
@@ -59,7 +62,7 @@ function ExcluirTurma( props ){
 
     const loadPage = async() => {
 
-      let response = await listarTurma();
+      let response = await listarTurmaPorSu( userSu );
   
       response.sort(function(a, b) {
         return b.turma - a.turma;

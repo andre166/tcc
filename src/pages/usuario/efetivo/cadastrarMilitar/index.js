@@ -80,6 +80,8 @@ function AdicionarMilitar( props ) {
 
         let turma = await listarTurma( id );
 
+        console.log("turma",turma)
+
         values.cpf = values.cpf.replace(/\D/g, '');
         values.rg = values.rg.replace(/\D/g, '');
         values.telefone = values.telefone.replace(/\D/g, '');
@@ -127,7 +129,6 @@ function AdicionarMilitar( props ) {
             cidadao: cidadao,
             endereco: endereco
         }
-
         
         await cadastrarCidadao( CidadaoComEndereco ); 
 

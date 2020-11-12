@@ -6,12 +6,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useHistory } from 'react-router-dom';
 import { Link} from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
-import { listarTurma } from '../../../components/services/turmaService';
+import { listarTurmaPorSu } from '../../../components/services/turmaService';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {getUserName, getUserPerfil } from '../../../components/services/localStorgeService';
+import {getUserName, getUserPerfil, getUserSu } from '../../../components/services/localStorgeService';
 import { masckPerfil } from '../../../utils/maskAndValidators/perfil';
 import { useStyles } from './efetivoStyle';
 import LoadingPage from  '../../../components/loading';
@@ -35,6 +35,7 @@ import { bindActionCreators } from 'redux';
 function Efetivo( props ){
 
     props.renderNavbar(false);
+    let userName = getUserName(); 
     
     const classes = useStyles();
     const history = useHistory();
@@ -46,7 +47,10 @@ function Efetivo( props ){
     let [showTable, setShowTable] = useState('');
     let [ renderSnackBar, setRenderSnackBar] = useState(false);
 
-    let [ nenhumCadastroMsg, setNenhumCadastroMsg] = useState(false);
+    let [ nenhumCadastroMsg, setNenhumCadastroMsg] = useState({
+        show: false,
+        txt: ''
+    });
 
     useEffect(() => {
         loadPage();
@@ -54,7 +58,9 @@ function Efetivo( props ){
 
     const loadPage = async ( ) =>{
 
-        let response = await listarTurma( );
+        let uSu = getUserSu();
+
+        let response = await listarTurmaPorSu( uSu );
 
         if( localStorage.getItem("snackBarAlert") ){
 
@@ -64,8 +70,8 @@ function Efetivo( props ){
             
         }
 
-        if(response.length > 0){
-            
+        if(response !== undefined){
+                
             response.sort(function(a, b) {
                 return b.turma - a.turma;
             });
@@ -74,9 +80,14 @@ function Efetivo( props ){
             setListaTurma(response);
             setNenhumCadastroMsg(false);
             setLoading(false);
+            setLoading(false);
+            
 
         }else{
-            setNenhumCadastroMsg(true);
+            setNenhumCadastroMsg({
+                show: true,
+                txt: `Bem vindo ${userName}, Não encontramos uma subunidade vinculada ao senhor, favor contactar o administrador do sistema de sua OM.`
+            });
             setLoading(false);
         }
 
@@ -109,7 +120,7 @@ function Efetivo( props ){
             turma: turma.turma 
         }
           
-        localStorage.setItem("turma", JSON.stringify(info)); 
+        localStorage.setItem("turma", JSON.stringify(turma)); 
         localStorage.setItem("navBarItem", 1);
 
         history.push(`/UserHome`);
@@ -128,10 +139,12 @@ function Efetivo( props ){
                 <div className={classes.formControlContainer}>
 
                     <h3 style={{marginBottom: -8}}>Efetivo: </h3>
+                    
 
                     <FormControl className={classes.formControl}>
                         <InputLabel style={{textAlign: 'center'}}>Ano</InputLabel>
                         <Select
+                            disabled={listaTurma.length > 0 ? false : true}
                             value={turma}
                             onChange={(e) => setTurma(e.target.value)} 
                         >
@@ -147,6 +160,7 @@ function Efetivo( props ){
                 </div>
 
                 <Button 
+                    disabled={listaTurma.length > 0 ? false : true}
                     style={{width: '100%'}}
                     className={classes.buttonSelecionar}  
                     size="small"
@@ -211,19 +225,33 @@ function Efetivo( props ){
 
     if(loading){ return <LoadingPage/>}
 
-    let userName = getUserName(); 
     let userPerfil = getUserPerfil();
 
     return(
 
         <div className={classes.root}>
-            <div style={{ width: '100%', maxWidth: 1100, padding: 10}}>
+
+            {nenhumCadastroMsg.show && 
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
+                 
+                    {nenhumCadastroMsg.txt}
+                    <div style={{marginTop: 10}}>
+                        <Button variant="outlined" color="secondary" onClick={sair}>Sair</Button>
+                    </div>
+
+            </div>
+            }
+
+            {turma != '' && <div style={{ width: '100%', maxWidth: 1100, padding: 10}}>
 
                 <div>
                     <List>
                         <ListItem>
                             <ListItemText primary={`Bem vindo ${userName}`} secondary={`Perfil: ${ masckPerfil(userPerfil) }`} />
                         </ListItem>
+                        {listaTurma.length == 0 && <ListItem style={{background: '#f8e4b7', marginBottom: 10, borderRadius: 5, color: '#db6400'}}>
+                            <ListItemText primary={`Nenhum efetivo cadastrado, para proseguir cadastre um ano para alocar um efetivo.`} />
+                        </ListItem>}
                         <Divider/>
                     </List>
                 </div>
@@ -245,7 +273,7 @@ function Efetivo( props ){
                 </div>
 
 
-            </div>
+            </div>}
             
         </div>
     );
