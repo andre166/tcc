@@ -74,10 +74,46 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 />
             },
             { 
+                title: 'Número', 
+                field: 'numeroRecruta', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%', 
+                    minWidth: 160,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 160,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                    minWidth: 160,
+                    fontSize: 8
+                }
+            },
+            { 
                 title: 'Post/Grad', 
                 field: 'postGrad', 
                 type: 'string', 
                 renderGraph: true,
+                lookup: { 
+                    'MAJ': 'MAJ',
+                    'CAP':     'CAP',
+                    '1ºTEN':     '1ºTEN',
+                    '2ºTEN':     '2ºTEN',
+                    'ASP-A-OF':     'ASP-A-OF',
+                    'SUB-TEN':     'SUB-TEN',
+                    '1ºSGT':     '1ºSGT',
+                    '2ºSGT':     '2ºSGT',
+                    '3ºSGT':     '3ºSGT',
+                    'CB':     'CB',
+                    'SD EP':     'SD EP',
+                    'SD EV':     'SD EV',
+                 },
                 cellStyle: { 
                     width: '100%', 
                     minWidth: 120,
@@ -207,7 +243,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             {
                 title: 'Data de nascimento', 
                 field: 'dataDeNascimento', 
-                type: 'string', 
+                type: 'date', 
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
@@ -223,7 +259,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             {
                 title: 'Data de praça', 
                 field: 'dataDePraca', 
-                type: 'string', 
+                type: 'date', 
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
@@ -349,78 +385,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     textAlign: 'center'
                 }
             },
-            {
-                title: 'Estado',
-                field: 'endereco.estado',
-                cellStyle: { 
-                    width: '100%', 
-                    minWidth: 220,
-                    textAlign: 'center'
-                }, 
-                headerStyle: { 
-                    width: '100%', 
-                    minWidth: 220,
-                    textAlign: 'center'
-                },
-                filterCellStyle: {
-                    textAlign: 'center',
-                    width: '100%', 
-                }
-            },
-            {
-                title: 'Cidade',
-                field: 'endereco.cidade',
-                cellStyle: { 
-                    width: '100%', 
-                    minWidth: 200,
-                    textAlign: 'center'
-                }, 
-                headerStyle: { 
-                    width: '100%', 
-                    minWidth: 200,
-                    textAlign: 'center'
-                },
-                filterCellStyle: {
-                    textAlign: 'center',
-                    width: '100%', 
-                }
-            },
-            {
-                title: 'Bairro',
-                field: 'endereco.bairro',
-                cellStyle: { 
-                    width: '100%', 
-                    minWidth: 350,
-                    textAlign: 'center'
-                }, 
-                headerStyle: { 
-                    width: '100%', 
-                    minWidth: 350,
-                    textAlign: 'center'
-                },
-                filterCellStyle: {
-                    textAlign: 'center',
-                    width: '100%', 
-                }
-            },
-            {
-                title: 'Rua',
-                field: 'endereco.rua',
-                cellStyle: { 
-                    width: '100%', 
-                    minWidth: 350,
-                    textAlign: 'center'
-                }, 
-                headerStyle: { 
-                    width: '100%', 
-                    minWidth: 350,
-                    textAlign: 'center'
-                },
-                filterCellStyle: {
-                    textAlign: 'center',
-                    width: '100%', 
-                }
-            },
+            
         ]
     )
 }

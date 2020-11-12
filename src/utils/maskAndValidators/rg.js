@@ -5,8 +5,6 @@ export function maskRg( _rg ){
 
     if( testeRegex1 ){
 
-        console.log("_rg", _rg)
-
         let t1 = _rg.substr(0, 2);
         let t2 = _rg.substr( 2, 3);
 

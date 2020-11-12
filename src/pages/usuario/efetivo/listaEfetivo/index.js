@@ -90,6 +90,8 @@ function ListaEfetivo( props ){
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
 
+        console.log("cidadaoList", cidadaoList)
+
         if( cidadaoList[0] == undefined ){
 
             setNenhumaMilitarCadastrado(true);

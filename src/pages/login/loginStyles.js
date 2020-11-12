@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
     containerLogin: {
-        backgroundColor: '#fff',
         boxShadow: '2px 2px 4px #949494',
         borderRadius: '5px',
         display: 'flex',
@@ -28,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background:'#f1f3f8',
+        backgroundImage: 'repeating-linear-gradient(135deg, rgba(189,189,189,0.4) 0px, rgba(189,189,189,0.3) 1px,transparent 3px, transparent 4px),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255))',
     },  
     paper: {
       marginTop: '-200px',
@@ -39,11 +38,12 @@ export const useStyles = makeStyles((theme) => ({
       padding: 20,
       borderRadius: 4,
       maxWidth: 440,
-      border: '1px solid #d8d3cd',
+      border: '1px solid #fff',
+      // boxShadow: '2px 3px 3px #000000'
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: '#4E4B2C',
     },
     form: {
       width: '100%',
@@ -51,6 +51,10 @@ export const useStyles = makeStyles((theme) => ({
     },
     submit: {
       margin: theme.spacing(3, 0, 2),
+      background: '#4E4B2C',
+      '&:hover': {
+        background: '#3A392C '
+      }
     },
     textField: {
         paddingLeft: 10,

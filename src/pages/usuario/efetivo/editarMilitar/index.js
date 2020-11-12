@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import './cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Formik, Form, ErrorMessage} from 'formik';
 import TextField from '@material-ui/core/TextField';
 import cadastrarMilitarSchema from '../../../../utils/schemas/cadastrarMilitarSchema';
-import { cadastrarCidadao } from '../../../../components/services/cidadaoService';
+import { cadastrarCidadao, listarCidadaoPorId, listarCidadaoComEndereco } from '../../../../components/services/cidadaoService';
 import { getTurma } from '../../../../components/services/localStorgeService';
 import { listarTurma } from '../../../../components/services/turmaService';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,8 +14,14 @@ import moment from 'moment';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
+import { useParams, useHistory} from 'react-router-dom';
+import LoadingPage from  '../../../../components/loading';
 
-export default function AddContato() {
+export default function EditarContato() {
+
+    let idParams = useParams();
+
+    const { id } = idParams;
 
     let dataAtual = new Date();
     let diaAtual = dataAtual.getDate();
@@ -32,34 +38,31 @@ export default function AddContato() {
 
     let dataString = anoAtual + '-' + mesAtual + '-' + diaAtual;
 
-    //Form PESSOAL
-    let [nomeCompleto, setNomeCompleto] = useState("");
-    let [cpf, setCpf] = useState("");
-    let [rg, setRg] = useState("");
-    let [genero, setGenero] = useState("");
-    let [dataNasc, setDataNasc] = useState("");
-    let [email, setEmail] = useState("");
-    let [nomeMae, setNomeMae] = useState("");
-    let [nomePai, setNomePai] = useState("");
-    let [estadoCivil, setEstadoCivil] = useState("");
-    let [idiomas, setIdiomas] = useState("");
-    let [ telefones, setTelefones] = useState([ [null, null, null],[null, null, null]]);
+    let [ cidadao, setCidadao] = useState("");
+    let [ cidadaoEndereco, setCidadaoEndereco] = useState("");
 
-    //Form MILITAR
-    let [numero, setNumero] = useState("");
-    let [ra, setRa] = useState("");
-    let [nomeDeGuerra, setNomeDeGuerra] = useState("");
-    let [qm, setQm] = useState("");
-    let [cpto, setCpto] = useState("");
-    let [dataPraca, setDataPraca] = useState("");
-    let [postGrad, setPostGrad] = useState("");
+    let [loading, setLoading] = useState(true);
 
-    //Form ENDEREÇO
+    useEffect(() => {
 
-    let [estado, setEstado] = useState("");
-    let [cidade, setCidade] = useState("");
-    let [bairro, setBairro] = useState("");
-    let [ruaLote, setRuaLote] = useState("");
+        const loadPage = async() => {
+
+            let cidadaoComEndereco = await listarCidadaoComEndereco( id );
+
+            console.log("aaa", cidadaoComEndereco)
+    
+            
+            if( cidadaoComEndereco){
+
+                setCidadao(cidadaoComEndereco.cidadao);
+                setCidadaoEndereco(cidadaoComEndereco.endereco);
+                setLoading(false);
+            }
+        }
+
+        loadPage();
+
+    }, []);
     
     const arrayDeGraduacoes = [
         {grad: 'SGT'}, {grad: 'CB'},{grad: 'SD EP'}, {grad: 'SD EV'}
@@ -74,7 +77,7 @@ export default function AddContato() {
     ]
 
     const arrayDeTiposDeTelefones = [
-        'Fixo', 'Celular', 'Familiar'
+        'Fixo', 'Celular'
     ]
 
     const arrayDeComportamentos = [
@@ -152,6 +155,8 @@ export default function AddContato() {
         )
     }
    
+    if(loading){ return <LoadingPage/>}
+
     return(
         <Grid container direction="column"  alignContent="center"  className="container-cadastrarContato">
 
@@ -163,30 +168,30 @@ export default function AddContato() {
                 validationSchema={cadastrarMilitarSchema}
                 initialValues={{
                     //Form pessoal
-                    nomeCompleto:'Andre de souza',
-                    cpf:'15066443762',
-                    rg:'275896',
-                    genero:'Masculino',
+                    nomeCompleto: cidadao.nomeCompleto,
+                    cpf: cidadao.cpf,
+                    rg:cidadao.rg,
+                    genero:cidadao.genero,
                     dataNasc: dataString,
-                    email:'andre@mesqui',
-                    nomeMae:'asbajbs',
-                    nomePai:'aosjajs',
-                    estadoCivil:'Solteiro',
-                    tipo: 'Celular',
-                    telefone: '218956684',
+                    email:cidadao.email,
+                    nomeMae:cidadao.nomeMae,
+                    nomePai:cidadao.nomePai,
+                    estadoCivil:cidadao.estadoCivil,
+                    tipo: cidadao.tipo,
+                    telefone: cidadao.telefone,
                     //Form militar
-                    numero:'',
-                    ra:'999999',
-                    nomeDeGuerra:'Mesquita',
-                    qm:'11/47',
-                    cpto:'B',
+                    numero:cidadao.numeroRecruta,
+                    ra:cidadao.ra,
+                    nomeDeGuerra:cidadao.nomeDeGuerra,
+                    qm:cidadao.qm,
+                    cpto:cidadao.comportamento,
                     dataPraca: dataString,
-                    postGrad:'SD EP',
+                    postGrad:cidadao.postGrad,
                     //Form endereço
-                    estado: 'rj',
-                    cidade: 'niterói',
-                    bairro:'maria paula',
-                    ruaLote:'itaboraí',
+                    estado: cidadaoEndereco.estado,
+                    cidade: cidadaoEndereco.cidade,
+                    bairro: cidadaoEndereco.bairro,
+                    ruaLote: cidadaoEndereco.rua,
 
                 }}
                 render={( { values, handleChange, handleSubmit, errors }) => (
@@ -628,7 +633,8 @@ export default function AddContato() {
                         </Button>
 
                     </Grid>
-                    </Grid>
+
+                </Grid>
             </Form>
           )}
           />
