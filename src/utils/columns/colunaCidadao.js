@@ -145,6 +145,15 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 title: 'Status', 
                 field: 'cidadaosStatus', 
                 type: 'string', 
+                lookup: {
+                   OK : "OK",
+                   BAIXADO : "BAIXADO",
+                   FERIAS : "FERIAS",
+                   DISPENSADO : "DISPENSADO",
+                   MISSAO : "MISSAO",
+                   PUNIDO : "PUNIDO",
+                   OUTROS : "OUTROS",
+                },
                 renderGraph: true,cellStyle: { 
                     width: '100%', 
                     minWidth: 200,
@@ -275,6 +284,13 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             {
                 title: 'Comportamento', 
                 field: 'comportamento', 
+                lookup: {
+                    'I':'I',
+                    'R' :'R',
+                    'B' :'B',
+                    'MB' :'MB',
+                    'E' :'E' 
+                },
                 type: 'string', 
                 renderGraph: true,
                 cellStyle: { 
@@ -309,6 +325,12 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 field: 'estadoCivil', 
                 type: 'string', 
                 renderGraph: true,
+                lookup: {
+                    'Solteiro' : 'Solteiro',
+                    'Casado' : 'Casado',
+                    'Divorciado':'Divorciado',
+                    'Viúvo': 'Viúvo'
+                },
                 cellStyle: { 
                     width: '100%', 
                     minWidth: 190,
@@ -325,6 +347,10 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 title: 'Genero', 
                 field: 'genero', 
                 type: 'string', 
+                lookup: {
+                    "Masculino": "Masculino",
+                    "Feminino": "Feminino"
+                },
                 renderGraph: true,
                 cellStyle: { 
                     width: '100%', 

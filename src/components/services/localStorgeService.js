@@ -1,32 +1,41 @@
 export const getToken = () => {
 
     let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
-    let token = responseStorage.token;
-    return token;
+
+    if( responseStorage ){
+        let token = responseStorage.token;
+        return token;
+    }
 
 } 
 
 export const getUserName = () => {
 
     let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
-    let name = responseStorage.name;
-    return name;
+    if( responseStorage ){
+        let name = responseStorage.name;
+        return name;
+    }
 
 }
 
 export const getUserPerfil = () => {
 
     let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
-    let perfil = responseStorage.perfil;
-    return perfil;
+    if( responseStorage ){
+        let perfil = responseStorage.perfil;
+        return perfil;
+    }
 
 }
 
 export const getUserId = () => {
 
     let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
-    let userId = responseStorage.userId;
-    return userId;
+    if( responseStorage ){
+        let userId = responseStorage.userId;
+        return userId;
+    }
 
 }
 
@@ -47,8 +56,10 @@ export const getNavbarItem = () => {
 export const getUserSu = () => {
 
     let responseStorage = JSON.parse(localStorage.getItem("userInfo"));
-    let userId = responseStorage.userSu;
-    return userId;
+    if( responseStorage ){
+        let userId = responseStorage.userSu;
+        return userId;
+    }
 
 }
 

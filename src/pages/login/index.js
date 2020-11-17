@@ -6,7 +6,6 @@ import LockIcon from '@material-ui/icons/Lock';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -14,16 +13,17 @@ import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { verificarLogin } from '../../components/services/authService';
 import { listUsuarioUnicoComSubunidade } from '../../components/services/usuarioService';
-import { connect } from 'react-redux';
-import { renderNavbar } from '../../components/actions/navbarActions';
-import { setNameAndToken } from '../../components/actions/userAction';
 import loginSchema from '../../utils/schemas/loginSchema';
 import GenerateAlert from '../../components/errorAlert';
 import { useStyles } from './loginStyles';
-
-import { bindActionCreators } from 'redux';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Formik, Form, ErrorMessage } from 'formik';
+// REDUX
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { renderNavbar } from '../../components/actions/navbarActions';
+import { setNameAndToken, setAuthRoutesErro } from '../../components/actions/userAction';
+
 
 async function logar (usuario, password ){
 
@@ -43,6 +43,9 @@ function Login( props ){
       tipo: ''
     });
 
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = React.useState(false);
+
     const history = useHistory();
 
     if( props.navbarState.renderNavBar ){
@@ -50,6 +53,13 @@ function Login( props ){
     }
 
     async function onSubmit( values, action ){
+
+      props.setAuthRoutesErro(false);
+
+      if (!loading) {
+        setSuccess(false);
+        setLoading(true);
+      }
 
       const { nome, senha } = values;
 
@@ -71,6 +81,8 @@ function Login( props ){
           msg: 'Usuário e/ou senha Inválido!',
           tipo: 'error'
         });
+        setSuccess(true);
+        setLoading(false);
 
       }else{
 
@@ -119,12 +131,19 @@ function Login( props ){
     const teste = () => {
       setErro(false)
     }
-      
+      console.log(props.userState.erro)
     return(
 
     <Container component="main" maxWidth="xs" className={classes.container}>
+
     <CssBaseline />
+    
     <Box className={classes.paper} boxShadow={1}>
+
+      {props.userState.erro && 
+        <GenerateAlert alertConfig={ {msg: 'Usuário não autenticado, favor fazer login.', tipo: 'warning', variant: 'filled'} } />
+      }
+
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -190,16 +209,18 @@ function Login( props ){
 
             <ErrorMessage name="senha">{(msg) => <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } />}</ErrorMessage>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Entrar
-            </Button>
-          
+            <div className={classes.wrapper}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                disabled={loading}
+              >
+                Entrar
+              </Button>
+              {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+            </div>
           </Form>
         )}
       />
@@ -212,7 +233,7 @@ function Login( props ){
     
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, setNameAndToken }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ renderNavbar, setNameAndToken, setAuthRoutesErro }, dispatch)
   
 const mapStateToProps =  state => state;
 export default connect( mapStateToProps, mapDispatchToProps )(Login)

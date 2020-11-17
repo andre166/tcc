@@ -3,6 +3,7 @@ const INITIAL_STATE =  {
 
     name: '',
     token: '',
+    erro: false,
 }
 
 export default function reserve( state = INITIAL_STATE , action ){
@@ -16,6 +17,12 @@ export default function reserve( state = INITIAL_STATE , action ){
                 name: action.payLoad.name,
                 token: action.payLoad.token,
             }
+        case 'ERRO_AUTH_ROUTES_RESTRICT':
+            console.log("action", action)
+            return { ...state,
+                erro: action.payLoad,
+
+        }
             
         default:
             return state;
