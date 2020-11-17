@@ -31,6 +31,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { cpfMasck } from '../../../components/masks/cpfMasck';
 import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 
 function CadastrarAdmin2( props ){
 
@@ -90,8 +91,21 @@ function CadastrarAdmin2( props ){
         
       }
 
-      inicializarForm();
-    }, []);
+      async function isAutenticated(){
+    
+        let autenticated = await verifyUserAuth();
+
+        if( !autenticated ){
+          history.push('/')
+        }else{
+          inicializarForm();
+        }
+        
+      } 
+      
+        isAutenticated();
+
+      }, []);
 
     const classes = useStyles();
     const { width } = props;

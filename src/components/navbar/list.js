@@ -16,10 +16,10 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import { useHistory } from 'react-router-dom';
 import { getTurma } from '../../components/services/localStorgeService';
 
-const sair = ( ) => {
-    localStorage.removeItem("navBarItem");
-    localStorage.removeItem("userInfo");
-    window.location.assign("/")
+const sair = async ( ) => {
+    await localStorage.removeItem("navBarItem");
+    await localStorage.removeItem("userInfo");
+    await window.location.assign("/")
 }
 
 const blanck = ( setRenderClasses, id ) => {

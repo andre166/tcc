@@ -6,6 +6,7 @@ export default function verificarUsuarioAutenticado( ){
 
     let id = getUserId();
     let token = getToken();
+    
     let reduxState = store.getState();
 
     if( id && token ){

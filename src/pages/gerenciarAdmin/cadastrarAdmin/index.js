@@ -32,6 +32,7 @@ import { useStyles } from './cadAdminStyle';
 import LoadingPage from '../../../components/loading';
 import { cpfMasck } from '../../../components/masks/cpfMasck';
 import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 
 function CadastrarAdmin2(){
 
@@ -67,7 +68,20 @@ function CadastrarAdmin2(){
 
       }
 
-      inicializarForm();
+      async function isAutenticated(){
+    
+        let autenticated = await verifyUserAuth();
+
+        if( !autenticated ){
+          history.push('/')
+        }else{
+          inicializarForm();
+        }
+
+      } 
+      
+      isAutenticated();
+
     }, []);
 
     async function onSubmit( values ){

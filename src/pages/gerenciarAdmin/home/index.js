@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Link} from 'react-router-dom';
+import { Link, useHistory} from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -33,6 +33,9 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
 import { getUserPerfil } from '../../../components/services/localStorgeService';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
+import LoadingPage from '../../../components/loading';
+
 import { 
     renderNavbar, renderLeftDrawner
 } from '../../../components/actions/navbarActions';
@@ -74,6 +77,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Home( props ){
+
+    const history = useHistory();
+    
+    useEffect(() => {
+        async function isAutenticated(){
+    
+            let autenticated = await verifyUserAuth();
+
+            if( !autenticated ){
+              history.push('/')
+            }else{
+                return
+            }
+        } 
+        isAutenticated();
+    
+    }, []);
+
 
     const changeLeftDrawner = ( id ) => {
 
@@ -153,7 +174,7 @@ function Home( props ){
         }
   
       }
-    
+
     return(
         <div className={classes.root}>
             <GridList cellHeight={'100%'} cols={defineCols()} spacing={10}>

@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStyles } from './errorStyle';
 import verifyUserAuth from '../../utils/verificarUsuarioAuth';
-import { setAuthRoutesErro } from '../../components/actions/userAction';
 import { useHistory } from 'react-router-dom';
-// REDUX
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-function Erro( ){
+export default function Erro( ){
+    
     let history = useHistory();
 
     const classes = useStyles();
@@ -29,7 +26,3 @@ function Erro( ){
     );
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setAuthRoutesErro }, dispatch)
-  
-const mapStateToProps =  state => state;
-export default connect( mapStateToProps, mapDispatchToProps )(Erro)
