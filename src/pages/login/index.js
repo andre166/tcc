@@ -169,9 +169,7 @@ function Login( props ){
                 className={classes.input}
                 variant="outlined"
                 margin="normal"
-                required
                 fullWidth
-                id="name"
                 label="Nome de usuario"
                 InputProps={{
                     startAdornment: (
@@ -185,12 +183,11 @@ function Login( props ){
                 value={values.nome}
                 onChange={handleChange}
             />
-            <ErrorMessage name="nome">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> } </ErrorMessage>
+            <ErrorMessage name="nome">{(msg) => <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } />}</ErrorMessage>
             
             <TextField
               variant="outlined"
               margin="normal"
-              required
               fullWidth
               name="senha"
               label="Senha"
@@ -202,7 +199,6 @@ function Login( props ){
               ),
               }}
               type="password"
-              id="password"
               value={values.senha}
               onChange={handleChange}
             />

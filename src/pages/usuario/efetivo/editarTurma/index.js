@@ -1,44 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Switch from '@material-ui/core/Switch';
-import ClearIcon from '@material-ui/icons/Clear';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useParams, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { DatePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { listarCidadaoPorTurma } from '../../../../components/services/cidadaoService';
-import ShowRelatorio from '@lestetelecom/showrelatorio';
-import { colunaCidadao } from '../../../../utils/columns/colunaCidadao';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import { Link} from 'react-router-dom';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditIcon from '@material-ui/icons/Edit';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
-import { withStyles } from '@material-ui/core/styles';
-import AddBoxIcon from '@material-ui/icons/AddBox';
 import { listarTurmaPorSu, editarTurma, excluirTurma } from '../../../../components/services/turmaService';
 import { getUserSu } from '../../../../components/services/localStorgeService';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import HelpIcon from '@material-ui/icons/Help';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import { useStyles } from './editarTurmaStyle';
 import GenerateAlert from '../../../../components/errorAlert';
 import { Formik, Form, ErrorMessage } from 'formik';
@@ -51,6 +24,8 @@ import Alert from '@material-ui/lab/Alert';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
+
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -61,12 +36,13 @@ import { bindActionCreators } from 'redux';
 
 function EditarTurma( props ){
 
+  const history = useHistory();
   props.renderNavbar(false);
+
   let userSu = getUserSu();
   
   const classes = useStyles();
   const theme = useTheme();
-  const history = useHistory();
 
   const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
   const [date, setDate] = useState(new Date());
@@ -116,7 +92,21 @@ function EditarTurma( props ){
 
     }
 
-    loadPage();
+    async function isAutenticated(){
+
+      let autenticated = await verifyUserAuth();
+  
+      if( !autenticated ){
+        history.push('/')
+      }else{
+        loadPage();
+      }
+  
+    } 
+  
+    isAutenticated();
+
+    
 
   }, []);
 
@@ -173,7 +163,7 @@ function EditarTurma( props ){
 
       await editarTurma( turmaComSu );
 
-      history.push('/Efetivo')
+      history.push('/Efetivo');
 
     }else{
       setError(true);

@@ -21,12 +21,24 @@ import { connect } from 'react-redux';
 import { 
     renderNavbar, renderLeftDrawner
 } from '../../../../components/actions/navbarActions';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
 
 import { bindActionCreators } from 'redux';
   
 function CadastrarTurma( props ){
   
   props.renderNavbar(false);
+
+  async function isAutenticated(){
+
+    let autenticated = await verifyUserAuth();
+    if( !autenticated ){
+      history.push('/')
+    }
+
+  } 
+
+  isAutenticated();
     
   const classes = useStyles();
   const history = useHistory();

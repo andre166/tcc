@@ -21,6 +21,7 @@ import Snackbar from '../../../../components/snackbar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -36,6 +37,7 @@ function ListaEfetivo( props ){
     }
     
     const classes = useStyles();
+
     const history = useHistory();
 
     let [loading, setLoading] = useState(true);
@@ -79,18 +81,28 @@ function ListaEfetivo( props ){
             
         }
 
-        inicializarForm();
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+              history.push('/')
+            }else{
+              loadPage();
+            }
+        
+          } 
+        
+          isAutenticated();
 
     }, []);
 
-    const inicializarForm = async () => {
+    const loadPage = async () => {
   
         let turma = getTurma();
         let turmaId = turma.id;
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
-
-        console.log("cidadaoList", cidadaoList)
 
         if( cidadaoList[0] == undefined ){
 
@@ -141,7 +153,6 @@ function ListaEfetivo( props ){
                                 secondary={
                                     <>
                                         Click 
-                                        {/* <Link style={{textDecoration: 'none'}} to={'/CadastrarMilitar'}> Aqui </Link> */}
                                         <Button onClick={goToAnotherPage} size="small" color="default" variant="contained" style={{marginLeft: 5, marginRight: 5}} to={'/CadastrarMilitar'}> Aqui </Button>
                                         para cadastrar um militar.
                                     </>
@@ -150,7 +161,7 @@ function ListaEfetivo( props ){
                             />
                         </ListItem>
                     </List>
-                    {/* <h4 style={{marginTop: 17, marginLeft: 20}}></h4> */}
+
                 </div>
             }
 
@@ -179,11 +190,8 @@ function ListaEfetivo( props ){
                                 <Divider style={{marginBottom: 10}}/>
                                 
                                 <DialogActions style={{justifyContent: 'center', marginBottom: 5}}>
-                                    {/* <Button className={classes.buttonSuccess} onClick={excluirUsuario} color="primary" variant="contained">
-                                    Sim
-                                    </Button> */}
                                     <Button className={classes.buttonDanger} onClick={handleClose} color="primary" variant="contained" autoFocus>
-                                    não
+                                        não
                                     </Button>
                                 </DialogActions>
                             

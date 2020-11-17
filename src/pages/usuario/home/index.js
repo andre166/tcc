@@ -28,6 +28,8 @@ import GavelIcon from '@material-ui/icons/Gavel';
 import { listarSubunidades } from '../../../components/services/subunidadeService';
 import { getUserSu } from '../../../components/services/localStorgeService';
 import InfoIcon from '@material-ui/icons/Info';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
+
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -76,7 +78,18 @@ function ListaEfetivo( props ){
             history.push('/');
         }
 
-        inicializarForm();
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+              history.push('/')
+            }else{
+                inicializarForm();
+            }
+          } 
+        
+        isAutenticated();
 
     }, []);
 

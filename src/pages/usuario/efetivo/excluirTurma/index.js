@@ -23,6 +23,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { getUserSu } from '../../../../components/services/localStorgeService';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
 
 //redux
 import { connect } from 'react-redux';
@@ -35,11 +36,13 @@ import { bindActionCreators } from 'redux';
 function ExcluirTurma( props ){
 
   props.renderNavbar(false);
+
+  const history = useHistory();
+
   let userSu = getUserSu();
   
   const classes = useStyles();
   const theme = useTheme();
-  const history = useHistory();
 
   const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
   const [date, setDate] = useState(new Date());
@@ -73,7 +76,19 @@ function ExcluirTurma( props ){
 
     }
 
-    loadPage();
+    async function isAutenticated(){
+
+      let autenticated = await verifyUserAuth();
+  
+      if( !autenticated ){
+        history.push('/')
+      }else{
+        loadPage();
+      }
+  
+    } 
+  
+    isAutenticated();
 
   }, []);
 

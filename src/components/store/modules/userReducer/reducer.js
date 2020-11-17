@@ -18,7 +18,7 @@ export default function reserve( state = INITIAL_STATE , action ){
                 token: action.payLoad.token,
             }
         case 'ERRO_AUTH_ROUTES_RESTRICT':
-            console.log("action", action)
+
             return { ...state,
                 erro: action.payLoad,
 

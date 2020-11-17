@@ -1,34 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStyles } from './errorStyle';
-import VerifyUserAuth from '../../utils/verificarUsuarioAuth';
+import verifyUserAuth from '../../utils/verificarUsuarioAuth';
 import { setAuthRoutesErro } from '../../components/actions/userAction';
 import { useHistory } from 'react-router-dom';
 // REDUX
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-function Erro( props ){
-
+function Erro( ){
     let history = useHistory();
-
-    // let verificacao = erifyUserAuth();
-
-    // if( !verificacao ){
-    //     new Promise((resolve, reject) => {
-    //         setTimeout(() => {
-    //             props.setAuthRoutesErro(true);
-    //             resolve();
-    //         }, 1000);
-    //     })
-    //     history.push('/')
-    // }
 
     const classes = useStyles();
 
+    if ( !verifyUserAuth() ) { history.push('/') };
+
     return(
         <>
-            <VerifyUserAuth/>
             <div className={classes.containerError}>
                 <div className={classes.containerGeral}>
                     <h1 >PÁGINA NÃO ENCONTRADA</h1>

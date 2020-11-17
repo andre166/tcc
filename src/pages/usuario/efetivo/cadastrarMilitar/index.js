@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -25,6 +25,9 @@ import HelpIcon from '@material-ui/icons/Help';
 import LightTooltip from '../../../../utils/toolTip';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { useHistory}  from 'react-router-dom';
+import LoadingPage from  '../../../../components/loading';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
+
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -35,9 +38,24 @@ import { bindActionCreators } from 'redux';
 
 function AdicionarMilitar( props ) {
 
+  let [loading, setLoading] = useState(true);
+
     if( !props.navbarState.renderNavBar ){
         props.renderNavbar(true);
     }
+
+    async function isAutenticated(){
+
+        let autenticated = await verifyUserAuth();
+    
+        if( !autenticated ){
+          history.push('/')
+        }else{
+            setLoading(false)
+        }
+      } 
+    
+    isAutenticated();
 
     let dataAtual = new Date();
     let diaAtual = dataAtual.getDate();
@@ -158,6 +176,8 @@ function AdicionarMilitar( props ) {
         )
     }
    
+    if(loading){ return <LoadingPage/>}
+
     return(
         <Grid container direction="column"  alignContent="center"  className="container-cadastrarContato">
 

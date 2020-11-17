@@ -24,6 +24,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
+
 //redux
 import { connect } from 'react-redux';
 import { 
@@ -35,11 +37,12 @@ import { bindActionCreators } from 'redux';
 function Efetivo( props ){
 
     props.renderNavbar(false);
-    let userName = getUserName(); 
+    const history = useHistory();
     
     const classes = useStyles();
-    const history = useHistory();
 
+    let userName = getUserName(); 
+    
     let [loading, setLoading] = useState(true);
 
     let [listaTurma, setListaTurma] = useState([]);
@@ -52,9 +55,23 @@ function Efetivo( props ){
         txt: ''
     });
 
+
     useEffect(() => {
-        loadPage();
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+              history.push('/')
+            }else{
+              loadPage();
+            }
+        
+          } 
+        
+          isAutenticated();
     }, []);
+
 
     const loadPage = async ( ) =>{
 
@@ -223,7 +240,7 @@ function Efetivo( props ){
         window.location.assign("/")
     }
 
-    if(loading){ return <LoadingPage/>}
+    if(loading){ return <LoadingPage bg={"#bdbfc1"}/>}
 
     let userPerfil = getUserPerfil();
 
