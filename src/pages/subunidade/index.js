@@ -5,11 +5,14 @@ import { getUserOm } from '../../components/services/usuarioService';
 import { useParams } from 'react-router-dom';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './suStyle';
-import LoadingPage from '../.../../../components/loading';
+import LoadingPage from '../../components/loading';
+import verifyUserAuth from '../../utils/verificarUsuarioAuth';
+import { useHistory } from 'react-router-dom';
 
 export default function Om(){
 
   let idParams = useParams();
+  let history = useHistory();
 
   let [listaDeOm, setListaDeOm] = useState([]);
   let [loading, setLoading] = useState(true);
@@ -22,6 +25,7 @@ export default function Om(){
      
   useEffect(() => {
 
+    
     const getOms = async ( id, perfil, userId ) => {
 
       let response = '';
@@ -47,22 +51,34 @@ export default function Om(){
 
     };
 
-    let response = JSON.parse(localStorage.getItem("userInfo"));
+    function isAutenticated(){
 
-    let userPerfil = response.perfil;
-    let userId = response.userId;
+      let autenticated = verifyUserAuth();
 
-    setCredencial(userPerfil);
+      if( !autenticated ){
+          history.push('/')
+      }else{
 
-    //Perfil de administrador
-    if( idParams.id && userPerfil == 'ROLE_ADMIN'){
-      let id = idParams.id 
-      getOms( id, userPerfil );
-    }else if( !idParams.id && userPerfil == 'ROLE_ADMIN'){
-      getOms( '', userPerfil);
-    }else if( userPerfil !== 'ROLE_ADMIN'){
-      getOms( '', '', userId );
-    }
+        let response = JSON.parse(localStorage.getItem("userInfo"));
+
+        let userPerfil = response.perfil;
+        let userId = response.userId;
+    
+        setCredencial(userPerfil);
+        //Perfil de administrador
+        if( idParams.id && userPerfil == 'ROLE_ADMIN'){
+          let id = idParams.id 
+          getOms( id, userPerfil );
+        }else if( !idParams.id && userPerfil == 'ROLE_ADMIN'){
+          getOms( '', userPerfil);
+        }else if( userPerfil !== 'ROLE_ADMIN'){
+          getOms( '', '', userId );
+          
+        }
+      }
+    } 
+
+    isAutenticated();
 
     }, []);
 

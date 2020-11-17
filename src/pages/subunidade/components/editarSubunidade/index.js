@@ -16,6 +16,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './editSu';
 import LoadingPage from '../.../../../../../components/loading';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
 
 export default function Om(){
      
@@ -46,7 +47,19 @@ export default function Om(){
 
         }
 
-        getOm(id);
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+              history.push('/')
+            }else{
+                getOm(id);
+            }
+        
+        } 
+        
+        isAutenticated();
         
     }, []);
 

@@ -91,9 +91,9 @@ function ListaEfetivo( props ){
               loadPage();
             }
         
-          } 
+        } 
         
-          isAutenticated();
+        isAutenticated();
 
     }, []);
 

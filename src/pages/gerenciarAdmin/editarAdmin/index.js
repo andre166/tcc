@@ -100,10 +100,10 @@ function CadastrarAdmin2( props ){
         }else{
           inicializarForm();
         }
-        
+
       } 
       
-        isAutenticated();
+      isAutenticated();
 
       }, []);
 
