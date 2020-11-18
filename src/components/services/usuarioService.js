@@ -8,7 +8,7 @@ export const addUser = async ( usuario ) => {
 
     let host = hearderContent( token );
  
-    await axios.post(`http://localhost:8080/usuario/salvar`, usuario, {
+    await axios.post(`${localHost}/usuario/salvar`, usuario, {
         headers: host
       })
     .catch((error) => { return error });
@@ -25,7 +25,7 @@ export const addUserComOm = async ( usuario, su ) => {
 
     let host = hearderContent( token );
  
-    await axios.post(`http://localhost:8080/usuario/salvarComSu`, u, {
+    await axios.post(`${localHost}/usuario/salvarComSu`, u, {
         headers: host
       })
     .catch((error) => { return error });

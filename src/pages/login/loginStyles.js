@@ -45,6 +45,9 @@ export const useStyles = makeStyles((theme) => ({
     },  
     paper: {
       marginTop: '-200px',
+      [theme.breakpoints.down('xs')]: {
+        marginTop: -60,
+      },
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

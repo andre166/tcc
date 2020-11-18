@@ -72,6 +72,8 @@ function Login( props ){
           msg: 'Falha ao conectar-se ao servidor, contacte o administrador do sistema',
           tipo: 'warning'
         });
+        setSuccess(true);
+        setLoading(false);
 
       }else if( login.invalidUser ){
 
