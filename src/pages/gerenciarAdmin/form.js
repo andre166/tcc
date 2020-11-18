@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { styles } from './formularioStyles';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import ShowRelatorio from '@lestetelecom/showrelatorio/lib/index';
+import ShowRelatorio from 'material-table';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CheckoutPassword from './stepperAlterSenha/checkout';
 import { gerenciarAdminColumn } from '../../utils/columns/colunaGerenciarAdmin';

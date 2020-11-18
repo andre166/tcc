@@ -65,10 +65,10 @@ function Login( props ){
 
       const login = await logar( nome, senha );
 
-      let uId = login.data.usuario.id;
+      console.log("lo", login)
 
       if( login.invalidUser ==  'Network Error'){
-
+        console.log("aqui")
         setErro({
           erro: true,
           msg: 'Falha ao conectar-se ao servidor, contacte o administrador do sistema',
@@ -89,6 +89,8 @@ function Login( props ){
         setLoading(false);
 
       }else{
+        
+        let uId = login.data.usuario.id;
 
         let info = {
           token: login.data.data.token,
@@ -98,8 +100,6 @@ function Login( props ){
         localStorage.setItem("navBarItem", 1)
         
         let userSu = await listUsuarioUnicoComSubunidade( uId );
-        
-        // console.log("userSu", userSu)
 
         info = {
           name: nome,

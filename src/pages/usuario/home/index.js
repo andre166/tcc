@@ -6,7 +6,7 @@ import withWidth from '@material-ui/core/withWidth';
 import { getTurma } from  '../../../components/services/localStorgeService';
 import { colunaCidadao } from '../../../utils/columns/colunaCidadao';
 import { listarCidadaoPorTurma } from '../../../components/services/cidadaoService';
-import ShowRelatorio from '@lestetelecom/showrelatorio/lib/index';
+import ShowRelatorio from 'material-table';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';

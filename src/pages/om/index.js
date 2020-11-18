@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import RelatorioTable from '@lestetelecom/showrelatorio/lib/index';
+import RelatorioTable from 'material-table';
 import { omColumns } from '../../utils/columns/omColumns';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
