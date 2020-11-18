@@ -104,7 +104,7 @@ export const listUsuarioUnicoComSubunidade = async ( id ) => {
     let response = [];
     
     if( id ){
-
+        
         response = await axios.get(`${localHost}/usuario/listUsuarioUnicoComSubunidade/${id}`,{
             headers: host
           })

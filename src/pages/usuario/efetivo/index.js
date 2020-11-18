@@ -77,6 +77,8 @@ function Efetivo( props ){
 
         let uSu = getUserSu();
 
+        console.log("uSU", uSu)
+
         let response = await listarTurmaPorSu( uSu );
 
         if( localStorage.getItem("snackBarAlert") ){

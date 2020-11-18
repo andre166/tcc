@@ -65,6 +65,8 @@ function Login( props ){
 
       const login = await logar( nome, senha );
 
+      let uId = login.data.usuario.id;
+
       if( login.invalidUser ==  'Network Error'){
 
         setErro({
@@ -94,8 +96,10 @@ function Login( props ){
 
         localStorage.setItem("userInfo", JSON.stringify(info)); 
         localStorage.setItem("navBarItem", 1)
-
-        let userSu = await listUsuarioUnicoComSubunidade( login.data.usuario.id );
+        
+        let userSu = await listUsuarioUnicoComSubunidade( uId );
+        
+        // console.log("userSu", userSu)
 
         info = {
           name: nome,
@@ -133,7 +137,6 @@ function Login( props ){
     const teste = () => {
       setErro(false)
     }
-      console.log(props.userState.erro)
     return(
 
     <Container component="main" maxWidth="xs" className={classes.container}>
@@ -160,8 +163,8 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'CB_MESQUITA',
-          senha: '123456'
+          nome: 'SGT_ANDRE_MESQ',
+          senha: '12345'
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (
 
