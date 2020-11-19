@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from './card';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { Paper } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
@@ -36,6 +36,7 @@ import { getUserPerfil } from '../../../components/services/localStorgeService';
 import { 
     renderNavbar, renderLeftDrawner
 } from '../../../components/actions/navbarActions';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 
 import { bindActionCreators } from 'redux';
 
@@ -75,7 +76,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Home( props ){
 
-    
+    const history = useHistory();
+
+    function isAutenticated(){
+
+        let autenticated = verifyUserAuth();
+
+        if( !autenticated ){
+            history.push('/')
+        }else{
+            return true
+        }
+    }
+     
+    isAutenticated();
 
     const changeLeftDrawner = ( id ) => {
 

@@ -33,6 +33,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { cpfMasck } from '../../../components/masks/cpfMasck';
 import { retirarMaskCpf } from '../../../utils/maskAndValidators/cpf';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 
 function CadastrarAdmin2( props ){
 
@@ -58,7 +59,7 @@ function CadastrarAdmin2( props ){
 
     useEffect(() => {
 
-      const inicializarForm = async () => {
+      const loadPage = async () => {
         
         let usuario = await listUsuarioUnicoComSubunidade( id );
         usuario = usuario[0];
@@ -76,7 +77,18 @@ function CadastrarAdmin2( props ){
         
       }
 
-      inicializarForm();
+      function isAutenticated(){
+
+        let autenticated = verifyUserAuth();
+
+        if( !autenticated ){
+          history.push('/')
+        }else{
+          loadPage();
+        }
+      }
+      isAutenticated();
+
     }, []);
 
     const classes = useStyles();

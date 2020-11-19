@@ -30,6 +30,7 @@ import { useStyles } from './omStyles';
 import { maskCnpj } from '../../utils/maskAndValidators/cnpj';
 import { maskCep } from '../../utils/maskAndValidators/cep';
 import LoadingPage from  '../../components/loading';
+import verifyUserAuth from  '../../utils/verificarUsuarioAuth';
 
 export default withWidth()(Om);
 
@@ -80,10 +81,6 @@ function Om( props ){
 
       let userPerfil = getUserPerfil();
 
-      if( userPerfil !== 'ROLE_ADMIN'){
-        history.push('/error')
-      }
-
       if( localStorage.getItem("snackBarAlert") ){
 
         let msg = JSON.parse(localStorage.getItem("snackBarAlert"));
@@ -106,7 +103,9 @@ function Om( props ){
       }
 
       const loadPage = async () => {
-
+        if( userPerfil !== 'ROLE_ADMIN'){
+          history.push('/error')
+        }
         const resp = await listarOm( null );
 
         let colunas = omColumns( classes );
@@ -140,7 +139,20 @@ function Om( props ){
 
       };
       
-      loadPage();
+      async function isAutenticated(){
+
+        let autenticated = await verifyUserAuth();
+    
+        if( !autenticated ){
+          history.push('/')
+        }else{
+          
+          loadPage();
+        }
+    
+    } 
+    
+    isAutenticated();
     }, []);
 
       const filterOm = (e) => {

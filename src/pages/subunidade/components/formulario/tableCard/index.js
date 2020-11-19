@@ -48,7 +48,9 @@ const LightTooltip = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   containerGeral:{
-    width: '100%'
+    minWidth: 'calc( 100vw - 240px)',
+    background: '#fff',
+    minHeight: 'calc( 100vh - 64px)'
   },
   root: {
     // display: 'flex',
@@ -328,7 +330,7 @@ export default function Om( { omParaVincular, omList, userOm } ){
             <div className={classes.containerCadastrar}>
               <Grid direction="row" container alignItems="center" justify="flex-start" style={{padding: 10}}>
 
-                    <Grid item xs={6} sm={3} spacing={2}>
+                    <Grid item xs={12} sm={12} spacing={2}>
 
                       <Link to={{pathname: `/CadastrarSubunidade/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
                         <Button
@@ -343,7 +345,7 @@ export default function Om( { omParaVincular, omList, userOm } ){
 
                     </Grid>
 
-                    <Grid item xs={6} sm={2}>
+                    {/* <Grid item xs={6} sm={2}>
                       <Grid container alignItems="center" justify="flex-end">
 
                         <FormControlLabel
@@ -354,7 +356,7 @@ export default function Om( { omParaVincular, omList, userOm } ){
                         />
                       </Grid>
 
-                    </Grid>
+                    </Grid> */}
 
                     {xsDownMedia && !modoTabela &&
 
@@ -406,12 +408,13 @@ export default function Om( { omParaVincular, omList, userOm } ){
               {listaDeOm && 
 
                   modoTabela ? //Verifica se o modo é table ou card
-                    colunas && <div style={{width: smDownMediaQ && 'calc(100vw)' || smUpMediaQ && 'calc(100vw - 240px)'}}>
+                    colunas && <div style={{width: smDownMediaQ && 'calc(100vw)' || smUpMediaQ && 800}}>
                       <RelatorioTable 
                       minBodyHeight={'calc(60vh)'}
                       maxBodyHeight={'calc(60vh)'}
                       columns={colunas}
                       data={listaDeOm}
+                      elevation={2}
                     />
                     </div>
                   : 

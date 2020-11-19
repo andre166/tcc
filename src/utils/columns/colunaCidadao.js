@@ -41,14 +41,6 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 </IconButton>
             </LightTooltip>
 
-            <LightTooltip title="Detalhar Militar">
-                <Link to={{pathname: `/VerificarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
-                    <LightTooltip title="Detalhar OM">
-                        <IconButton size="small" aria-label="delete" ><FindInPageIcon/></IconButton>
-                    </LightTooltip>
-                </Link>
-            </LightTooltip>
-
             <LightTooltip title="Alterar Status">
                 <Link to={{pathname: `/VerificarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
                     <LightTooltip title="Detalhar OM">

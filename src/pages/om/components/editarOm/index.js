@@ -25,6 +25,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { retirarMasckCnpj } from '../../../../utils/maskAndValidators/cnpj';
 import { retirarMaskCep } from '../../../../utils/maskAndValidators/cep';
 import FormControl from '@material-ui/core/FormControl';
+import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
 
 export default function Om(){
      
@@ -52,7 +53,21 @@ export default function Om(){
             setLoading(false);
         }
 
-        getOm(id)
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+                history.push('/')
+            }else{
+              
+                getOm(id);
+
+            }
+        
+        } 
+        
+        isAutenticated();
         
     }, []);
 

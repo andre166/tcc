@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function GenerateTable( { columns, data, minBodyHeight, maxBodyHeight }){
+export default function GenerateTable( { columns, data, minBodyHeight, maxBodyHeight, elevation }){
 
     return (
       <Table
@@ -61,7 +61,7 @@ export default function GenerateTable( { columns, data, minBodyHeight, maxBodyHe
         }}
 
         components={{
-            Container: props => <Paper {...props} elevation={0} style={{border: 'none'}}/>,
+            Container: props => <Paper {...props} elevation={elevation || 0} style={{border: 'none'}}/>,
         }}
 
       />

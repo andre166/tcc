@@ -23,6 +23,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import { retirarMasckCnpj } from '../../../../utils/maskAndValidators/cnpj';
 import { retirarMaskCep } from '../../../../utils/maskAndValidators/cep';
+import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
 
 export default function FormCadastro(){
      
@@ -31,6 +32,22 @@ export default function FormCadastro(){
     const theme = useTheme();
 
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
+
+    async function isAutenticated(){
+
+      let autenticated = await verifyUserAuth();
+  
+      if( !autenticated ){
+          history.push('/')
+      }else{
+        
+        return;
+
+      }
+  
+    } 
+  
+    isAutenticated();
 
     async function onSubmit( values ){
 

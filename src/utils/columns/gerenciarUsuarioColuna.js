@@ -137,6 +137,14 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
             {
                 title: 'Perfil',
                 field: 'perfil',
+                lookup: {
+                  'Administrador': 'Administrador',
+                  'Chefe Informática': 'Chefe Informática',
+                  'Brigada': 'Brigada',
+                  'Sargenteante': 'Sargenteante',
+                  'Aux sgte justiça': 'Aux sgte justiça',
+                  'Aux sgte saúde': 'Aux sgte saúde',
+                },
                 renderGraph: true,
                 cellStyle: { 
                   width: '100%',

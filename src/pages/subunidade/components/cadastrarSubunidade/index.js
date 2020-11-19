@@ -14,6 +14,7 @@ import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { useStyles } from './cadSuStyle';
+import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
 
 export default function FormCadastro(){
      
@@ -38,8 +39,21 @@ export default function FormCadastro(){
         setLoading(false);
 
       };
+      async function isAutenticated(){
 
-      getOm();
+        let autenticated = await verifyUserAuth();
+    
+        if( !autenticated ){
+            history.push('/')
+        }else{
+          
+          getOm();
+  
+        }
+    
+      } 
+      isAutenticated();
+      
 
     }, []);
 

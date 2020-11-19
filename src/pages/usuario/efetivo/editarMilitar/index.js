@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import './cadastrarContato.css';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Formik, Form, ErrorMessage} from 'formik';
@@ -16,11 +15,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import { useParams, useHistory} from 'react-router-dom';
 import LoadingPage from  '../../../../components/loading';
+import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
 
 export default function EditarContato() {
 
     let idParams = useParams();
-
+    let history = useHistory();
+    
     const { id } = idParams;
 
     let dataAtual = new Date();
@@ -57,7 +58,19 @@ export default function EditarContato() {
             }
         }
 
-        loadPage();
+        async function isAutenticated(){
+
+            let autenticated = await verifyUserAuth();
+        
+            if( !autenticated ){
+              history.push('/')
+            }else{
+              loadPage();
+            }
+        
+        } 
+        
+        isAutenticated();
 
     }, []);
     

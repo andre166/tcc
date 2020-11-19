@@ -29,6 +29,7 @@ import { useTheme } from '@material-ui/core/styles';
 import { getUserId } from '../../../components/services/localStorgeService';
 import { useStyles } from './cadUsuStyle';
 import LoadingPage from  '../../../components/loading'
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 
 function CadastrarAdmin2(){
 
@@ -55,7 +56,17 @@ function CadastrarAdmin2(){
 
       }
 
-      loadPage();
+      function isAutenticated(){
+
+        let autenticated = verifyUserAuth();
+
+        if( !autenticated ){
+          history.push('/')
+        }else{
+          loadPage();
+        }
+      }
+      isAutenticated();
 
     }, []);
 
