@@ -8,10 +8,6 @@ import LightTooltip from '../../utils/toolTip';
 
 export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickOpen, classes } ) => {
 
-    if(rowData.perfil == 'Administrador'){ //Evita o usuário de fazer crud no administrador
-      return '';
-    }
-
     let id = '';
     let idOm = '';
 
@@ -33,6 +29,27 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
       idOm = rowData.idOm;
   
     }
+
+
+    if( rowData.perfil == 'Administrador' ){
+      return(
+        <div className="actionBtns" >
+  
+          <IconButton disabled={ rowData.perfil == 'Administrador' ? true : false } size="small" color="primary" className={classes.buttonInfoIcon}> 
+            <EditIcon size="small" /> 
+          </IconButton>
+  
+          <IconButton disabled={ rowData.perfil == 'Administrador' ? true : false } variant="outlined"  size="small" onClick={() => openDialog()}>
+              <DeleteForeverIcon  className={ rowData.perfil !== 'Administrador' && classes.buttonDangerIcon} />
+          </IconButton>
+
+          <IconButton disabled={ rowData.perfil == 'Administrador' ? true : false } variant="outlined"  size="small" onClick={() => openDialogAlterPassWord()} className={classes.lockIconBtnSm}>
+              <LockIcon />
+          </IconButton>
+  
+        </div>
+      )
+    }
         
     return (
       <div className="actionBtns" >
@@ -47,7 +64,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
   
         <LightTooltip title="Excluir">
           <IconButton variant="outlined"  size="small" onClick={() => openDialog()}>
-              <DeleteForeverIcon className={classes.buttonDangerIcon} />
+              <DeleteForeverIcon  className={classes.buttonDangerIcon} />
           </IconButton>
         </LightTooltip>
 
@@ -75,7 +92,7 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                     rowData={rowData} classes={classes} setRowInfo={setRowInfo} setOpenAlterKey={setOpenAlterKey} handleClickOpen={handleClickOpen}
                 />,
                 cellStyle: { 
-                  padding: 8,
+                  padding: 6,
               }, 
             },
             { 
@@ -83,7 +100,7 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 field: 'userName',
                 cellStyle: { 
                   width: '100%',
-                  padding: 0, 
+                  padding: 6, 
                   minWidth: 250,
                   maxWidth: 400,
                   textAlign: 'center',
@@ -121,7 +138,7 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 field: 'cpf',
                 cellStyle: { 
                   width: '100%',
-                  padding: 0, 
+                  padding: 6, 
                   minWidth: 250,
                   textAlign: 'center',
               }, 
@@ -148,7 +165,7 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 renderGraph: true,
                 cellStyle: { 
                   width: '100%',
-                  padding: 0, 
+                  padding: 6, 
                   minWidth: 250,
                   textAlign: 'center',
               }, 
@@ -172,7 +189,7 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 field: 'nome',
                 cellStyle: { 
                   width: '100%',
-                  padding: 0, 
+                  padding: 6, 
                   minWidth: 600,
                   textAlign: 'center',
               }, 
