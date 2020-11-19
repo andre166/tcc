@@ -1,92 +1,58 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import { Formik, Form, ErrorMessage } from 'formik';
-import cadastroOmShema from '../../../../utils/schemas/cadastroOmShema';
-import { Button, Paper } from '@material-ui/core';
-import HelpIcon from '@material-ui/icons/Help';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import GenerateAlert from '../../../../components/errorAlert';
-import { cadastrarOm } from '../../../../components/services/omServices';
-import { useHistory}  from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
+import { useHistory } from 'react-router-dom';
+import { useStyles } from './style';
 import Divider from '@material-ui/core/Divider';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import { useStyles } from './cadOmStyle';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
-import LightTooltip from '../../../../utils/toolTip';
-import {  cnpjMasck } from "../../../../components/masks/cnpjMask";
-import {  cepMasck } from "../../../../components/masks/cepMask";
+import { Button, Paper } from '@material-ui/core';
+import HelpIcon from '@material-ui/icons/Help';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import { Formik, Form, ErrorMessage } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
-import { retirarMasckCnpj } from '../../../../utils/maskAndValidators/cnpj';
-import { retirarMaskCep } from '../../../../utils/maskAndValidators/cep';
-import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
+import GenerateAlert from '../../../../components/errorAlert';
+import LightTooltip from '../../../../utils/toolTip';
+import LoadingPage from  '../../../../components/loading';
 
-export default function FormCadastro(){
-     
+export default function Status( ){
+    
+    let history = useHistory();
     const classes = useStyles();
-    const history = useHistory();
     const theme = useTheme();
+    let [loading, setLoading] = useState(false);
 
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
-    async function isAutenticated(){
+    useEffect(() => {
+        async function isAutenticated(){
 
-      let autenticated = await verifyUserAuth();
-  
-      if( !autenticated ){
-          history.push('/')
-      }else{
+            let autenticated = await verifyUserAuth();
         
-        return;
+            if( !autenticated ){
+              history.push('/')
+            }else{
+              loadPage();
+            }
+        
+          } 
+        
+          isAutenticated();
+    }, []);
 
-      }
-  
-    } 
-  
-    isAutenticated();
-
-    async function onSubmit( values ){
-
-      values.cnpj = retirarMasckCnpj( values.cnpj );
-      values.cep = retirarMaskCep( values.cep );
-
-      values.nomeAbrev = values.nomeAbrev.trim();
-      values.nomeOm = values.nomeOm.trim();
-
-      if( values.nomeOm == '' || values.nomeAbrev == ''){
-        return;
-      }
-
-      await cadastrarOm(values);
-
-      let info = {
-        severityType: 'success',
-        type: 'om', 
-      }
-
-      localStorage.setItem("snackBarAlert", JSON.stringify(info));
-
-      history.push('/Om');
-      
-    }
-
-    const verificarErro = ( msg ) => {
-
-      let tipo = 'warning';
-
-      if( msg == 'Não é um CNPJ válido.' || msg == 'Não é um CEP válido.' ){
-        tipo = 'error'
-      }
-
-      return(
-        <GenerateAlert alertConfig={ {msg: msg, tipo: tipo} } />
-      )
+    const loadPage = async ( ) =>{
 
     }
+
+    const onSubmit = ( values ) => {
+        console.log("values", values)
+    }
+
+    if(loading){ return <LoadingPage bg={"#bdbfc1"}/>}
 
     return(
         <Grid className={classes.containerGeral} container direction="column" alignItems="center" justify="center">
@@ -94,18 +60,19 @@ export default function FormCadastro(){
           <Paper className={classes.paperCadastrarOm} elevation={3}>
 
             <Grid container direction="row" alignItems="center" justify="center">
+                <div>
+                    <Button 
+                        size='small'
+                        style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
+                        variant="outlined"
+                        color="primary"
+                        startIcon={<KeyboardReturnIcon />}
+                        onClick={ () => history.goBack()}
+                    >
+                        {!xsDownMedia && 'Voltar'}
+                    </Button>
 
-                    <Link to={'/Om'}  style={{textDecoration: 'none'}}>
-                        <Button
-                            size='small'
-                            style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
-                            variant="outlined"
-                            color="primary"
-                            startIcon={<KeyboardReturnIcon />}
-                        >
-                            {!xsDownMedia && 'Voltar'}
-                        </Button>
-                    </Link>
+                </div>
 
                 <Grid item xs>
                     <Grid container alignItems="center" justify="center">
@@ -116,7 +83,7 @@ export default function FormCadastro(){
             <Divider style={{marginBottom: 10}}/>
 
             <Formik
-              validationSchema={cadastroOmShema}
+            //   validationSchema={cadastroOmShema}
               onSubmit={onSubmit}
               initialValues={{
                 nomeOm: 'teste tt tt tt t',
@@ -163,12 +130,11 @@ export default function FormCadastro(){
                     <Input
                       name="cnpj"
                       value={values.cnpj}
-                      inputComponent={cnpjMasck}
+                    //   inputComponent={cnpjMasck}
                       onChange={handleChange}
                     />
 
                   </FormControl>
-                <ErrorMessage name="cnpj">{(msg) => verificarErro(msg) }</ErrorMessage>
 
                 <FormControl className={classes.inputTxt}>
 
@@ -177,13 +143,11 @@ export default function FormCadastro(){
                   <Input
                     name="cep"
                     value={values.cep}
-                    inputComponent={cepMasck}
+                    // inputComponent={cepMasck}
                     onChange={handleChange}
                   />
 
                 </FormControl>
-
-                <ErrorMessage name="cep">{(msg) => verificarErro(msg) }</ErrorMessage>
 
                 <Button type="submit" variant="contained" color="primary" className={classes.buttonSuccess}>
                   Cadastrar
@@ -195,5 +159,5 @@ export default function FormCadastro(){
         </Paper>   
       </Grid>
     );
-    
 }
+

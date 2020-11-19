@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
-import verificarUsuarioAuth from './utils/verificarUsuarioAuth';
+import { Switch, Route } from 'react-router-dom';
 
 import UserHome from './pages/usuario/home';
 import ChInfoHome from './pages/gerenciarUsuario/home';
@@ -36,6 +35,8 @@ import VerificarSubunidade from './pages/subunidade/components/formulario/tableC
 import CadastrarTurma from './pages/usuario/efetivo/cadastrarTurma';
 import EditarTurma from './pages/usuario/efetivo/editarTurma';
 import ExcluirTurma from './pages/usuario/efetivo/excluirTurma';
+
+import MilitarStatus from './pages/usuario/efetivo/status';
 
 import Erro from './pages/erro';
 
@@ -80,6 +81,8 @@ const Routes = ( ) => {
             <Route exact path='/ExcluirTurma' component={ExcluirTurma}/>
 
             <Route exact path='/Om' component={Om}/>
+
+            <Route exact path='/MilitarStatus/:id' component={MilitarStatus}/>
     
             <Route path="*" component={Erro}/> 
 

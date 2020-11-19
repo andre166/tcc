@@ -124,7 +124,7 @@ function AdicionarMilitar( props ) {
             estadoCivil: values.estadoCivil,
             tipo: values.tipo ,
             telefone: values.telefone ,
-            numero: numeroDeRecruta ,
+            numeroRecruta: numeroDeRecruta ,
             ra: values.ra ,
             nomeDeGuerra: values.nomeDeGuerra ,
             qm: values.qm ,

@@ -68,25 +68,19 @@ export const useStyles = makeStyles((theme) => ({
        }
     },
     buttonDanger: {
-        backgroundColor: '#ed3237',
-        '&:hover': {
-          background: "#7f3436",
-       },
-      },
+    backgroundColor: '#ed3237',
+    '&:hover': {
+        background: "#7f3436",
+    },
+    },
     
-      buttonInfo: {
+    buttonInfo: {
         backgroundColor: '#0064a6',
         '&:hover': {
-          background: "#195493",
-       },
-      },
-
-    buttonSelecionar: {
-    //     backgroundColor: '#1d3724',
-    //     '&:hover': {
-    //       background: "#4a5442",
-    //    }
+            background: "#195493",
+        },
     },
+
     formControlContainer: {
         width: '100%',
         maxWidth: 420,

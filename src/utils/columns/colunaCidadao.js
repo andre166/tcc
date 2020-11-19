@@ -4,9 +4,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import LightTooltip from '../../utils/toolTip';
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-
+import Alert from '@material-ui/lab/Alert';
 export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickOpen, classes } ) => {
 
     let id = rowData.id;
@@ -42,9 +41,11 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             </LightTooltip>
 
             <LightTooltip title="Alterar Status">
-                <Link to={{pathname: `/VerificarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
+                <Link to={{pathname: `/MilitarStatus/${rowData.id}`}} style={{textDecoration: 'none'}}>
                     <LightTooltip title="Detalhar OM">
-                        <IconButton size="small" aria-label="delete" ><AssignmentIcon/></IconButton>
+                        <IconButton  variant="outlined" size="small">
+                            <AssignmentIcon className={classes.buttonAlterStatus}/>
+                        </IconButton>
                     </LightTooltip>
                 </Link>
             </LightTooltip>
@@ -142,6 +143,20 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             {
                 title: 'Status', 
                 field: 'cidadaosStatus', 
+
+                render: rowData => <Alert 
+                    severity={
+                        rowData.cidadaosStatus == 'OK' ? 'success' : 
+                        rowData.cidadaosStatus == 'BAIXADO' ? 'error' : 'warning'} 
+                    style={{
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center'
+                    }}
+                >
+                    {rowData.cidadaosStatus}
+                </Alert>, 
+
                 type: 'string', 
                 lookup: {
                    OK : "OK",

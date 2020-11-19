@@ -103,6 +103,7 @@ function ListaEfetivo( props ){
         let turmaId = turma.id;
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
+        console.log("cidadaoList", cidadaoList)
 
         if( cidadaoList[0] == undefined ){
 

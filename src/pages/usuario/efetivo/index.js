@@ -37,6 +37,9 @@ import { bindActionCreators } from 'redux';
 function Efetivo( props ){
 
     props.renderNavbar(false);
+
+    const perfil = getUserPerfil();
+
     const history = useHistory();
     
     const classes = useStyles();
@@ -112,7 +115,6 @@ function Efetivo( props ){
 
     }
 
-    const perfil = getUserPerfil();
 
     const defineCols = () => {
 
@@ -235,6 +237,10 @@ function Efetivo( props ){
 
         },
     ]
+
+    if( perfil !== 'ROLE_SGTE' ){ //retira os editar e excluir turma
+        colunas.splice(2,4)
+    }
 
     const sair = ( ) => {
         localStorage.removeItem("navBarItem");
