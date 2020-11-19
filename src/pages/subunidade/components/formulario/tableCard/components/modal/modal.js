@@ -159,7 +159,6 @@ function SimpleDialogWrapped( props ){
 
     let p = idParams.id;
 
-
     await deletarSubunidade( _id, token );
 
     let info = {

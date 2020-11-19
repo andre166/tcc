@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginTop: 55,
         },
-        marginTop: 80,
+        marginTop: 62,
         padding: 5
     }
 

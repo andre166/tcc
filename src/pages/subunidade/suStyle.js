@@ -6,7 +6,9 @@ export const useStyles = makeStyles((theme) => ({
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       overflow: 'hidden',
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#fff',
+      height: '100%',
+      minHeight: '100vh'
     },
     gridList: {
       width: '100%',

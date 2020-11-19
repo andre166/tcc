@@ -3,15 +3,15 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
     containerGeral:{
       padding: 0,
-      background: '#eeeeee',
-      // minHeight: '100vh'
+      background: '#fff',
+      minHeight: '100vh'
     },
     root: {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       overflow: 'hidden',
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#fff',
       width: '100%'
     },
     gridList: {

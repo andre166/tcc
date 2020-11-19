@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import RelatorioTable from 'material-table';
+import RelatorioTable from '../../components/tabela';
 import { omColumns } from '../../utils/columns/omColumns';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
@@ -249,16 +249,16 @@ function Om( props ){
     if(loading){ return <LoadingPage/>}
 
     return(
-          <Grid container direction="column" justify="center" alignItems="center" className={classes.containerGeral}>
+          <Grid container direction="column"  className={classes.containerGeral}>
 
             {renderSnackBar && <Snackbar info={renderSnackBar} />}
 
           <Grid direction="column">
-            <div style={{marginTop: xsDownMedia && 55 || 65, background: '#fff'}}>
+            <div style={{marginTop: xsDownMedia && 55 || 65, borderBottom: '1px solid #D1D1D1'}}>
               <Grid container direction="row" alignItems="center" justify="flex-start" style={{padding: 10}}>
 
 
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={12} sm={12}>
 
                   <Link to={{pathname: `/CadastrarOm`}} style={{textDecoration: 'none', marginRight: 5}}>
                     <Button
@@ -273,7 +273,7 @@ function Om( props ){
 
                 </Grid>
 
-                <Grid item xs={6} sm={2}>
+                {/* <Grid item xs={6} sm={2}>
 
                   <FormControlLabel
                       control={
@@ -282,7 +282,7 @@ function Om( props ){
                     label="Tabela"
                   />
 
-                </Grid>
+                </Grid> */}
 
                 {xsDownMedia && !modoTabela &&
 
@@ -334,8 +334,13 @@ function Om( props ){
               {listaDeOm.length === 0 ? '' :
 
                   modoTabela == true ? //Verifica se o modo é table ou card
-                  <div style={{ width: smDownMediaQ && '100vw' || smUpMediaQ && 'calc(100vw - 240px)', background: '#fff' }}>
-                    <RelatorioTable TableDimension={ { tWidth: '100%', tHeight: '100%' } } relatorio={listaDeOm} customColumns={omColuns} />
+                  <div style={{ width: smDownMediaQ && '100vw' || smUpMediaQ && 'calc(100vw - 240px)', padding: 0 }}>
+                    <RelatorioTable 
+                      minBodyHeight={'calc(74vh)'}
+                      maxBodyHeight={'calc(74vh)'}
+                      columns={omColuns}
+                      data={listaDeOm}
+                    />
                   </div>
                   :
 

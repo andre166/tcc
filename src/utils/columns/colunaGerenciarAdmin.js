@@ -66,7 +66,10 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
               title: 'Ações',
               render: rowData => <ActionBtns 
                 rowData={rowData} classes={classes} setRowInfo={setRowInfo} setOpenAlterKey={setOpenAlterKey} handleClickOpen={handleClickOpen}
-              />
+              />,
+              cellStyle: { 
+                padding: 8, 
+            }, 
             },
     
             { 
@@ -77,7 +80,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     width: '100%', 
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0, 
                     minWidth: 220,
                     textAlign: 'center',
                 }, 
@@ -94,7 +98,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     width: '100%', 
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0, 
                     minWidth: 220,
                     textAlign: 'center',
                 }, 
@@ -112,7 +117,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     width: '100%', 
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0, 
                     minWidth: 220,
                     textAlign: 'center',
                 }, 
@@ -131,7 +137,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     width: '100%', 
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0, 
                     minWidth: 260,
                     textAlign: 'center',
                 }, 
@@ -148,7 +155,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     width: '100%', 
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0, 
                     minWidth: 430,
                     textAlign: 'center',
                 }, 

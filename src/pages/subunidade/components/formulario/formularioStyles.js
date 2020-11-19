@@ -10,6 +10,8 @@ export const styles = theme => ({
     container: {
       display: 'flex',
       flexDirection: 'column',
+      background: '#fff',
+      minHeight: '100vh'
     },
     containerSubunidades: {
       background: '#fff',
@@ -83,6 +85,7 @@ export const styles = theme => ({
       marginTop: 65,
       padding: 10,
       background: '#fff',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
       [theme.breakpoints.down('sm')]: {
         marginTop: 57,
       },

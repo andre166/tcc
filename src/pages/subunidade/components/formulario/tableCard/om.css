@@ -2,8 +2,8 @@
     /* display: flex; */
     /* justify-content: center; */
     width: 100%;
-    /* min-height: 95vh; */
-    background-color: #bdbfc1;
+    min-height: 100vh;
+    background-color: #fff;
     /* margin-top: 0px; */
     /* align-items: ; */
 }

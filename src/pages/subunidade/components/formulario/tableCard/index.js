@@ -15,8 +15,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import RelatorioTable from 'material-table';
-import { colunaSubunidade } from '../../../../../utils/columns/colunaSubunidade';
+import RelatorioTable from '../../../../../components/tabela';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -35,6 +34,7 @@ import FindInPageIcon from '@material-ui/icons/FindInPage';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { colunaSubunidade } from '../../../../../utils/columns/colunaSubunidade';
 
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
@@ -124,6 +124,9 @@ const useStyles = makeStyles((theme) => ({
       background: "#4a5442",
    },
   },
+  buttonDangerIcon:{
+    color: '#ed3237'
+  },
   containerCadastrar: {
     background: '#fff'
   },
@@ -132,8 +135,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Om( { omParaVincular, omList, userOm} ){
-
+export default function Om( { omParaVincular, omList, userOm } ){
 
     const classes = useStyles();
 
@@ -145,6 +147,7 @@ export default function Om( { omParaVincular, omList, userOm} ){
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     let [listaDeOm, setListaDeOm] = useState(omParaVincular.subunidades);
+    let [colunas, setColunas] = useState('');
     let [listaDeOmState, setListaDeOmState] = useState(omParaVincular.subunidades);
     let [loading, setLoading] = useState(true);
     const [modoTabela, setModoTabela] = useState(true);
@@ -172,9 +175,6 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
     }
 
-    if(userOm){
-      console.log("userOm", userOm)
-    }
     const [zerarPaginacao, setZerarPaginacao] = useState(false); // Volta para a página 1 ao mudar filtros ou ordenar - independente de true ou false - a cada mudança de estado é chamado um useffect
     const paginar = (pageNumber) => setPaginaAtual(pageNumber); //Define a quantidade de páginas a serem paginadas
 
@@ -185,52 +185,6 @@ export default function Om( { omParaVincular, omList, userOm} ){
 
     useEffect(() => {
 
-      function gerarActionsButtons( omParaVincular ){
-
-        if( colunaSubunidade[0].title == 'Ações' ){
-          colunaSubunidade.shift()
-        }
-
-       if(colunaSubunidade[0].title !== 'Ações'){
-         let btns = { 
-           title: 'Ações',
-           render: rowData => <ActionBtns rowData={rowData} omParaVincular={omParaVincular}/>
-         }
-  
-         colunaSubunidade.unshift(btns);
-       }
-
-
-      }
-
-
-      function ActionBtns( {rowData, omParaVincular} ) {
-
-        return (
-          <div className="actionBtns" >
-      
-          <Link to={{pathname: `/EditarSubunidade/${rowData.id}/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
-            <LightTooltip title="Editar" size="small">
-              <IconButton color="primary" aria-label="upload picture" component="span"> 
-                <EditIcon size="small" className={classes.buttonInfoIcon}/> 
-              </IconButton>
-            </LightTooltip>
-          </Link>
-      
-          <Modal om={ rowData } btnTable={true} omParaVincular={omParaVincular}/>
-
-          <Link to={{pathname: `/VerificarSubunidade/${rowData.id}/${omParaVincular.id}`}} style={{textDecoration: 'none'}}>
-            <LightTooltip title="Detalhar Subunidade">
-                <IconButton size="small" aria-label="delete" ><FindInPageIcon/></IconButton>
-            </LightTooltip>
-          </Link>
-
-          </div>
-        )
-      }
-
-      gerarActionsButtons( omParaVincular );
-
       const loadPage = async () => {
 
         if( localStorage.getItem("snackBarAlert") ){
@@ -238,13 +192,15 @@ export default function Om( { omParaVincular, omList, userOm} ){
           var msgSnabarAlert = JSON.parse(localStorage.getItem("snackBarAlert"));
   
         }
+
+        let col = colunaSubunidade( classes, omParaVincular );
         
         if( omParaVincular ){
 
           let qtdEfetivo = 0;
 
           // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa", omPr)
-
+          setColunas(col);
           setListaDeOm(omParaVincular.subunidades);
           setListaDeOmState(omParaVincular.subunidades)
           setLoading(false);
@@ -369,7 +325,6 @@ export default function Om( { omParaVincular, omList, userOm} ){
             {renderSnackBar && <Snackbar info={renderSnackBar} />}
 
           <Grid>
-            <Divider/>
             <div className={classes.containerCadastrar}>
               <Grid direction="row" container alignItems="center" justify="flex-start" style={{padding: 10}}>
 
@@ -450,9 +405,14 @@ export default function Om( { omParaVincular, omList, userOm} ){
                   {error &&  <div style={{margin: 10}}><GenerateAlert alertConfig={ {msg: "Nenhuma OM encontrada", tipo: "warning"}} /> </div>}
               {listaDeOm && 
 
-                  modoTabela == true ? //Verifica se o modo é table ou card
-                    <div style={{ background: '#fff', width: smDownMediaQ && 'calc(100vw)' || smUpMediaQ && 'calc(100vw - 240px)'}}>
-                      <RelatorioTable TableDimension={ { tWidth: '99,8%', tHeight: '100%' } } relatorio={listaDeOm} customColumns={colunaSubunidade} /> 
+                  modoTabela ? //Verifica se o modo é table ou card
+                    colunas && <div style={{width: smDownMediaQ && 'calc(100vw)' || smUpMediaQ && 'calc(100vw - 240px)'}}>
+                      <RelatorioTable 
+                      minBodyHeight={'calc(60vh)'}
+                      maxBodyHeight={'calc(60vh)'}
+                      columns={colunas}
+                      data={listaDeOm}
+                    />
                     </div>
                   : 
                   

@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { styles } from './formularioStyles';
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import ShowRelatorio from 'material-table';
+import RelatorioTable from '../../components/tabela';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import CheckoutPassword from '../gerenciarAdmin/stepperAlterSenha/checkout';
 import { getUserId } from '../../components/services/localStorgeService';
@@ -119,7 +119,12 @@ function Editable( props ) {
 
           {data.length > 0 && columns.length > 0 && 
             <div className={classes.tabelaContainer}>
-              <ShowRelatorio relatorio={data} customColumns={columns}/>
+              <RelatorioTable 
+                minBodyHeight={'calc(74vh)'}
+                maxBodyHeight={'calc(74vh)'}
+                columns={columns}
+                data={data}
+              />
             </div>
           }
           

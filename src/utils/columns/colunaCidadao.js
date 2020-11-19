@@ -71,7 +71,10 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 title: 'Ações',
                 render: rowData => <ActionBtns 
                   rowData={rowData} classes={classes} setRowInfo={setRowInfo} setOpenAlterKey={setOpenAlterKey} handleClickOpen={handleClickOpen}
-                />
+                />,
+                cellStyle: { 
+                    padding: 8,
+                }, 
             },
             { 
                 title: 'Número', 
@@ -79,7 +82,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 160,
                     textAlign: 'center'
                 }, 
@@ -115,7 +119,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     'SD EV':     'SD EV',
                  },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 120,
                     textAlign: 'center'
                 }, 
@@ -131,7 +136,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 220,
                     textAlign: 'center'
                 }, 
@@ -154,8 +160,10 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                    PUNIDO : "PUNIDO",
                    OUTROS : "OUTROS",
                 },
-                renderGraph: true,cellStyle: { 
-                    width: '100%', 
+                renderGraph: true,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 200,
                     textAlign: 'center'
                 }, 
@@ -171,7 +179,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 350,
                     textAlign: 'center'
                 }, 
@@ -191,7 +200,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 180,
                     textAlign: 'center'
                 }, 
@@ -207,7 +217,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 200,
                     textAlign: 'center'
                 }, 
@@ -223,7 +234,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 250,
                     textAlign: 'center'
                 }, 
@@ -239,7 +251,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 200,
                     textAlign: 'center'
                 }, 
@@ -255,7 +268,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'date', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 190,
                     textAlign: 'center'
                 }, 
@@ -271,7 +285,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'date', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 190,
                     textAlign: 'center'
                 }, 
@@ -294,7 +309,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: true,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 120,
                     textAlign: 'center'
                 }, 
@@ -310,7 +326,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 210,
                     textAlign: 'center'
                 }, 
@@ -332,7 +349,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                     'Viúvo': 'Viúvo'
                 },
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 190,
                     textAlign: 'center'
                 }, 
@@ -353,7 +371,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 },
                 renderGraph: true,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 200,
                     textAlign: 'center'
                 }, 
@@ -369,7 +388,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 300,
                     textAlign: 'center'
                 }, 
@@ -385,7 +405,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 300,
                     textAlign: 'center'
                 }, 
@@ -401,7 +422,8 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 type: 'string', 
                 renderGraph: false,
                 cellStyle: { 
-                    width: '100%', 
+                    width: '100%',
+                    padding: 0,
                     minWidth: 180,
                     textAlign: 'center'
                 }, 

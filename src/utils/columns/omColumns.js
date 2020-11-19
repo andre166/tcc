@@ -21,12 +21,6 @@ const ActionBtns = ( { rowData, classes } ) => {
     
         <Modal om={ rowData } btnTable={true}/>
 
-        <Link to={{pathname: `/VerificarOm/${rowData.id}`}} style={{textDecoration: 'none'}}>
-            <LightTooltip title="Detalhar OM">
-                <IconButton size="small" aria-label="delete" ><FindInPageIcon/></IconButton>
-            </LightTooltip>
-        </Link>
-
       </div>
     )
   }
@@ -40,7 +34,10 @@ export const omColumns = ( classes  ) => {
 
             { 
                 title: 'Ações',
-                render: rowData => <ActionBtns rowData={rowData} classes={classes}/>
+                render: rowData => <ActionBtns rowData={rowData} classes={classes}/>,
+                cellStyle: { 
+                    padding: 8,
+                }, 
             },
             { 
                 title: 'OM', 
@@ -51,7 +48,8 @@ export const omColumns = ( classes  ) => {
                     width: '100%', 
                     textAlign: 'center',
                     alignItems: 'center',
-                    minWidth: 'max-content'
+                    minWidth: 'max-content',
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
@@ -60,7 +58,8 @@ export const omColumns = ( classes  ) => {
                 },
                 filterCellStyle: {
                     textAlign: 'center',
-                    width: '100%', 
+                    width: '100%',
+                    minWidth: 280 
                 }
                 
             },
@@ -73,6 +72,7 @@ export const omColumns = ( classes  ) => {
                     width: '100%', 
                     textAlign: 'center',
                     alignItems: 'center',
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
@@ -86,7 +86,8 @@ export const omColumns = ( classes  ) => {
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
@@ -100,11 +101,18 @@ export const omColumns = ( classes  ) => {
                 renderGraph: false,
                 cellStyle: { 
                     width: '100%', 
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    minWidth: 150,
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
                     textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%',
+                    minWidth: 230 
                 }
             },
             { 
@@ -115,11 +123,17 @@ export const omColumns = ( classes  ) => {
                 cellStyle: { 
                     width: '100%', 
                     minWidth: 230,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
                     textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%',
+                    minWidth: 230 
                 }
             },
             { 
@@ -130,11 +144,17 @@ export const omColumns = ( classes  ) => {
                 cellStyle: { 
                     width: '100%', 
                     minWidth: 180,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    padding: 0,
                 }, 
                 headerStyle: { 
                     width: '100%', 
                     textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%',
+                    minWidth: 180
                 }
             }
         ]

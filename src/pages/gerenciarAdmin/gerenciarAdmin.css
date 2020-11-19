@@ -5,4 +5,6 @@
 }
 .admin-container{
     margin-top: 60px;
+    background: #fff;
+    min-height: calc(100vh - 60px);
 }

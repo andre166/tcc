@@ -6,7 +6,7 @@ import withWidth from '@material-ui/core/withWidth';
 import { getTurma } from  '../../../../components/services/localStorgeService';
 import { colunaCidadao } from '../../../../utils/columns/colunaCidadao';
 import { listarCidadaoPorTurma } from '../../../../components/services/cidadaoService';
-import ShowRelatorio from 'material-table';
+import RelatorioTable from '../../../../components/tabela';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -171,7 +171,12 @@ function ListaEfetivo( props ){
 
                     {data.length > 0 && columns.length > 0 && 
                         <div style={{background: '#fff'}}>
-                            <ShowRelatorio  relatorio={data} customColumns={columns}/>
+                            <RelatorioTable 
+                                minBodyHeight={'calc(74vh)'}
+                                maxBodyHeight={'calc(74vh)'}
+                                columns={columns}
+                                data={data}
+                            />
                         </div>
                     }
         

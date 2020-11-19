@@ -73,13 +73,17 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 title: 'Ações',
                 render: rowData => <ActionBtns 
                     rowData={rowData} classes={classes} setRowInfo={setRowInfo} setOpenAlterKey={setOpenAlterKey} handleClickOpen={handleClickOpen}
-                />
+                />,
+                cellStyle: { 
+                  padding: 8,
+              }, 
             },
             { 
                 title: 'Nome de usuario', 
                 field: 'userName',
                 cellStyle: { 
-                  width: '100%', 
+                  width: '100%',
+                  padding: 0, 
                   minWidth: 250,
                   maxWidth: 400,
                   textAlign: 'center',
@@ -116,7 +120,8 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 title: 'Cpf', 
                 field: 'cpf',
                 cellStyle: { 
-                  width: '100%', 
+                  width: '100%',
+                  padding: 0, 
                   minWidth: 250,
                   textAlign: 'center',
               }, 
@@ -134,7 +139,8 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 field: 'perfil',
                 renderGraph: true,
                 cellStyle: { 
-                  width: '100%', 
+                  width: '100%',
+                  padding: 0, 
                   minWidth: 250,
                   textAlign: 'center',
               }, 
@@ -157,7 +163,8 @@ export const gerenciarUsuarioColumn = ( setRowInfo, setOpenAlterKey, handleClick
                 title: 'Nome Completo', 
                 field: 'nome',
                 cellStyle: { 
-                  width: '100%', 
+                  width: '100%',
+                  padding: 0, 
                   minWidth: 600,
                   textAlign: 'center',
               }, 
