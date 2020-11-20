@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CardActions from '@material-ui/core/CardActions';
 import { Link } from 'react-router-dom';
 
-export default function SimpleCard( { info } ) {
+export default function SimpleCard( { info, listaTurma } ) {
 
     const classes = useStyles();
   
@@ -50,11 +50,21 @@ export default function SimpleCard( { info } ) {
         }
 
         {info.button && info.link &&
+
           <CardActions className={classes.rootContentActions}>
-            <Link to={info.link} style={{textDecoration: 'none', marginTop: -5}}>
+            {listaTurma.length > 0 ?
+              <Link to={info.link} style={{textDecoration: 'none', marginTop: -5}}>
+                {info.button}
+              </Link>
+            : 
+            
+            <div style={{marginTop: -5}}>
               {info.button}
-            </Link>
+            </div>
+            
+            }
           </CardActions>
+
         }
 
       </Card>

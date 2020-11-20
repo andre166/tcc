@@ -6,20 +6,14 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import LightTooltip from '../../utils/toolTip';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import Alert from '@material-ui/lab/Alert';
+import Typography from '@material-ui/core/Typography';
 export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickOpen, classes } ) => {
 
     let id = rowData.id;
-    let idOm = '';
 
     const openDialog = async () => {
         await setRowInfo( rowData )
         handleClickOpen();
-    }
-    
-    if( rowData.idOm){
-
-        idOm = rowData.idOm;
-
     }
           
     return (
@@ -142,19 +136,21 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
             },
             {
                 title: 'Status', 
-                field: 'cidadaosStatus', 
+                field: 'status.tipo', 
 
                 render: rowData => <Alert 
                     severity={
-                        rowData.cidadaosStatus == 'OK' ? 'success' : 
-                        rowData.cidadaosStatus == 'BAIXADO' ? 'error' : 'warning'} 
+                        !rowData.status ? '' : rowData.status.tipo == 'OK' ? 'success' : 
+                        rowData.status && rowData.status.tipo == 'BAIXADO' ? 'error' : 'warning'} 
                     style={{
                         display: 'flex', 
                         alignItems: 'center', 
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        height: '100%',
+                        margin: "0px !important",
                     }}
                 >
-                    {rowData.cidadaosStatus}
+                    {rowData.status && rowData.status.tipo}
                 </Alert>, 
 
                 type: 'string', 
@@ -181,6 +177,80 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 }
             },
             {
+                title: 'Início', 
+                field: 'status.inicio', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 180,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 180,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
+            },
+            {
+                title: 'Término', 
+                field: 'status.fim', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 180,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 180,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                }
+            },
+            {
+                title: 'Descrição', 
+                field: 'status.descricao', 
+                type: 'string', 
+                renderGraph: false, 
+                render: (rowData) => (
+                    <LightTooltip title={rowData.status.descricao}>
+                        <Typography noWrap style={{width: 350, cursor: 'pointer'}} onClick={() => console.log("aqui")}>
+                        {rowData.status.descricao}
+                        </Typography>
+                    </LightTooltip>
+                ),
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 350,
+                    textAlign: 'center',
+                    whitheSpace: 'nowrap',
+                    wordBreak: 'break-word'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 350,
+                    textAlign: 'center'
+                },
+                filterCellStyle: {
+                    textAlign: 'center',
+                    width: '100%', 
+                    minWidth: 350,
+
+                }
+            },
+            {
                 title: 'Nome completo', 
                 field: 'nomeCompleto', 
                 type: 'string', 
@@ -199,8 +269,10 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 filterCellStyle: {
                     textAlign: 'center',
                     width: '100%', 
-                }
+                },
+                
             },
+            
             {
                 title: 'QM', 
                 field: 'qm', 
@@ -437,6 +509,78 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 headerStyle: { 
                     width: '100%', 
                     minWidth: 180,
+                    textAlign: 'center'
+                }
+            },
+
+            {
+                title: 'Estado', 
+                field: 'endereco.estado', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 180,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 180,
+                    textAlign: 'center'
+                }
+            },
+
+            {
+                title: 'Cidade', 
+                field: 'endereco.cidade', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 250,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 250,
+                    textAlign: 'center'
+                }
+            },
+
+            {
+                title: 'Bairro', 
+                field: 'endereco.bairro', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 250,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 250,
+                    textAlign: 'center'
+                }
+            },
+
+            {
+                title: 'Rua', 
+                field: 'endereco.rua', 
+                type: 'string', 
+                renderGraph: false,
+                cellStyle: { 
+                    width: '100%',
+                    padding: 0,
+                    minWidth: 250,
+                    textAlign: 'center'
+                }, 
+                headerStyle: { 
+                    width: '100%', 
+                    minWidth: 250,
                     textAlign: 'center'
                 }
             },

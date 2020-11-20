@@ -20,14 +20,17 @@ export default function GenerateTable( { columns, data, minBodyHeight, maxBodyHe
 
     return (
       <Table
+      
         icons={tableIcons}
         title={''}
         columns={columns}
         data={data}
-
         localization={{
             body: {
-                emptyDataSourceMessage: 'Nenhum registro para exibir'
+                emptyDataSourceMessage: 'Nenhum registro para exibir',
+                filterRow: {
+                  filterTooltip: 'Filtro'
+              }
             },
             toolbar: {
                 searchPlaceholder: 'Pesquisar...'

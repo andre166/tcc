@@ -5,7 +5,7 @@ import LoadingPage from  '../../../../components/loading';
 import withWidth from '@material-ui/core/withWidth';
 import { getTurma } from  '../../../../components/services/localStorgeService';
 import { colunaCidadao } from '../../../../utils/columns/colunaCidadao';
-import { listarCidadaoPorTurma } from '../../../../components/services/cidadaoService';
+import { listarCidadaoPorTurma, deletarCidadaoPorId  } from '../../../../components/services/cidadaoService';
 import RelatorioTable from '../../../../components/tabela';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -63,6 +63,23 @@ function ListaEfetivo( props ){
         })
     };
 
+    const excluirUsuario = async ( ) => {
+      
+        let userId = rowInfo.id;
+  
+        await deletarCidadaoPorId(userId);
+        
+        let info = {
+          severityType: 'error',
+          type: 'militar', 
+        }
+  
+        localStorage.setItem("snackBarAlert", JSON.stringify(info));
+  
+        window.location.reload();
+  
+      }
+
     const [columns, setColumns] = useState([]);
 
     useEffect(() => {
@@ -104,7 +121,6 @@ function ListaEfetivo( props ){
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
         console.log("cidadaoList", cidadaoList)
-
         if( cidadaoList[0] == undefined ){
 
             setNenhumaMilitarCadastrado(true);
@@ -191,11 +207,15 @@ function ListaEfetivo( props ){
                         >
 
                             <>
-                                <DialogTitle id="alert-dialog-title">{`Deseja excluir ${rowInfo.userName} ?`}</DialogTitle>
+                            {console.log(rowInfo)}
+                                <DialogTitle id="alert-dialog-title">{`Deseja excluir ${rowInfo.postGrad} ${rowInfo.nomeDeGuerra} ?`}</DialogTitle>
                                 
                                 <Divider style={{marginBottom: 10}}/>
                                 
                                 <DialogActions style={{justifyContent: 'center', marginBottom: 5}}>
+                                    <Button className={classes.buttonSuccess} onClick={excluirUsuario} color="primary" variant="contained">
+                                        Sim
+                                    </Button>
                                     <Button className={classes.buttonDanger} onClick={handleClose} color="primary" variant="contained" autoFocus>
                                         não
                                     </Button>

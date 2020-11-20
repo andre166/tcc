@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import LoadingPage from  '../../../../components/loading';
 import { listarCidadaoPorId } from  '../../../../components/services/cidadaoService';
+import { alterarStatus } from '../../../../components/services/statusService';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -25,6 +26,12 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import moment from 'moment';
+import getTime from 'date-fns/getTime';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import MuiAlert from '@material-ui/lab/Alert';
 
 export default function Status( ){
     
@@ -37,10 +44,27 @@ export default function Status( ){
     let [militar, setMilitar] = useState('');
     let [ status, setStatus ] = useState('');
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
+        }
+
+        setOpen(false);
+    };
+
     let [ data1, setData1 ] = useState('');
     let [ data2, setData2 ] = useState('');
+    let [ descricao, setDescricao ] = useState('');
 
-
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+      }
 
     const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -68,8 +92,36 @@ export default function Status( ){
         setLoading(false);
     }
 
-    const onSubmit = ( values ) => {
-        console.log("values", values)
+    const onSubmit = async ( ) => {
+        
+        var result = getTime(new Date(data1))
+        var result2 = getTime(new Date(data2))
+
+        if( result >  result2){
+            handleClick();
+            return;
+        }
+
+        let data1Formatada = moment( data1 ).utc().format('DD/MM/YYYY');
+        let data2Formatada = moment( data2 ).utc().format('DD/MM/YYYY');
+
+        let idST = militar.status.id;
+        let militarId = militar.id;
+
+        let st = status.status;
+        let novoStatus = {
+            id: idST, 
+            tipo: st, 
+            inicio: data1Formatada, 
+            fim: data2Formatada, 
+            descricao: descricao || null,
+            cidadaoId: militarId
+        }
+
+        console.log("novoStatus", novoStatus)
+        console.log("status", status.status)
+
+        await alterarStatus( novoStatus );
     }
 
     if(loading){ return <LoadingPage bg={"#bdbfc1"}/>}
@@ -131,13 +183,17 @@ export default function Status( ){
                             <Divider/>
 
                             <ListItem>
-                                <ListItemText primary="Status:" secondary={militar.cidadaosStatus} />
+                                <ListItemText primary="Status:" secondary={militar.status.tipo} />
                             </ListItem>
 
                             <Divider/>
 
                             <ListItem>
-                                <ListItemText primary="Definição do Status:" secondary={"Encontra-se em operção sigilosa."} />
+                                <ListItemText primary="Data:" secondary={`Início: ${militar.status.inicio}  -  Fim: ${militar.status.fim}`} />
+                            </ListItem>
+
+                            <ListItem>
+                                <ListItemText primary="Descrição do Status:" secondary={militar.status.descricao} />
                             </ListItem>
 
                             <Divider/>
@@ -191,7 +247,7 @@ export default function Status( ){
                                 <TextField
                                     style={{marginTop: xsDownMedia && 15}}
                                     required
-                                    label="Fim"
+                                    label="Término"
                                     type="date"
                                     value={data2}
                                     onChange={(e) => setData2(e.target.value)}
@@ -212,11 +268,18 @@ export default function Status( ){
                                 <h4>Descrição:</h4>
 
                             <Grid container direction="row" justify="space-around" alignItems="center" >
-                                <TextareaAutosize 
+                                <TextareaAutosize
+                                    value={descricao} 
+                                    onChange={(e) => setDescricao(e.target.value)}
                                     placeholder="Descreva aqui o motivo da alteração do status. Ex: Acidentou-se em prática desportiva." 
                                     style={{width: '90%',minWidth: 300, minHeight: 200}}
+                                    maxLength="255"
                                 />
                             </Grid>
+                            <div  style={{marginLeft: 27}}>
+                                <div style={{fontSize: '9pt'}}>Quantidade máxima de caracter: 255</div>
+                                <div style={{fontSize: '9pt'}}>Restando: {255 - descricao.length}</div>
+                            </div>
 
                         </Grid>
 
@@ -227,11 +290,27 @@ export default function Status( ){
 
             }
 
-            <Button
+            <Button onClick={onSubmit}
             disabled={status == '' ? true : status.status == 'OK' ? false : data1 == '' || data2 == '' && true} 
-            variant="contained" color="primary" style={{marginTop: 10}}>Alterar Status</Button>
+            variant="contained" color="primary" style={{marginTop: 20}}>Alterar Status</Button>
 
-        </Paper>   
+        </Paper>  
+
+        <Snackbar
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+            }}
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message="Note archived"
+        >
+            <Alert onClose={handleClose} severity="error">
+                Data de término não pode ser menor que a data de início, favor corrigir.
+            </Alert>
+        </Snackbar>
+
       </Grid>
     );
 }

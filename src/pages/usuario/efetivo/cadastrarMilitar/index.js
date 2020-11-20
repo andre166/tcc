@@ -23,7 +23,6 @@ import Input from '@material-ui/core/Input';
 import { postGradList } from '../../../../utils/PostGradList';
 import HelpIcon from '@material-ui/icons/Help';
 import LightTooltip from '../../../../utils/toolTip';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import { useHistory}  from 'react-router-dom';
 import LoadingPage from  '../../../../components/loading';
 import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
@@ -112,7 +111,13 @@ function AdicionarMilitar( props ) {
         }
         
         let cidadao = {
-            cidadaosStatus: 0,
+
+            id: null,
+            inicio: null,
+            fim: null,
+            descrição: null,
+            tipoStatus: 'OK',
+
             nomeCompleto: values.nomeCompleto,
             cpf: values.cpf ,
             rg: values.rg ,
@@ -122,7 +127,7 @@ function AdicionarMilitar( props ) {
             nomeMae: values.nomeMae ,
             nomePai: values.nomePai ,
             estadoCivil: values.estadoCivil,
-            tipo: values.tipo ,
+            tipoTel: values.tipo ,
             telefone: values.telefone ,
             numeroRecruta: numeroDeRecruta ,
             ra: values.ra ,
@@ -131,24 +136,19 @@ function AdicionarMilitar( props ) {
             comportamento: values.cpto ,
             dataDePraca:  moment( values.dataPraca ).utc().format('DD/MM/YYYY'),
             postGrad: values.postGrad ,
-            turma: turma
-        }
 
-        let endereco = {
-            id: null,
+            turmaId: turma.id,
+            turma: turma.turma,
+
+            endId: null,
             estado: values.estado ,
             cidade: values.cidade ,
             bairro: values.bairro ,
             rua: values.ruaLote ,
-            cidadao: null
         }
 
-        let CidadaoComEndereco = {
-            cidadao: cidadao,
-            endereco: endereco
-        }
         
-        await cadastrarCidadao( CidadaoComEndereco ); 
+        await cadastrarCidadao( cidadao ); 
 
         let info = {
             severityType: 'success',

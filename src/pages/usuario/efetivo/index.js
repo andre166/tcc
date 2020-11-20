@@ -224,7 +224,7 @@ function Efetivo( props ){
             title: 'Editar', desc: 'Editar Efetivo', 
             subDesc: 'Edita o ano referente a um efetivo já criado. EX: mudar o efetivo de 2012 para 2014.',
             link: '/EditarTurma',
-            button: <Button size="small" color="primary" variant="contained" className={classes.buttonInfo} >Editar</Button>,
+            button: <Button disabled={listaTurma.length > 0 ? false : true} size="small" color="primary" variant="contained" className={classes.buttonInfo} >Editar</Button>,
             func: () => ''
         },
         { 
@@ -232,7 +232,7 @@ function Efetivo( props ){
             title: 'Excluir', desc: 'Excluir Efetivo', 
             subDesc: 'Exclui um ano e todo o efetivo relacionado ao mesmo.',
             link: '/ExcluirTurma',
-            button: <Button size="small" color="primary" variant="contained" className={classes.buttonDanger} >Exluir</Button>,
+            button: <Button disabled={listaTurma.length > 0 ? false : true} size="small" color="primary" variant="contained" className={classes.buttonDanger} >Exluir</Button>,
             func: () => ''
 
         },
@@ -284,7 +284,7 @@ function Efetivo( props ){
                 <GridList cellHeight={ props.width == 'sm' ? 260 : 220} cols={defineCols()} spacing={5}>
                     {colunas.map( (col, i) => (
                         <GridListTile key={i} cols={1} style={{padding: 5}}>
-                            <Card info={col}/>
+                            <Card info={col} listaTurma={listaTurma}/>
                         </GridListTile>
                     ))}
                 </GridList>

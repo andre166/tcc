@@ -113,13 +113,13 @@ function Home( props ){
 
     const colunas =  [
 
-        { 
-            icon: <SettingsIcon className={classes.avatarIcon}/>, 
-            title: 'Configurações', desc: 'Configurações de usuário', 
-            subDesc: 'Editar configuraçõs pré-estabelecidas e informações do próprio usuário',
-            link: '/userConfig',
-            func: () => ''
-        },
+        // { 
+        //     icon: <SettingsIcon className={classes.avatarIcon}/>, 
+        //     title: 'Configurações', desc: 'Configurações de usuário', 
+        //     subDesc: 'Editar configuraçõs pré-estabelecidas e informações do próprio usuário',
+        //     link: '/userConfig',
+        //     func: () => ''
+        // },
         { 
             icon: <HomeWorkIcon className={classes.avatarIcon}/>, 
             title: 'Organização Militar[OM]', 
@@ -141,20 +141,20 @@ function Home( props ){
             link: perfil == 'ROLE_ADMIN' ? '/GerenciarAdmin' : '/GerenciarUsuario',
             func: () => changeLeftDrawner(perfil == 'ROLE_ADMIN' ? 4 : 3)
         },
-        { 
-            icon: <ContactMailRoundedIcon className={classes.avatarIcon}/>, 
-            title: 'Administrador geral', desc: 'Fale aqui', 
-            subDesc: 'Contato do administrador geral do sistema para relatar erros, pedidos,  dúvidas em geral',
-            link: '/Error',
-            func: () => ''
-        },
-        { 
-            icon: <HelpIcon className={classes.avatarIcon}/>, 
-            title: 'Ajuda', desc: 'Assistência para utililar o sistema', 
-            subDesc: 'Dúvidas sobre o sistema e suas funcionalidades, regras de cadastro',
-            link: '/Error',
-            func: () => ''
-        }
+        // { 
+        //     icon: <ContactMailRoundedIcon className={classes.avatarIcon}/>, 
+        //     title: 'Administrador geral', desc: 'Fale aqui', 
+        //     subDesc: 'Contato do administrador geral do sistema para relatar erros, pedidos,  dúvidas em geral',
+        //     link: '/Error',
+        //     func: () => ''
+        // },
+        // { 
+        //     icon: <HelpIcon className={classes.avatarIcon}/>, 
+        //     title: 'Ajuda', desc: 'Assistência para utililar o sistema', 
+        //     subDesc: 'Dúvidas sobre o sistema e suas funcionalidades, regras de cadastro',
+        //     link: '/Error',
+        //     func: () => ''
+        // }
     ]
 
     const defineCols = () => {

@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { Formik, Form, ErrorMessage} from 'formik';
 import TextField from '@material-ui/core/TextField';
 import cadastrarMilitarSchema from '../../../../utils/schemas/cadastrarMilitarSchema';
-import { cadastrarCidadao, listarCidadaoPorId, listarCidadaoComEndereco } from '../../../../components/services/cidadaoService';
+import { editarCidadao, listarCidadaoPorId } from '../../../../components/services/cidadaoService';
 import { getTurma } from '../../../../components/services/localStorgeService';
 import { listarTurma } from '../../../../components/services/turmaService';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,11 +16,19 @@ import List from '@material-ui/core/List';
 import { useParams, useHistory} from 'react-router-dom';
 import LoadingPage from  '../../../../components/loading';
 import verifyUserAuth from  '../../../../utils/verificarUsuarioAuth';
+import { rgMasck } from '../../../../components/masks/rgMasck';
+import { cpfMasck } from '../../../../components/masks/cpfMasck';
+import { telFixoMasck, telMasck } from '../../../../components/masks/telMasck';
+import { raMasck } from '../../../../components/masks/raMasck';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
 
 export default function EditarContato() {
 
     let idParams = useParams();
     let history = useHistory();
+    let turma = getTurma();
     
     const { id } = idParams;
 
@@ -48,12 +56,13 @@ export default function EditarContato() {
 
         const loadPage = async() => {
 
-            let cidadaoComEndereco = await listarCidadaoComEndereco( id );
+            let cidadaoComEndereco = await listarCidadaoPorId( id );
+            console.log("cidadaoComEndereco", cidadaoComEndereco)
             
             if( cidadaoComEndereco){
 
-                setCidadao(cidadaoComEndereco.cidadao);
-                setCidadaoEndereco(cidadaoComEndereco.endereco);
+                setCidadao(cidadaoComEndereco);
+                setCidadaoEndereco(cidadaoComEndereco.endereco || '');
                 setLoading(false);
             }
         }
@@ -95,7 +104,7 @@ export default function EditarContato() {
     ]
 
     async function onSubmit( values ){
-
+        
         let turmaId = await getTurma();
 
         let id = turmaId.id;
@@ -107,9 +116,19 @@ export default function EditarContato() {
         if( values.postGrad == 'SD EV' ){
             numeroDeRecruta = values.numero
         }
+
+        let hasEndereco = cidadao.endereco;
         
-        let cidadao = {
-            cidadaosStatus: 0,
+        let novoCidadao = {
+
+            cidadoId: cidadao.id,
+
+            id: cidadao.status.id || null,
+            inicio: cidadao.status.inicio || null,
+            fim: cidadao.status.fim || null,
+            descrição: cidadao.status.descricao || null,
+            tipoStatus: cidadao.status.tipo || 'OK',
+
             nomeCompleto: values.nomeCompleto,
             cpf: values.cpf ,
             rg: values.rg ,
@@ -119,39 +138,39 @@ export default function EditarContato() {
             nomeMae: values.nomeMae ,
             nomePai: values.nomePai ,
             estadoCivil: values.estadoCivil,
-            tipo: values.tipo ,
+            tipoTel: values.tipo ,
             telefone: values.telefone ,
-            numero: numeroDeRecruta ,
+            numeroRecruta: numeroDeRecruta ,
             ra: values.ra ,
             nomeDeGuerra: values.nomeDeGuerra ,
             qm: values.qm ,
             comportamento: values.cpto ,
             dataDePraca:  moment( values.dataPraca ).utc().format('DD/MM/YYYY'),
             postGrad: values.postGrad ,
-            turma: turma
+
+            turmaId: cidadao.turma.id,
+            turma: cidadao.turma.turma,
+
+            // endId: !hasEndereco ? hasEndereco.id : null,
+            // estado:  !hasEndereco ? hasEndereco.estado : values.estado ,
+            // cidade:  !hasEndereco ? hasEndereco.cidade : values.cidade ,
+            // bairro:  !hasEndereco ? hasEndereco.bairro : values.bairro ,
+            // rua:  !hasEndereco ? hasEndereco.rua : values.ruaLote ,
+
+            endId: cidadao.endereco.id,
+            estado:  values.estado,
+            cidade:  values.cidade,
+            bairro:  values.bairro,
+            rua:  values.ruaLote,
         }
 
-        let endereco = {
-            id: null,
-            estado: values.estado ,
-            cidade: values.cidade ,
-            bairro: values.bairro ,
-            rua: values.ruaLote ,
-            cidadao: null
-        }
-
-        let CidadaoComEndereco = {
-            cidadao: cidadao,
-            endereco: endereco
-        }
+        console.log("cidadao", novoCidadao)
 
         
-        cadastrarCidadao( CidadaoComEndereco ); 
+        editarCidadao( novoCidadao ); 
     }
 
     const cabecalho = () => {
-
-        let turma = getTurma();
 
         let txt = `Efetivo: ${ turma.turma }`
 
@@ -166,7 +185,7 @@ export default function EditarContato() {
 
     return(
         <Grid container direction="column"  alignContent="center"  className="container-cadastrarContato">
-
+{console.log("ci", cidadao)}
 
             <Grid container direction="column"  alignContent="center">
             
@@ -187,7 +206,7 @@ export default function EditarContato() {
                     tipo: cidadao.tipo,
                     telefone: cidadao.telefone,
                     //Form militar
-                    numero:cidadao.numeroRecruta,
+                    numero:cidadao.numeroRecruta || '',
                     ra:cidadao.ra,
                     nomeDeGuerra:cidadao.nomeDeGuerra,
                     qm:cidadao.qm,
@@ -195,10 +214,10 @@ export default function EditarContato() {
                     dataPraca: dataString,
                     postGrad:cidadao.postGrad,
                     //Form endereço
-                    estado: cidadaoEndereco.estado,
-                    cidade: cidadaoEndereco.cidade,
-                    bairro: cidadaoEndereco.bairro,
-                    ruaLote: cidadaoEndereco.rua,
+                    estado: cidadaoEndereco.estado || '',
+                    cidade: cidadaoEndereco.cidade || '',
+                    bairro: cidadaoEndereco.bairro || '',
+                    ruaLote: cidadaoEndereco.rua || '',
 
                 }}
                 render={( { values, handleChange, handleSubmit, errors }) => (
@@ -235,17 +254,18 @@ export default function EditarContato() {
 
                         <Grid item xs={12} sm={4} lg={2}>
 
-                            <TextField
-                                value={values.cpf}
-                                autoComplete="off"
-                                fullWidth
-                                label="CPF"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}
-                                name="cpf"
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">CPF</InputLabel>
+
+                                <Input
+                                    name="cpf"
+                                    value={values.cpf}
+                                    inputComponent={cpfMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                             <ErrorMessage name="cpf">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
 
@@ -253,17 +273,18 @@ export default function EditarContato() {
           
                         <Grid item xs={12} sm={4} lg={2}>
 
-                            <TextField
-                                value={values.rg}
-                                name="rg"
-                                autoComplete="off"
-                                fullWidth
-                                label="RG"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">RG</InputLabel>
+
+                                <Input
+                                    name="rg"
+                                    value={values.rg}
+                                    inputComponent={rgMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                         </Grid>
 
@@ -417,30 +438,38 @@ export default function EditarContato() {
 
                         </TextField>
 
-                        <TextField
-                            value={values.telefone}
-                            name="telefone"
-                            style={{width: 'calc(100% - 130px)'}}
-                            label="Telefone"
-                            margin="dense"
-                            variant="outlined"
-                            onChange={handleChange}
-                        />
+                        <FormControl>
+
+                            <InputLabel htmlFor="my-input">Telefone</InputLabel>
+
+                            <Input
+                                style={{width: 'calc( 100% - 5px)'}}
+                                variant="outlined"
+                                name="telefone"
+                                value={values.telefone}
+                                inputComponent={values.tipo == 'Celular' ? telMasck : telFixoMasck}
+                                onChange={handleChange}
+                            />
+
+                        </FormControl>
 
                     </Grid>
 
                         <Grid item xs={6} sm={4} lg={3}>
 
-                            <TextField
-                                value={values.ra}
-                                name="ra"
-                                style={{width: '100%', maxWidth: 200}}
-                                label="RA"
-                                margin="dense"
-                                style={{marginBottom: 0}}
-                                variant="outlined"
-                                onChange={handleChange}                          
-                            />
+                            <FormControl>
+
+                                <InputLabel htmlFor="my-input">RA</InputLabel>
+
+                                <Input
+                                    variant="outlined"
+                                    name="ra"
+                                    value={values.ra}
+                                    inputComponent={raMasck}
+                                    onChange={handleChange}
+                                />
+
+                            </FormControl>
 
                             <ErrorMessage name="ra">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 210}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
                             

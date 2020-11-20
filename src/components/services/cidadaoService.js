@@ -32,6 +32,23 @@ export const cadastrarCidadao = async ( cidadao ) => {
 
 };
 
+export const editarCidadao = async ( cidadao ) => {
+
+  console.log("cidadao", cidadao)
+
+  let token = getToken();
+
+  let host = hearderContent( token );
+
+  const response = await axios.put(`${localHost}/cidadao/editar`, cidadao, {
+  headers: host
+  })
+  .catch((error) => { return error });
+
+  return response.data;
+
+};
+
 export const listarCidadaoPorId = async ( id ) => {
 
   let token = getToken();
@@ -39,6 +56,21 @@ export const listarCidadaoPorId = async ( id ) => {
   let host = hearderContent( token );
 
   const response = await axios.get(`${localHost}/cidadao/listar/${id}`,{
+    headers: host
+  })
+  .catch((error) => { return error });
+
+  return response.data;
+
+};
+
+export const deletarCidadaoPorId = async ( id ) => {
+
+  let token = getToken();
+
+  let host = hearderContent( token );
+
+  const response = await axios.delete(`${localHost}/cidadao/excluir/${id}`,{
     headers: host
   })
   .catch((error) => { return error });
@@ -61,5 +93,21 @@ export const listarCidadaoComEndereco = async ( id ) => {
   return response.data;
 
 };
+
+export const listarCidadaoUnicoComEndereco = async ( turmaId, cidadaoId ) => {
+
+  let token = getToken();
+
+  let host = hearderContent( token );
+
+  const response = await axios.get(`${localHost}/cidadao/listarPorTurma/${turmaId}/${cidadaoId}`,{
+    headers: host
+  })
+  .catch((error) => { return error });
+
+  return response.data;
+
+};
+
 
 
