@@ -90,18 +90,26 @@ function GenerateList( props ){
 
                     <Collapse in={ item >= 80 && item <= 89 ? true : openSaude} timeout="auto" unmountOnExit ref={inputEl}>
                         <List component="div" disablePadding>
-                        <ListItem button  className={88 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 88)}>
-                            <ListItemIcon>
-                                <PieChartIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Dashboard saúde" />
-                        </ListItem>
-                        <ListItem button className={89 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 89)}>
-                            <ListItemIcon>
-                                <AssignmentIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Parte de acidente" />
-                        </ListItem>
+
+                            <Link to='/DashBoardSaude' className={classes.link}>
+                                <ListItem button  className={88 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 88)}>
+                                    <ListItemIcon>
+                                        <PieChartIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Dashboard saúde" />
+                                </ListItem>
+                            </Link>
+
+
+                            <Link to='/ParteDeAcidente' className={classes.link}>
+                                <ListItem button className={89 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 89)}>
+                                    <ListItemIcon>
+                                        <AssignmentIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Parte de acidente" />
+                                </ListItem>
+                            </Link>
+
                         </List>
                         <Divider/>
                     </Collapse>
@@ -114,18 +122,25 @@ function GenerateList( props ){
 
                     <Collapse in={item >= 90 && item <= 99 ? true : openJust} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItem button  className={98 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 98)}>
-                                <ListItemIcon>
-                                    <PieChartIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Dashboard disciplinar" />
-                            </ListItem>
-                            <ListItem button  className={99 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 99)}>
-                                <ListItemIcon>
-                                    <AssignmentIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Gerar FATD" />
-                            </ListItem>
+
+                            <Link to='/DashBoardJustica' className={classes.link}>
+                                <ListItem button  className={98 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 98)}>
+                                    <ListItemIcon>
+                                        <PieChartIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Dashboard disciplinar" />
+                                </ListItem>
+                            </Link>
+
+                            <Link to='/GerarFatd' className={classes.link}>
+                                <ListItem button  className={99 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 99)}>
+                                    <ListItemIcon>
+                                        <AssignmentIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Gerar FATD" />
+                                </ListItem>
+                            </Link>
+
                         </List>
                         <Divider/>
                     </Collapse>

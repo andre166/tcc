@@ -31,9 +31,15 @@ export default function CustomizedSnackbars( { info } ) {
     }else if(type == 'militar'){
       tipo = 'Militar'
       gen = 'o'
+    }else if(type == 'status'){
+      tipo = 'Status'
+      gen = 'o'
     }
 
-    if( severityType == 'success'){
+    if( type == 'status' ){
+      msgFinal = ` Alterad${gen}`;
+      estilo = classes.success;
+    }else if( severityType == 'success'){
       msgFinal = ` cadastrad${gen}` ;
       estilo = classes.success;
     }else if(severityType == 'error'){

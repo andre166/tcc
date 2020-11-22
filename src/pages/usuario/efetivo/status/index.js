@@ -29,9 +29,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import moment from 'moment';
 import getTime from 'date-fns/getTime';
 import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import MuiAlert from '@material-ui/lab/Alert';
 
 export default function Status( ){
     
@@ -105,6 +105,13 @@ export default function Status( ){
         let data1Formatada = moment( data1 ).utc().format('DD/MM/YYYY');
         let data2Formatada = moment( data2 ).utc().format('DD/MM/YYYY');
 
+        console.log("data1Formatada", data1Formatada)
+
+        if( data1Formatada == "Invalid date" || data2Formatada == "Invalid date"){
+            data1Formatada = null
+            data2Formatada = null
+        }
+
         let idST = militar.status.id;
         let militarId = militar.id;
 
@@ -118,10 +125,18 @@ export default function Status( ){
             cidadaoId: militarId
         }
 
-        console.log("novoStatus", novoStatus)
-        console.log("status", status.status)
-
         await alterarStatus( novoStatus );
+
+        let info = {
+            severityType: 'success',
+            type: 'status', 
+        }
+    
+        localStorage.setItem("snackBarAlert", JSON.stringify(info));
+        localStorage.setItem("navBarItem", 3);
+    
+        history.push('/ListaEfetivo');
+
     }
 
     if(loading){ return <LoadingPage bg={"#bdbfc1"}/>}
@@ -162,7 +177,7 @@ export default function Status( ){
                     >
                         <Typography className={classes.heading}>Descrição do Militar</Typography>
                     </AccordionSummary>
-                        <List dense="true" disablePadding>
+                        <List dense="true" disablePadding >
                             {militar.numeroRecruta && <ListItem>
                                 <ListItemText primary="Número de recruta:" secondary={militar.numeroRecruta} />
                             </ListItem>}
@@ -193,7 +208,16 @@ export default function Status( ){
                             </ListItem>
 
                             <ListItem>
-                                <ListItemText primary="Descrição do Status:" secondary={militar.status.descricao} />
+                                <ListItemText primary="Descrição do Status:" secondary={
+                                    <>
+                                        <Typography component="span" style={{display: 'inline', wordBreak: 'break-word'}}
+                                            variant="body2" 
+                                        >
+                                            {militar.status.descricao}
+                                        </Typography>
+                                        
+                                    </>
+                                    } />
                             </ListItem>
 
                             <Divider/>

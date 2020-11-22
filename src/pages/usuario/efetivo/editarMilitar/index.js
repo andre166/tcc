@@ -148,14 +148,8 @@ export default function EditarContato() {
             dataDePraca:  moment( values.dataPraca ).utc().format('DD/MM/YYYY'),
             postGrad: values.postGrad ,
 
-            turmaId: cidadao.turma.id,
-            turma: cidadao.turma.turma,
-
-            // endId: !hasEndereco ? hasEndereco.id : null,
-            // estado:  !hasEndereco ? hasEndereco.estado : values.estado ,
-            // cidade:  !hasEndereco ? hasEndereco.cidade : values.cidade ,
-            // bairro:  !hasEndereco ? hasEndereco.bairro : values.bairro ,
-            // rua:  !hasEndereco ? hasEndereco.rua : values.ruaLote ,
+            turmaId: turma.id,
+            turma: turma.turma,
 
             endId: cidadao.endereco.id,
             estado:  values.estado,
@@ -163,11 +157,18 @@ export default function EditarContato() {
             bairro:  values.bairro,
             rua:  values.ruaLote,
         }
-
-        console.log("cidadao", novoCidadao)
-
         
-        editarCidadao( novoCidadao ); 
+        await editarCidadao( novoCidadao ); 
+
+        let info = {
+            severityType: 'info',
+            type: 'militar', 
+        }
+    
+        localStorage.setItem("snackBarAlert", JSON.stringify(info));
+        localStorage.setItem("navBarItem", 3);
+    
+        history.push('/ListaEfetivo');
     }
 
     const cabecalho = () => {

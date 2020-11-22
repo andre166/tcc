@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import verifyUserAuth from '../../../../utils/verificarUsuarioAuth';
+import verifyUserAuth from '../../../utils/verificarUsuarioAuth';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from './style';
 import Divider from '@material-ui/core/Divider';
@@ -15,18 +15,18 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { Formik, Form, ErrorMessage } from 'formik';
 import InputLabel from '@material-ui/core/InputLabel';
-import GenerateAlert from '../../../../components/errorAlert';
-import LightTooltip from '../../../../utils/toolTip';
-import LoadingPage from  '../../../../components/loading';
+import GenerateAlert from '../../../components/errorAlert';
+import LightTooltip from '../../../utils/toolTip';
+import LoadingPage from  '../../../components/loading';
 
 export default function Status( ){
     
-    let history = useHistory();
-    const classes = useStyles();
-    const theme = useTheme();
-    let [loading, setLoading] = useState(false);
+  let history = useHistory();
+  const classes = useStyles();
+  const theme = useTheme();
+  let [loading, setLoading] = useState(false);
 
-    const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
+  const xsDownMedia = useMediaQuery(theme.breakpoints.down('xs'));
 
     useEffect(() => {
         async function isAutenticated(){

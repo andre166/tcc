@@ -11,7 +11,6 @@ import Efetivo from './pages/usuario/efetivo';
 import CadastrarMilitar from './pages/usuario/efetivo/cadastrarMilitar';
 import EditarMilitar from './pages/usuario/efetivo/editarMilitar';
 
-
 import Login from './pages/login';
 import Om from './pages/om';
 import Subunidade from './pages/subunidade/index';
@@ -37,6 +36,13 @@ import EditarTurma from './pages/usuario/efetivo/editarTurma';
 import ExcluirTurma from './pages/usuario/efetivo/excluirTurma';
 
 import MilitarStatus from './pages/usuario/efetivo/status';
+
+import DashBoardSaude from './pages/usuario/saude';
+import ParteDeAcidente from './pages/usuario/saude/parteDeAcidente';
+
+import DashBoardJustica from './pages/usuario/justica-e-disciplina';
+import GerarFatd from './pages/usuario/justica-e-disciplina/fatd';
+
 
 import Erro from './pages/erro';
 
@@ -83,7 +89,13 @@ const Routes = ( ) => {
             <Route exact path='/Om' component={Om}/>
 
             <Route exact path='/MilitarStatus/:id' component={MilitarStatus}/>
-    
+
+            <Route exact path='/DashBoardSaude' component={DashBoardSaude}/>
+            <Route exact path='/ParteDeAcidente' component={ParteDeAcidente}/>
+
+            <Route exact path='/DashBoardJustica' component={DashBoardJustica}/>
+            <Route exact path='/GerarFatd' component={GerarFatd}/>
+
             <Route path="*" component={Erro}/> 
 
         </Switch>
