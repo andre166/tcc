@@ -118,7 +118,7 @@ function Home( props ){
         { 
             icon: <SupervisedUserCircleIcon className={classes.avatarIcon}/>, 
             title: 'Subunidade[SU]', desc: "Gerenciamento de SU", 
-            subDesc: 'Cadastrar, editar, excluir e lista de Subunidades com seu devido efetivo e suas informações por ano',
+            subDesc: 'Cadastrar, editar, excluir e listar Subunidades com seu devido efetivo e suas informações',
             link: '/Subunidade',
             func: () => changeLeftDrawner(2)
         },

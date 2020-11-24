@@ -26,8 +26,8 @@ export default function CustomizedSnackbars( { info } ) {
       tipo = 'Subunidade'
       gen = 'a'
     }else if(type == 'Turma'){
-      tipo = 'Turma'
-      gen = 'a'
+      tipo = 'Efetivo'
+      gen = 'o'
     }else if(type == 'militar'){
       tipo = 'Militar'
       gen = 'o'
