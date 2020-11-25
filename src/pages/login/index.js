@@ -128,7 +128,7 @@ function Login( props ){
 
     function Copyright() {
       return (
-        <h4 style={{color: '#909090', letterSpacing: 1, fontWeight: 200, margin: 0}}>André Mesquita e Edivaldo Sobrenome © All Rights Reserved {new Date().getFullYear()}.</h4>
+        <h4 style={{color: '#909090', letterSpacing: 1, fontWeight: 200, margin: 0}}>André Mesquita e Edivaldo Soares © All Rights Reserved {new Date().getFullYear()}.</h4>
       );
     }
 
