@@ -124,18 +124,6 @@ export default function Om(){
 
                 <Grid container direction="row"alignItems="center" justify="flex-start">
 
-                        <Link to={'/Om'}  style={{textDecoration: 'none'}}>
-                            <Button
-                                size='small'
-                                style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
-                                variant="outlined"
-                                color="primary"
-                                startIcon={<KeyboardReturnIcon />}
-                            >
-                               { !xsDownMedia && 'Voltar'}
-                            </Button>
-                        </Link>
-
                     <Grid item xs>
                         <Grid container alignItems="center" justify="center">
                             <h2> Editar OM</h2>

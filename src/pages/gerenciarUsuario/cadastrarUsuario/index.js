@@ -102,25 +102,12 @@ function CadastrarAdmin2(){
         <Paper className={classes.paper}>
 
           <Grid container direction="row" justify="space-between" alignItems="center">
-            
-            <Link to={'/GerenciarUsuario'}  style={{textDecoration: 'none'}}>
-                <Button
-                    size='small'
-                    style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<KeyboardReturnIcon />}
-                >
-                    {!xsDownMedia && 'Voltar'}
-                </Button>
-            </Link>
 
             <Grid item xs>
                 <Grid container alignItems="center" justify="center">
                   <h2>Cadastrar Usuário</h2>
                 </Grid>
             </Grid>
-
 
           </Grid>
 
@@ -203,10 +190,6 @@ function CadastrarAdmin2(){
                   onChange={handleChange}
                   select
                 >
-
-                  <MenuItem>
-                    <option aria-label="None" value="" />
-                  </MenuItem>
                   
                   {subunidades.map( (s, i) => (
 

@@ -67,8 +67,6 @@ function CadastrarTurma( props ){
     
     let ano = new Date(date).getFullYear().toString();
 
-    console.log("turmas", turmas)
-
     turmas.map( t => {
       if(t.turma == ano){
         setError(true)
@@ -110,19 +108,6 @@ function CadastrarTurma( props ){
         <Paper className={classes.paperCadastrarOm} elevation={3}>
 
         <Grid container direction="row" alignItems="center" justify="center">
-          <Grid item sm={1}>
-            <Link to={'/Efetivo'}  style={{textDecoration: 'none'}}>
-              <Button
-                size='small'
-                style={{marginTop: '-65px',marginLeft: '-8px', position: 'absolute'}}
-                variant="outlined"
-                color="primary"
-                startIcon={<KeyboardReturnIcon />}
-              >
-                {!xsDownMedia && 'Voltar'}
-              </Button>
-            </Link>
-          </Grid>
 
           <Grid item xs>
               <Grid container alignItems="center" justify="center" direction="column">

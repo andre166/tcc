@@ -112,45 +112,6 @@ export default function Om(){
 
     }
 
-    function generatBackBtn(){
-
-    let response = JSON.parse(localStorage.getItem("userInfo"));
-
-    let userPerfil = response.perfil;
-
-        if( userPerfil == "ROLE_ADMIN"){
-            return (
-            <Link to={`/Subunidade/${idParams.idOm}`}  style={{textDecoration: 'none'}}>
-                <Button
-                    size="small"
-                    style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<KeyboardReturnIcon />}
-                >
-                    { !xsDownMedia && 'Voltar'}
-                </Button>
-            </Link>
-            )
-
-        }else{
-  
-            return (
-                <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
-                    <Button
-                        size="small"
-                        style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<KeyboardReturnIcon />}
-                    >
-                        { !xsDownMedia && 'Voltar'}
-                    </Button>
-                </Link>
-            )
-
-        }
-    }
   
     if(loading){ return <LoadingPage/>}
 
@@ -164,10 +125,6 @@ export default function Om(){
                 {om &&  <Paper className={classes.paperCadastrarOm} elevation={3}>
 
                 <Grid container direction="row"alignItems="center" justify="flex-start">
-
-                    <Grid item sm={1}>
-                        {generatBackBtn()}
-                    </Grid>
 
                     <Grid item xs>
                         <Grid container alignItems="center" justify="center">

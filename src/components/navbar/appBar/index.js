@@ -19,9 +19,8 @@ import XsDrawner from '../xsDrawner';
 import withWidth from '@material-ui/core/withWidth';
 import PropTypes from 'prop-types';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { getUserName } from '../../services/localStorgeService';
-import { Link } from 'react-router-dom';
-import { getUserInfo } from '../../services/localStorgeService';
+import { getUserName, getUserInfo } from '../../services/localStorgeService';
+import { Link, useHistory } from 'react-router-dom';
 
 function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
     
@@ -29,6 +28,7 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
   const anchorRef = useRef(null);
   const prevOpenUserMenu = useRef(openUserMenu);
   const classes = useStyles();
+  let history = useHistory();
 
   const matches = useMediaQuery('(min-width:960px)');
 
@@ -77,10 +77,12 @@ function NavbarSuperior({ open, setOpen, renderNavbar}, props) {
               <div style={{display: matches && 'none'}}>
                 <XsDrawner renderNavbar={renderNavbar}/>
               </div>
+
+              <Typography variant="h6" className={classes.logoScem}> 
+                Scem
+              </Typography>
+
               <Typography variant="h6" className={classes.grow}> 
-                <Link to={'/Home'} style={{textDecoration: 'none', color: '#fff'}}>
-                  SCEM 
-                </Link>
               </Typography>
 
             <IconButton ref={anchorRef} aria-controls={open ? 'menu-list-grow' : undefined}

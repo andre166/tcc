@@ -1,5 +1,9 @@
 export function validateCnpj( cnpjParaFormatar ){
-
+    
+    if( !cnpjParaFormatar ){
+        cnpjParaFormatar = ''
+    }
+    
     let regex = /^\d{14}$/
     let regex2 = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
 
@@ -9,7 +13,7 @@ export function validateCnpj( cnpjParaFormatar ){
     let cnpj = cnpjParaFormatar.toString();
 
     if( testeRegex1 ){
-    
+ 
         let cnpj1 = cnpj.substring(0,2);
         let cnpj2 = cnpj.substring(2,5);
         let cnpj3 = cnpj.substring(5,8);
@@ -26,7 +30,8 @@ export function validateCnpj( cnpjParaFormatar ){
         
     }
 
-    return false;
+    // return false;
+    return 'a ';
 
 }
 

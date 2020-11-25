@@ -120,7 +120,6 @@ function ListaEfetivo( props ){
         let turmaId = turma.id;
 
         let cidadaoList = await listarCidadaoPorTurma( turmaId );
-        console.log("cidadaoList", cidadaoList)
 
         if( cidadaoList[0] == undefined ){
 
@@ -208,7 +207,6 @@ function ListaEfetivo( props ){
                         >
 
                             <>
-                            {console.log(rowInfo)}
                                 <DialogTitle id="alert-dialog-title">{`Deseja excluir ${rowInfo.postGrad} ${rowInfo.nomeDeGuerra} ?`}</DialogTitle>
                                 
                                 <Divider style={{marginBottom: 10}}/>

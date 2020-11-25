@@ -147,19 +147,6 @@ export default function Status( ){
           <Paper className={classes.paperCadastrarOm} elevation={3}>
 
             <Grid container direction="row" alignItems="center" justify="center">
-                <div>
-                    <Button 
-                        size='small'
-                        style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
-                        variant="outlined"
-                        color="primary"
-                        startIcon={<KeyboardReturnIcon />}
-                        onClick={ () => history.goBack()}
-                    >
-                        {!xsDownMedia && 'Voltar'}
-                    </Button>
-
-                </div>
 
                 <Grid item xs>
                     <Grid container alignItems="center" justify="center">
@@ -203,24 +190,28 @@ export default function Status( ){
 
                             <Divider/>
 
-                            <ListItem>
-                                <ListItemText primary="Data:" secondary={`Início: ${militar.status.inicio}  -  Fim: ${militar.status.fim}`} />
-                            </ListItem>
+                            {militar.status.tipo !== 'OK' &&
+                            <>
+                                <ListItem>
+                                    <ListItemText primary="Data:" secondary={`Início: ${militar.status.inicio || ''}  -  Fim: ${militar.status.fim || ''}`} />
+                                </ListItem>
 
-                            <ListItem>
-                                <ListItemText primary="Descrição do Status:" secondary={
-                                    <>
-                                        <Typography component="span" style={{display: 'inline', wordBreak: 'break-word'}}
-                                            variant="body2" 
-                                        >
-                                            {militar.status.descricao}
-                                        </Typography>
-                                        
-                                    </>
-                                    } />
+                                <ListItem>
+                                    <ListItemText primary="Descrição do Status:" secondary={
+                                        <>
+                                            <Typography component="span" style={{display: 'inline', wordBreak: 'break-word'}}
+                                                variant="body2" 
+                                            >
+                                                {militar.status.descricao}
+                                            </Typography>
+                                            
+                                        </>
+                                        } />
                             </ListItem>
-
                             <Divider/>
+                            </>
+                            }
+
 
                         </List>
                 </Accordion>

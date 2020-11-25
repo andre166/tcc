@@ -57,46 +57,6 @@ export default function FormCadastro(){
 
     }, []);
 
-    function generatBackBtn(){
-
-      let response = JSON.parse(localStorage.getItem("userInfo"));
-
-      let userPerfil = response.perfil;
-
-      if( userPerfil == "ROLE_ADMIN"){
-        return (
-          <Link to={`/Subunidade/${idParams.id}`}  style={{textDecoration: 'none'}}>
-              <Button
-                  size="small"
-                  style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<KeyboardReturnIcon />}
-              >
-                { !xsDownMedia && 'Voltar'}
-              </Button>
-          </Link>
-        )
-
-      }else{
-
-        return (
-          <Link to={`/Subunidade`}  style={{textDecoration: 'none'}}>
-              <Button
-                  size="small"
-                  style={{marginTop: '-40px',marginLeft: '-8px', position: "absolute"}}
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<KeyboardReturnIcon />}
-              >
-                { !xsDownMedia && 'Voltar'}
-              </Button>
-          </Link>
-        )
-
-      }
-    }
-
     async function onSubmit( values, action ){
 
       let omObj = { 
@@ -165,9 +125,6 @@ export default function FormCadastro(){
         <Paper className={classes.paperCadastrarOm} elevation={3}>
 
           <Grid container direction="row" alignItems="center" justify="center">
-              <Grid item sm={1}>
-                  {generatBackBtn()}
-              </Grid>
 
               <Grid item xs>
                   <Grid container alignItems="center" justify="center">

@@ -30,7 +30,6 @@ class TextFields extends React.Component {
 
         }else{
             lista = await listarSubunidades( );
-            console.log("lista", lista)
             this.setState(() => ({
                 listaDeSubunidades: lista,
                 userOm: user || '',

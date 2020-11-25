@@ -7,6 +7,7 @@ export const cnpjMasck = (props) => {
 
     return (
       <MaskedInput
+      
         {...other}
         ref={ref => {
           inputRef(ref ? ref.inputElement : null);
@@ -14,6 +15,7 @@ export const cnpjMasck = (props) => {
         mask={[ /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/,'-',/\d/, /\d/]}
         placeholderChar={'\u2000'}
         showMask
+        
       />
     );
 }

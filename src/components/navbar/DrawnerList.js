@@ -71,85 +71,85 @@ function GenerateList( props ){
 
         
 
-        if( text.nome == 'Cadastrar militar' && props.perfil == "ROLE_SGTE"){
+        // if( props.perfil == "ROLE_SGTE"){
 
-            return(
-                <>
+        //     return(
+        //         <>
 
-                    <Link to={text.link} className={classes.link}> 
-                        <ListItem button key={text.nome} className={text.id == item && classes.active || classes.link} onClick={() => text.func(props.renderLeftDrawner)}>
-                            <span style={{ marginRight: 10 }}>{text.icone} </span> {text.nome}  
-                        </ListItem>
-                    </Link>
+        //             <Link to={text.link} className={classes.link}> 
+        //                 <ListItem button key={text.nome} className={text.id == item && classes.active || classes.link} onClick={() => text.func(props.renderLeftDrawner)}>
+        //                     <span style={{ marginRight: 10 }}>{text.icone} </span> {text.nome}  
+        //                 </ListItem>
+        //             </Link>
 
-                    <ListItem button onClick={handleClick} className={classes.link}>
-                        <span style={{ marginRight: 10 }}><LocalHospitalIcon/> </span>
-                        <ListItemText primary="Saúde" />
-                        {openSaude ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
+        //             <ListItem button onClick={handleClick} className={classes.link}>
+        //                 <span style={{ marginRight: 10 }}><LocalHospitalIcon/> </span>
+        //                 <ListItemText primary="Saúde" />
+        //                 {openSaude ? <ExpandLess /> : <ExpandMore />}
+        //             </ListItem>
 
-                    <Collapse in={ item >= 80 && item <= 89 ? true : openSaude} timeout="auto" unmountOnExit ref={inputEl}>
-                        <List component="div" disablePadding>
+        //             <Collapse in={ item >= 80 && item <= 89 ? true : openSaude} timeout="auto" unmountOnExit ref={inputEl}>
+        //                 <List component="div" disablePadding>
 
-                            <Link to='/DashBoardSaude' className={classes.link}>
-                                <ListItem button  className={88 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 88)}>
-                                    <ListItemIcon>
-                                        <PieChartIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Dashboard saúde" />
-                                </ListItem>
-                            </Link>
+        //                     <Link to='/DashBoardSaude' className={classes.link}>
+        //                         <ListItem button  className={88 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 88)}>
+        //                             <ListItemIcon>
+        //                                 <PieChartIcon />
+        //                             </ListItemIcon>
+        //                             <ListItemText primary="Dashboard saúde" />
+        //                         </ListItem>
+        //                     </Link>
 
 
-                            <Link to='/ParteDeAcidente' className={classes.link}>
-                                <ListItem button className={89 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 89)}>
-                                    <ListItemIcon>
-                                        <AssignmentIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Parte de acidente" />
-                                </ListItem>
-                            </Link>
+        //                     <Link to='/ParteDeAcidente' className={classes.link}>
+        //                         <ListItem button className={89 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 89)}>
+        //                             <ListItemIcon>
+        //                                 <AssignmentIcon />
+        //                             </ListItemIcon>
+        //                             <ListItemText primary="Parte de acidente" />
+        //                         </ListItem>
+        //                     </Link>
 
-                        </List>
-                        <Divider/>
-                    </Collapse>
+        //                 </List>
+        //                 <Divider/>
+        //             </Collapse>
 
-                    <ListItem button onClick={handleClickJust} className={classes.link}>
-                        <span style={{ marginRight: 10 }}><GavelIcon/> </span>
-                        <ListItemText primary="Justiça e disciplina" />
-                        {openJust ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
+        //             <ListItem button onClick={handleClickJust} className={classes.link}>
+        //                 <span style={{ marginRight: 10 }}><GavelIcon/> </span>
+        //                 <ListItemText primary="Justiça e disciplina" />
+        //                 {openJust ? <ExpandLess /> : <ExpandMore />}
+        //             </ListItem>
 
-                    <Collapse in={item >= 90 && item <= 99 ? true : openJust} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
+        //             <Collapse in={item >= 90 && item <= 99 ? true : openJust} timeout="auto" unmountOnExit>
+        //                 <List component="div" disablePadding>
 
-                            <Link to='/DashBoardJustica' className={classes.link}>
-                                <ListItem button  className={98 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 98)}>
-                                    <ListItemIcon>
-                                        <PieChartIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Dashboard disciplinar" />
-                                </ListItem>
-                            </Link>
+        //                     <Link to='/DashBoardJustica' className={classes.link}>
+        //                         <ListItem button  className={98 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 98)}>
+        //                             <ListItemIcon>
+        //                                 <PieChartIcon />
+        //                             </ListItemIcon>
+        //                             <ListItemText primary="Dashboard disciplinar" />
+        //                         </ListItem>
+        //                     </Link>
 
-                            <Link to='/GerarFatd' className={classes.link}>
-                                <ListItem button  className={99 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 99)}>
-                                    <ListItemIcon>
-                                        <AssignmentIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Gerar FATD" />
-                                </ListItem>
-                            </Link>
+        //                     <Link to='/GerarFatd' className={classes.link}>
+        //                         <ListItem button  className={99 == item && classes.active || classes.link} onClick={() => blanck(props.renderLeftDrawner, 99)}>
+        //                             <ListItemIcon>
+        //                                 <AssignmentIcon />
+        //                             </ListItemIcon>
+        //                             <ListItemText primary="Gerar FATD" />
+        //                         </ListItem>
+        //                     </Link>
 
-                        </List>
-                        <Divider/>
-                    </Collapse>
+        //                 </List>
+        //                 <Divider/>
+        //             </Collapse>
 
-                </>
+        //         </>
 
-            )
+        //     )
 
-        }
+        // }
 
         if(text.func){
     
@@ -182,14 +182,8 @@ function GenerateList( props ){
     }else if( props.perfil == 'ROLE_CHEFE_INFO'){
         return list( cadastradorDrawner );
 
-    }else if( props.perfil == 'ROLE_BRIGADA'){
-        return list( gerencialDrawner );
-
     }else if( props.perfil == 'ROLE_SGTE' ){
         return list( userDrawner );
-
-    }else if( props.perfil == 'ROLE_BRIGADA' ){
-        return list( auxSgtSaudeDrawner );
 
     }
 

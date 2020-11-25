@@ -88,7 +88,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -174,8 +173,10 @@ function SimpleDialogWrapped( props ){
 
     if(props.btnModalType == 'edit' && userPerfil == 'ROLE_ADMIN'){
       history.push(`/Subunidade/${props.omParaVincular.id}`);
-    }else if(p && userPerfil == 'ROLE_ADMIN'){
+    }else if( p && userPerfil == 'ROLE_ADMIN'){
       window.location.assign(`/Subunidade/${props.omParaVincular.id}`);
+    }else if( !p && userPerfil == 'ROLE_ADMIN'){
+      window.location.reload();
     }else if( props.btnModalType == 'edit' && userPerfil !== 'ROLE_ADMIN'){
       history.push(`/Subunidade`);
     }else if( props.btnModalType !== 'edit' && userPerfil !== 'ROLE_ADMIN' ){

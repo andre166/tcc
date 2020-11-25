@@ -95,18 +95,6 @@ export default function FormCadastro(){
 
             <Grid container direction="row" alignItems="center" justify="center">
 
-                    <Link to={'/Om'}  style={{textDecoration: 'none'}}>
-                        <Button
-                            size='small'
-                            style={{marginTop: '-40px',marginLeft: '-8px', position: 'absolute'}}
-                            variant="outlined"
-                            color="primary"
-                            startIcon={<KeyboardReturnIcon />}
-                        >
-                            {!xsDownMedia && 'Voltar'}
-                        </Button>
-                    </Link>
-
                 <Grid item xs>
                     <Grid container alignItems="center" justify="center">
                       <h2>Cadastrar OM</h2>
@@ -119,10 +107,10 @@ export default function FormCadastro(){
               validationSchema={cadastroOmShema}
               onSubmit={onSubmit}
               initialValues={{
-                nomeOm: 'teste tt tt tt t',
-                cnpj: '54510344000170',
-                cep: '24325240',
-                nomeAbrev: 'teste',
+                nomeOm: '',
+                cnpj: '',
+                cep: '',
+                nomeAbrev: '',
             }}
             render={( { values, handleChange, handleSubmit, errors }) => (
 
@@ -156,21 +144,23 @@ export default function FormCadastro(){
                   }}
                 />
                 <ErrorMessage name="nomeAbrev">{(msg) =>  <GenerateAlert alertConfig={ {msg: msg, tipo: "warning"} } /> }</ErrorMessage>
-                  <FormControl className={classes.inputTxt}>
+                  <FormControl className={classes.inputTxt} required>
 
                     <InputLabel htmlFor="my-input">CNPJ</InputLabel>
 
                     <Input
+                    
                       name="cnpj"
                       value={values.cnpj}
                       inputComponent={cnpjMasck}
                       onChange={handleChange}
+                      
                     />
 
                   </FormControl>
                 <ErrorMessage name="cnpj">{(msg) => verificarErro(msg) }</ErrorMessage>
 
-                <FormControl className={classes.inputTxt}>
+                <FormControl className={classes.inputTxt} required>
 
                   <InputLabel htmlFor="my-input">CEP</InputLabel>
 

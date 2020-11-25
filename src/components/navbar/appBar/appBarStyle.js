@@ -26,9 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  logoScem:{
+    
     [theme.breakpoints.down('xs')]: {
       fontSize: 14
     },
+
   },
   nomeUsuarioContainer: {
     height: '100% !important',

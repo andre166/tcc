@@ -65,10 +65,8 @@ function Login( props ){
 
       const login = await logar( nome, senha );
 
-      console.log("lo", login)
-
       if( login.invalidUser ==  'Network Error'){
-        console.log("aqui")
+
         setErro({
           erro: true,
           msg: 'Falha ao conectar-se ao servidor, contacte o administrador do sistema',
@@ -163,8 +161,8 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'SGT_ANDRE_MESQ',
-          senha: '12345'
+          nome: '',
+          senha: ''
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (
 

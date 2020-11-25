@@ -15,6 +15,7 @@ import { getUserId } from '../../components/services/localStorgeService';
 import { gerenciarUsuarioColumn } from '../../utils/columns/gerenciarUsuarioColuna';
 import { maskCpf } from '../../utils/maskAndValidators/cpf';
 import { masckPerfil } from '../../utils/maskAndValidators/perfil';
+import LoadingPage from  '../../components/loading'
 
 function Editable( props ) {
 
@@ -24,6 +25,7 @@ function Editable( props ) {
   const [open, setOpen] = useState(false);
   const [openAlterKey, setOpenAlterKey] = useState(false);
   const [ rowInfo, setRowInfo] = useState(false);
+  let [loading, setLoading] = useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,8 +80,8 @@ function Editable( props ) {
       let columnList = gerenciarUsuarioColumn( setRowInfo, setOpenAlterKey, handleClickOpen, classes );
       
       setData(perfilList);
-
       setColumns(columnList);
+      setLoading(false);
 
     }
 
@@ -105,6 +107,8 @@ function Editable( props ) {
       window.location.reload();
 
     }
+
+    if(loading){ return <LoadingPage/>}
 
     return (
       <>

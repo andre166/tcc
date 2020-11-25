@@ -67,7 +67,7 @@ function CadastrarAdmin2( props ){
         let uId = getUserId();
         let _om = await getUserOm(uId);
 
-        let suDoUsuario = _om.subunidades.find( e=> e.id == usuario.idSU);
+        let suDoUsuario = _om.subunidades.find( e => e.id == usuario.idSU);
 
         setOm(_om);
         setSubunidades(_om.subunidades);
@@ -140,18 +140,6 @@ function CadastrarAdmin2( props ){
       <Paper className={classes.paper}>
 
         <Grid container direction="row" justify="space-between" alignItems="center">
-
-              <Link to={'/GerenciarUsuario'}  style={{textDecoration: 'none'}}>
-                  <Button
-                      size="small"
-                      style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
-                      variant="outlined"
-                      color="primary"
-                      startIcon={<KeyboardReturnIcon />}
-                  >
-                      {!xsDownMedia && 'Voltar'}
-                  </Button>
-              </Link>
 
               <Grid item xs>
                   <Grid container alignItems="center" justify="center">

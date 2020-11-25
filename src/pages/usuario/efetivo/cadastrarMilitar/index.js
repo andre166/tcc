@@ -97,8 +97,6 @@ function AdicionarMilitar( props ) {
 
         let turma = await listarTurma( id );
 
-        console.log("turma",turma)
-
         values.cpf = values.cpf.replace(/\D/g, '');
         values.rg = values.rg.replace(/\D/g, '');
         values.telefone = values.telefone.replace(/\D/g, '');
@@ -189,30 +187,30 @@ function AdicionarMilitar( props ) {
                 validationSchema={cadastrarMilitarSchema}
                 initialValues={{
                     //Form pessoal
-                    nomeCompleto:'Andre de souza',
-                    cpf:'15066443762',
-                    rg:'279343883',
-                    genero:'Masculino',
+                    nomeCompleto:'',
+                    cpf:'',
+                    rg:'',
+                    genero:'',
                     dataNasc: dataString,
-                    email:'andre@mesqui',
-                    nomeMae:'asbajbs',
-                    nomePai:'aosjajs',
-                    estadoCivil:'Solteiro',
-                    tipo: 'Celular',
-                    telefone: '218956684',
+                    email:'',
+                    nomeMae:'',
+                    nomePai:'',
+                    estadoCivil:'',
+                    tipo: '',
+                    telefone: '',
                     //Form militar
                     numero:'',
-                    ra:'02018483258-0',
-                    nomeDeGuerra:'Mesquita',
-                    qm:'11/47',
-                    cpto:'B',
+                    ra:'',
+                    nomeDeGuerra:'',
+                    qm:'',
+                    cpto:'',
                     dataPraca: dataString,
-                    postGrad:'SD EP',
+                    postGrad:'',
                     //Form endereço
-                    estado: 'rj',
-                    cidade: 'niterói',
-                    bairro:'maria paula',
-                    ruaLote:'itaboraí',
+                    estado: '',
+                    cidade: '',
+                    bairro:'',
+                    ruaLote:'',
 
                 }}
                 render={( { values, handleChange, handleSubmit, errors }) => (
@@ -509,7 +507,7 @@ function AdicionarMilitar( props ) {
                             <TextField
                                 value={values.cpto}
                                 name="cpto"
-                                style={{width: 110, textAlign: 'center'}}
+                                style={{width: '100%', maxWidth: 170, textAlign: 'center'}}
                                 select
                                 id="outlined-required"
                                 margin="dense"
@@ -552,11 +550,10 @@ function AdicionarMilitar( props ) {
 
                             <TextField
                                 value={values.postGrad}
-                                style={{width: '100%', maxWidth: 150}}
+                                style={{width: '100%', maxWidth: 120}}
                                 select
                                 id="outlined-required"
                                 margin="dense"
-                                style={{marginBottom: 0}}
                                 variant="outlined"
                                 label="Post/Grad"
                                 onChange={handleChange}
@@ -572,6 +569,9 @@ function AdicionarMilitar( props ) {
                                 ))}
 
                             </TextField>
+
+                        <ErrorMessage name="postGrad">{(msg) =>  <div className="alertCustom" style={{width: '100%', maxWidth: 120}}> <ErrorIcon style={{height: 15, margin: 0, padding: 0}} /> { msg } </div> }</ErrorMessage>
+
 
                         </Grid>
 

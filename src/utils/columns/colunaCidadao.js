@@ -225,7 +225,7 @@ export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickO
                 renderGraph: false, 
                 render: (rowData) => (
                     <LightTooltip title={rowData.status.descricao}>
-                        <Typography noWrap style={{width: 350, cursor: 'pointer'}} onClick={() => console.log("aqui")}>
+                        <Typography noWrap style={{width: 350, cursor: 'pointer'}} >
                         {rowData.status.descricao}
                         </Typography>
                     </LightTooltip>

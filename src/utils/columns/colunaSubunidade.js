@@ -9,8 +9,6 @@ import Modal from '../../pages/subunidade/components/formulario/tableCard/compon
 export const ActionBtns = ( { rowData, setRowInfo, setOpenAlterKey, handleClickOpen, classes, omParaVincular } ) => {
 
     let idOm = '';
-
-    console.log("rowData", rowData)
     
     if( rowData.idOm){
 

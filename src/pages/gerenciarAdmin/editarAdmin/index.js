@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import { listarOm } from '../../../components/services/omServices';
-import { listUser, deleteUser, getUserOm, editUser } from '../../../components/services/usuarioService';
+import { listUser, deleteUser, getUserOm, editUser, editUserComSu } from '../../../components/services/usuarioService';
 import { getUserId } from '../../../components/services/localStorgeService';
 import { useParams } from 'react-router-dom';
 import { perfilList } from '../../../utils/perfilList';
@@ -142,7 +142,22 @@ function CadastrarAdmin2( props ){
 
       Object.assign(values, {id: usuario.id});
 
-      await editUser(values);
+      let userSu = '';
+
+      await values.om.subunidades.map( s => {
+        s.usuario.find( u => {
+          if(u.id == usuario.id){
+            return userSu = s;
+          }
+        });
+      });
+
+      if( userSu ){
+
+        await editUserComSu(values, userSu.id);
+      }else{
+        await editUser(values);
+      }
 
       if(usuario.id == getUserId()){
 
@@ -172,18 +187,6 @@ function CadastrarAdmin2( props ){
       <Paper className={classes.paper}>
 
       <Grid container direction="row" justify="space-between" alignItems="center">
-
-            <Link to={'/GerenciarAdmin'}  style={{textDecoration: 'none'}}>
-                <Button
-                    size="small"
-                    style={{marginTop: '-38px',marginLeft: '-16px', position: 'absolute'}}
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<KeyboardReturnIcon />}
-                >
-                    {!xsDownMedia && 'Voltar'}
-                </Button>
-            </Link>
 
             <Grid item xs>
                 <Grid container alignItems="center" justify="center">
