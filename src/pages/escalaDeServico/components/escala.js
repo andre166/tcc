@@ -42,35 +42,35 @@ const Escala = () => {
     let [ diasParaContarServico, setDiasParaContarServico] = useState(0);
     let [ showCalendar, setShowCalendar ] = useState({
         show: true,
-        isForecast: false,
+        isForecast: 'zero',
     });
 
     const classes = useStyles();
 
-    const militar = [
+    let militar = [
         {id: 1, grad: 'SD EP', nome: 'mesquita', diasDeServico: [
             {id: 1, data: 1},
-            {id: 2, data: 4},
-            {id: 3, data: 6},
+            {id: 2, data: 7},
+            {id: 3, data: 14},
         ] },
 
         {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-            {id: 4, data: 9},
-            {id: 5, data: 7},
-            {id: 6, data: 10},
+            {id: 4, data: 2},
+            {id: 5, data: 8},
+            {id: 6, data: 15},
         ] },
 
-        {id: 3, grad: 'SD EV', nome: 'Kid', diasDeServico: [
-            {id: 7, data: 3},
-            {id: 8, data: 6},
-            {id: 9, data: 7},
-        ] },
+        // {id: 3, grad: 'SD EV', nome: 'Kid', diasDeServico: [
+        //     {id: 7, data: 3},
+        //     {id: 8, data: 7},
+        //     {id: 9, data: 10},
+        // ] },
 
-        {id: 4, grad: 'SD EP', nome: 'Rugal', diasDeServico: [
-            {id: 10, data: 4},
-            {id: 11, data: 6},
-            {id: 12, data: 10},
-        ] },
+        // {id: 4, grad: 'SD EP', nome: 'Rugal', diasDeServico: [
+        //     {id: 10, data: 4},
+        //     {id: 11, data: 6},
+        //     {id: 12, data: 10},
+        // ] },
     ]
 
     const verificarServico = ( militar, data, classes, diasPrevistosDeServico ) => {
@@ -97,12 +97,33 @@ const Escala = () => {
     
             })
         }
-
-        if( showCalendar.isForecast && militar.ultimoDiaDeServico && diasPrevistosDeServico !== 0){
+        
+        if( showCalendar.isForecast == 'dia' && militar.ultimoDiaDeServico && diasPrevistosDeServico !== 0){
 
             if( parseInt(militar.ultimoDiaDeServico) + parseInt(diasPrevistosDeServico) + 1 == data.dia){
                 return classes.serviceForecast;
             }
+
+        }
+
+        
+        else if( showCalendar.isForecast == 'mensal' && militar.previsaoDeServicoMensal && diasPrevistosDeServico !== 0 ){
+
+            let hasService = false;
+
+            militar.previsaoDeServicoMensal.map( d => {
+
+                if( d == data.dia){
+                    hasService = true;
+                }
+
+            });
+
+            if( hasService ){
+                return classes.serviceForecast; 
+            }
+
+
         }
 
 
@@ -122,17 +143,21 @@ const Escala = () => {
 
     const gerarPrevisaoDeServico = () => {
 
+        if( diasParaContarServico == 0){
+            return;
+        }
+
         setShowCalendar({
             show: false,
-            isForecast: true,
-            diasPrevistos: diasParaContarServico
+            isForecast: 'dia',
+            diasPrevistos: diasParaContarServico,
         });
 
         setTimeout( () => {
             setShowCalendar({
                 show: true,
-                isForecast: true,
-                diasPrevistos: diasParaContarServico
+                isForecast: 'dia',
+                diasPrevistos: diasParaContarServico,
             });
         }, 1000)
 
@@ -140,19 +165,54 @@ const Escala = () => {
 
     const gerarPrevisaoDeServicoMensal = () => {
 
+        if( diasParaContarServico == 0){
+            return;
+        }
+
+        let arr = [];
+        let arrayMilitarFinal = [];
+
+        let contadorAcumulativo = parseInt(diasParaContarServico);
+
+        let arr2 = showCalendar.isForecast == 'mensal' && showCalendar.militarComPrevisaoMensal || militar;
+
+        arr2.map( m => {
+
+            arr = [];
+
+            let ultimoServico = m.ultimoDiaDeServico;
+
+            for(let i = ultimoServico; i < numDias;){
+
+                i = i + contadorAcumulativo + 1;
+
+                arr.push(i);
+            }
+
+            if( m.previsaoDeServicoMensal ){
+                m.previsaoDeServicoMensal = "aqui"
+            }
+
+            arrayMilitarFinal.push(Object.assign(m, {previsaoDeServicoMensal: arr}));
+
+        });
+
+
         setShowCalendar({
             show: false,
-            isForecast: true,
-            diasPrevistos: diasParaContarServico
+            isForecast: 'mensal',
+            diasPrevistos: diasParaContarServico,
+            militarComPrevisaoMensal: arrayMilitarFinal
         });
 
         setTimeout( () => {
             setShowCalendar({
                 show: true,
-                isForecast: true,
-                diasPrevistos: diasParaContarServico
+                isForecast: 'mensal',
+                diasPrevistos: diasParaContarServico,
+                militarComPrevisaoMensal: arrayMilitarFinal
             });
-        }, 1000)
+        }, 500)
 
     }
 
@@ -163,6 +223,7 @@ const Escala = () => {
             <div style={{display: 'flex', margin: 10}}>
                 <Button style={{marginRight: 5}} color="primary" variant="outlined" onClick={gerarPrevisaoDeServico}>Gerar Previsão de serviço</Button>
                 <Button color="secondary" variant="outlined" onClick={gerarPrevisaoDeServicoMensal}>Gerar Previsão de serviço Mensal</Button>
+                <Button color="secondary" variant="contained" onClick={() => console.log("showCalendar", showCalendar)}>Militar</Button>
             </div>
 
             <div style={{display: 'flex'}}>
@@ -205,25 +266,37 @@ const Escala = () => {
                                     {m.nome}
                                 </div>
 
-                                { showCalendar.show && !showCalendar.isForecast && 
+                                { showCalendar.show && showCalendar.isForecast == 'zero' && 
                                     <div className={classes.calendarioRow}>
 
                                         { diasDoMes.map( d => (
 
-                                            <div className={verificarServico( m, d, classes )} onClick={() => console.log(m)}>{d.dia}</div>
+                                            <div className={verificarServico( m, d, classes,  showCalendar.diasPrevistos )}>{d.dia}</div>
 
                                         ))}
 
                                     </div>
                                 }
 
-                                { showCalendar.show && showCalendar.isForecast && 
+                                { showCalendar.show && showCalendar.isForecast == 'dia' && 
+                                    <div className={classes.calendarioRow}>
+
+                                        { diasDoMes.map( d => (
+
+                                            <div className={verificarServico( m, d, classes,  showCalendar.diasPrevistos )}>{d.dia}</div>
+
+                                        ))}
+
+                                    </div>
+                                }
+
+                                { showCalendar.show && showCalendar.isForecast == 'mensal' && 
 
                                     <div className={classes.calendarioRow}>
 
                                         { diasDoMes.map( d => (
 
-                                            <div className={verificarServico( m, d, classes,  showCalendar.diasPrevistos)} onClick={() => console.log(m)}>{d.dia}</div>
+                                            <div className={verificarServico( showCalendar.militarComPrevisaoMensal[i], d, classes,  showCalendar.diasPrevistos)} onClick={() => console.log(m)}>{d.dia}</div>
 
                                         ))}
 
