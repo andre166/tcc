@@ -15,6 +15,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import { useHistory } from 'react-router-dom';
 import { getTurma } from '../../components/services/localStorgeService';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 const sair = async ( ) => {
     await localStorage.removeItem("navBarItem");
@@ -56,6 +57,7 @@ export const userDrawner = [
 
     {id: 3, nome: 'Lista de Militares', link: '/ListaEfetivo', icone: <ListIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 3) },
     {id: 5, nome: 'Cadastrar militar', link: '/CadastrarMilitar', icone: <PostAddIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 5) },
+    {id: 4, nome: 'Escala de serviço', link: '/EscalaDeServico', icone: <EmojiPeopleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 4) },
     {id: 2, nome: `Efetivo`, link: '/Efetivo', icone: <SupervisedUserCircleIcon />, func: (setRenderClasses) =>  blanck(setRenderClasses, 2) },
     {id: 8, nome: 'Sair',  icone: <ExitToAppIcon />, func: (e) =>  sair(e)}
 

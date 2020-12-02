@@ -37,6 +37,10 @@ import ExcluirTurma from './pages/usuario/efetivo/excluirTurma';
 
 import MilitarStatus from './pages/usuario/efetivo/status';
 
+import EscalaDeServico from './pages/escalaDeServico';
+import Escala from './pages/escalaDeServico/components/escala';
+
+
 
 import Erro from './pages/erro';
 
@@ -83,6 +87,9 @@ const Routes = ( ) => {
             <Route exact path='/Om' component={Om}/>
 
             <Route exact path='/MilitarStatus/:id' component={MilitarStatus}/>
+
+            <Route exact path="/EscalaDeServico" component={EscalaDeServico}/> 
+            <Route path="/EscalaDeServico/Escala" component={Escala}/> 
 
             <Route path="*" component={Erro}/> 
 
