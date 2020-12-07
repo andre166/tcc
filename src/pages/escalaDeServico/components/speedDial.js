@@ -23,19 +23,58 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(0px)',
     flexGrow: 1,
   },
+  exampleWrapperOpen: {
+    borderRadius: 5,
+    position: 'absolute',
+    marginTop: 70,
+    height: 230,
+    width: 240,
+    left: '60%',
+    background: '#fff',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    boxShadow: '2px 2px 5px #dddddd',
+    transition: '0.6s ease',
+  },
+  exampleWrapper: {
+    borderRadius: 5,
+    position: 'absolute',
+    marginTop: 70,
+    height: 1,
+    width: 240,
+    left: '60%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end'
+  },
   radioGroup: {
     margin: theme.spacing(1, 0),
+    padding: 10
   },
   speedDial: {
-    position: 'absolute',
+    position: 'relative',
     '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-      bottom: theme.spacing(2),
-      right: theme.spacing(4),
     },
     '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-      top: theme.spacing(2),
-      left: theme.spacing(2),
     },
+    '&.MuiSpeedDial-root': {
+      marginRight: 0,
+      marginTop: -75
+    }
+  },
+  speedDialOpen: {
+    position: 'relative',
+    '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+    },
+    '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+      borderTopLeftRadius: 50,
+      borderTopRightRadius: 50,
+    },
+    '&.MuiSpeedDial-root': {
+      marginRight: 0,
+      marginTop: -75
+    }
   },
   staticTooltipLabel: {
     width: 'max-content',
@@ -47,19 +86,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SpeedDials( { gerarPrevisaoDeServico, gerarPrevisaoDeServicoMensal, zerarPrevisao, diasParaContarServico, setDiasParaContarServico } ) {
 
   const classes = useStyles();
-  const [direction, setDirection] = React.useState('up');
+  const [direction, setDirection] = React.useState('down');
   const [open, setOpen] = React.useState(false);
   const [hidden, setHidden] = React.useState(false);
 
   const actions = [
-    { icon: <ClearIcon onClick={zerarPrevisao}/>, name: 'Retirar previsão', closeOnClick: true },
+    { icon: 
+      <input style={{width: 40, height: 40, borderRadius: '50%', border: 'none'}} value={diasParaContarServico} onChange={(e) => setDiasParaContarServico(e.target.value)} min="0" max="99" type="number"></input>, 
+      name: 'Número de folga',
+      closeOnClick: false 
+    },
     { icon: <EventIcon onClick={gerarPrevisaoDeServico}/>, name: 'Previsão do dia', closeOnClick: true },
     { icon: <EventNoteIcon onClick={gerarPrevisaoDeServicoMensal} />, name: 'Previsão mensal', closeOnClick: true },
-    { icon: 
-        <input style={{width: 40, height: 40, borderRadius: '50%', border: 'none'}} value={diasParaContarServico} onChange={(e) => setDiasParaContarServico(e.target.value)} min="0" max="99" type="number"></input>, 
-        name: 'Número de folga',
-        closeOnClick: false 
-    },
+    { icon: <ClearIcon onClick={zerarPrevisao}/>, name: 'Retirar previsão', closeOnClick: true },
   ];
 
   const handleDirectionChange = (event) => {
@@ -88,7 +127,7 @@ export default function SpeedDials( { gerarPrevisaoDeServico, gerarPrevisaoDeSer
 
   return (
     <div className={classes.root}>
-      <div className={classes.exampleWrapper}>
+      <div className={open ? classes.exampleWrapperOpen : classes.exampleWrapper}>
         <SpeedDial
           ariaLabel="SpeedDial example"
           className={classes.speedDial}

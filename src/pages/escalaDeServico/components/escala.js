@@ -39,13 +39,18 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { diasDaSemana, meses } from './datasEmString';
 import Avatar from '@material-ui/core/Avatar';
 import { nextMonth, previusMonth } from './changeMonth';
-
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import BookIcon from '@material-ui/icons/Book';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import GroupIcon from '@material-ui/icons/Group';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const legendas = [
     {txt: "Final de semana", background: "red"},
@@ -56,16 +61,6 @@ const legendas = [
     {txt: "Missão", background: "#411f1f"},
 ]
 
-const detalhes = [
-    {txt: "Efetivo total:", secTxt: ''},
-    {txt: "Efetivo válido:", secTxt: ''},
-    {txt: "De serviço hoje:", secTxt: ''},
-    {txt: "Baixado:", secTxt: ''},
-    {txt: "Férias:", secTxt: ''},
-    {txt: "Missão", secTxt: '' },
-    {txt: "Punido", secTxt: '' },
-]
-
 const Escala = () => {
 
     let [ diasParaContarServico, setDiasParaContarServico] = useState(0);
@@ -73,6 +68,18 @@ const Escala = () => {
         show: true,
         isForecast: 'zero',
     });
+
+    let [ detalhes, setDetalhes ] = useState(
+        [
+            {txt: "Efetivo total:", secTxt: ''},
+            {txt: "Efetivo válido:", secTxt: ''},
+            {txt: "De serviço hoje:", secTxt: ''},
+            {txt: "Baixado:", secTxt: ''},
+            {txt: "Férias:", secTxt: ''},
+            {txt: "Missão", secTxt: '' },
+            {txt: "Punido", secTxt: '' },
+        ]
+    );
 
     let [ calendarInfo, setCalendarInfo ] = useState({
         diasDoMes: [],
@@ -492,8 +499,55 @@ const Escala = () => {
     return(
         <div className={classes.containerPrincipal}>
 
+            <AppBar position="static" style={{background: "rgb(66, 66, 66)"}}>
+                <Toolbar style={{padding: 5,minHeight: 50}}>
 
-            <div style={{display: 'flex', background: "#1a1c20"}}>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                        placeholder="Pesquisar…"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+
+                    <div className={classes.grow} />
+
+                        <SpeedDial 
+                        gerarPrevisaoDeServico={gerarPrevisaoDeServico} gerarPrevisaoDeServicoMensal={gerarPrevisaoDeServicoMensal}
+                        zerarPrevisao={zerarPrevisao} diasParaContarServico={diasParaContarServico} setDiasParaContarServico={setDiasParaContarServico}
+                    /> 
+
+                    <div className={classes.cabecalho}>
+
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+
+
+                            <IconButton size="small" onClick={handlePreviusMonth} disabled={calendarInfo.numMes == 1}>
+                                <NavigateBeforeIcon style={{color: calendarInfo.numMes !== 1 && '#00bcd4'}}/>
+                            </IconButton>
+
+                            <ListItemText style={{color: '#fff', margin: '0px 5px'}} primary={`${meses[ calendarInfo.numMes - 1]}`} />
+
+                            <IconButton size="small" onClick={handleNextMonth} disabled={calendarInfo.numMes == 12}>
+                                <NavigateNextIcon style={{color: calendarInfo.numMes !== 12 && '#00bcd4'}}/>
+                            </IconButton>
+
+                        </div>
+                    </div>
+
+
+                {/* <div className={classes.grow} /> */}
+                </Toolbar>
+            </AppBar>
+
+
+            {/* <div style={{zIndex: 10, display: 'flex', background: "rgb(66, 66, 66)", boxShadow: '0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)'}}>
 
 
                 <div className={classes.cabecalho}>
@@ -515,7 +569,7 @@ const Escala = () => {
 
                 </div>
 
-            </div>
+            </div> */}
 
             <Paper className={classes.root}>
 
@@ -523,12 +577,24 @@ const Escala = () => {
 
                     <div style={{display: 'flex'}}>
 
-                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 60, fontSize: '8pt'}}>
-                            Post/Grad
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 90, fontSize: '8pt'}}>
+
+                            <TableSortLabel
+                             direction={'asc'}
+                             onClick={( e ) => {console.log("e: ", e);}}
+                            >
+                                Post/Grad
+                            </TableSortLabel>
+
                         </div>
 
                         <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 120, fontSize: '8pt'}}>
-                            Nome
+                            <TableSortLabel
+                             direction={'asc'}
+                             onClick={( e ) => {console.log("e: ", e);}}
+                            >
+                                Nome
+                            </TableSortLabel>
                         </div>
 
                         <div className={classes.calendarioRow}>
@@ -548,7 +614,7 @@ const Escala = () => {
 
                     </div>
                     
-                    <div style={{position: 'relative', height: 400, overflow: 'auto', width: '100%'}}>
+                    <div style={{position: 'relative', height: 400, overflow: 'auto', width: 1560}}>
 
                         {militar.map( (m, i) => (
                             <>
@@ -597,25 +663,23 @@ const Escala = () => {
                  
                     </div>
 
-                    <Accordion>
+                    <Accordion style={{position: 'relative'}}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
                         >
 
                         <Typography className={classes.heading}>Menu</Typography>
 
                         </AccordionSummary>
 
-                        <AccordionDetails style={{width: '100%'}}>
+                        {/* <AccordionDetails style={{width: '100%', position: 'relative' }}> */}
 
-                            <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                            <div style={{display: 'flex', justifyContent: 'space-around', width: '100%'}}>
 
-                                <Paper  style={{border: '1px solid #411f1f', width: '100%', maxWidth: 350}}>
+                                <Paper  style={{border: '1px solid #556052', width: '100%', maxWidth: 350}}>
 
-                                    <div style={{padding: 5, textAlign: 'center', background: '#411f1f', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
-                                        Legenda
+                                    <div style={{padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#556052', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                       <BookIcon style={{marginRight: 5}}/> Legenda
                                     </div>
 
                                     <List style={{ height: 225, overflow: 'auto'}}>
@@ -624,7 +688,7 @@ const Escala = () => {
                                             <>
                                                 <ListItem >
 
-                                                    <Avatar style={{width: 15, height: 16, marginRight: 5, background: l.background}}>
+                                                    <Avatar style={{width: 22, height: 22, marginRight: 8, background: l.background}}>
                                                         <span></span>
                                                     </Avatar>
 
@@ -642,10 +706,10 @@ const Escala = () => {
                                 </Paper>
 
 
-                                <Paper  style={{border: '1px solid #335d2d', width: '100%', maxWidth: 350}}>
+                                <Paper  style={{border: '1px solid #556052', width: '100%', maxWidth: 350}}>
 
-                                    <div style={{padding: 5, textAlign: 'center', background: '#335d2d', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
-                                        Detalhes
+                                    <div style={{padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#556052', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                        <VisibilityIcon style={{marginRight: 5}}/> Detalhes
                                     </div>
 
                                     <List style={{ height: 225, overflow: 'auto'}}>
@@ -668,8 +732,8 @@ const Escala = () => {
 
                                 <div style={{display: 'flex', flexDirection: 'column', marginRight: 10, border: '1px solid #556052', borderTopLeftRadius: 4, borderTopRightRadius: 4 }}>
 
-                                    <div style={{padding: 5, textAlign: 'center', background: '#556052', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
-                                        Lista de militares
+                                    <div style={{padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#556052', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                        <GroupIcon style={{marginRight: 5}}/> Lista de militares
                                     </div>
 
                                     <Paper style={{display: 'flex', height: 250, overflow: 'hide', width: 600, background: '#fff'}}>
@@ -772,21 +836,19 @@ const Escala = () => {
                                 </div>
 
                             </div>
-                       
-                        </AccordionDetails>
 
                     </Accordion>
 
-
                 </div>
 
+                {/* <SpeedDial 
+                    gerarPrevisaoDeServico={gerarPrevisaoDeServico} gerarPrevisaoDeServicoMensal={gerarPrevisaoDeServicoMensal}
+                    zerarPrevisao={zerarPrevisao} diasParaContarServico={diasParaContarServico} setDiasParaContarServico={setDiasParaContarServico}
+                />  */}
 
             </Paper>
 
-                <SpeedDial 
-                    gerarPrevisaoDeServico={gerarPrevisaoDeServico} gerarPrevisaoDeServicoMensal={gerarPrevisaoDeServicoMensal}
-                    zerarPrevisao={zerarPrevisao} diasParaContarServico={diasParaContarServico} setDiasParaContarServico={setDiasParaContarServico}
-                /> 
+
 
         </div>
     )

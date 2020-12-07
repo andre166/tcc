@@ -1,6 +1,43 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
+    grow: {
+        flexGrow: 1,
+      },
+      search: {
+        zIndex: 10,
+        marginTop: 2,
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        color: '#000000',
+        backgroundColor: '#fff',
+        '&:hover': {
+          filter: 'brightness(92%)',
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        maxWidth: 183
+      },
+      searchIcon: {
+        padding: theme.spacing(0, 1),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      inputRoot: {
+        color: 'inherit',
+      },
+      inputInput: {
+        padding: theme.spacing(0.5, 0.3, 0.5, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+      },
     activeForService: {
         cursor: 'pointer',
         background: '#1b262c',
@@ -20,7 +57,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     containerPrincipal: {
         marginTop: 60,
-        height: 'calc(100vh - 60px)',
+        height: '100%',
+        minHeight: 'calc(100vh - 60px)',
         display: 'flex',
         background: '#eeeeee',
         flexDirection: 'column'
@@ -45,7 +83,7 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
     },
     gradColumn: {
-        width: 60,
+        width: 90,
         background: '#0f3460',
         padding: 10,
         color: '#fff',
@@ -77,11 +115,13 @@ export const useStyles = makeStyles((theme) => ({
 
     },
     cabecalho: {
+        width: '100%',
         display: 'flex',
         flexGrow: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 6
+        padding: 6,
+        position: 'absolute',
         
     },  
     diasDaSemanaHeader: {
@@ -174,7 +214,7 @@ export const useStyles = makeStyles((theme) => ({
         // display: 'flex',
         // flexDirection: 'column',
         height: 600,
-        width: 1530,
+        width: 1550,
         // flexWrap: 'nowrap'
     },
     calendario2: {
