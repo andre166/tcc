@@ -95,41 +95,41 @@ let militar = [
         {id: 5, data: 8},
         {id: 6, data: 15},
     ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
-    // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
-    //     {id: 4, data: 2},
-    //     {id: 5, data: 8},
-    //     {id: 6, data: 15},
-    // ] },
+    {id: 20, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 21, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 22, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 23, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 24, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 25, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
+    {id: 26, grad: 'CB', nome: 'Billi', diasDeServico: [
+        {id: 4, data: 2},
+        {id: 5, data: 8},
+        {id: 6, data: 15},
+    ] },
     // {id: 2, grad: 'CB', nome: 'Billi', diasDeServico: [
     //     {id: 4, data: 2},
     //     {id: 5, data: 8},

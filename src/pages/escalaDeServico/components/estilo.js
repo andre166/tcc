@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: '100%',
-        marginTop: 8,
+        // marginTop: 8,
         display: 'flex',
         flexDirection: 'row',
         padding: 5,
@@ -77,11 +77,11 @@ export const useStyles = makeStyles((theme) => ({
 
     },
     cabecalho: {
-        background: '#fff',
         display: 'flex',
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
+        padding: 6
         
     },  
     diasDaSemanaHeader: {

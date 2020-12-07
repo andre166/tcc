@@ -37,7 +37,34 @@ import SpeedDial from './speedDial';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { diasDaSemana, meses } from './datasEmString';
+import Avatar from '@material-ui/core/Avatar';
 import { nextMonth, previusMonth } from './changeMonth';
+
+import BookIcon from '@material-ui/icons/Book';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const legendas = [
+    {txt: "Final de semana", background: "red"},
+    {txt: "Selecionado", background: "#1b262c"},
+    {txt: "Serviço", background: "#59886b"},
+    {txt: "Previsão de serviço", background: "#bedbbb"},
+    {txt: "Baixado", background: "#ffd571"},
+    {txt: "Missão", background: "#411f1f"},
+]
+
+const detalhes = [
+    {txt: "Efetivo total:", secTxt: ''},
+    {txt: "Efetivo válido:", secTxt: ''},
+    {txt: "De serviço hoje:", secTxt: ''},
+    {txt: "Baixado:", secTxt: ''},
+    {txt: "Férias:", secTxt: ''},
+    {txt: "Missão", secTxt: '' },
+    {txt: "Punido", secTxt: '' },
+]
 
 const Escala = () => {
 
@@ -465,66 +492,28 @@ const Escala = () => {
     return(
         <div className={classes.containerPrincipal}>
 
-            <div style={{display: 'flex', width: '99.9%', marginTop: 10}}>
 
-                <Paper style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: 190, fontSize: '8pt', padding: '0px 10px', marginRight: 3}}>
+            <div style={{display: 'flex', background: "#1a1c20"}}>
 
-                    <Grid container spacing={1} alignItems="flex-end" justify="center">
 
-                        <Grid item xs={2}>
-                            <SearchIcon />
-                        </Grid>
+                <div className={classes.cabecalho}>
 
-                        <Grid item xs={10}>
-                            <TextField
-                                label="Pesquisar..."
-                                variant="standard"
-                            />
-                        </Grid>
-                    </Grid>
-
-                </Paper>
-
-                <Paper className={classes.cabecalho}>
-
-                    <div>
-                        <Button 
-                        size="small"
-                        variant="outlined"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<DetailsIcon />}
-                        >Detalhar</Button>
-                    </div>
-
-                    <div>
-                        <ListItemText primary="Escala:" secondary="Praia"/>
-                    </div>
-
-                    <div style={{display: 'flex'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
                     
 
                         <IconButton size="small" onClick={handlePreviusMonth} disabled={calendarInfo.numMes == 1}>
-                            <NavigateBeforeIcon />
+                            <NavigateBeforeIcon style={{color: calendarInfo.numMes !== 1 && '#00bcd4'}}/>
                         </IconButton>
 
-                        <ListItemText primary="Mês:" secondary={meses[ calendarInfo.numMes - 1]} style={{margin: '0px 5px'}}/>
+                        <ListItemText style={{color: '#fff', margin: '0px 5px'}} primary={`${meses[ calendarInfo.numMes - 1]}`} />
 
                         <IconButton size="small" onClick={handleNextMonth} disabled={calendarInfo.numMes == 12}>
-                            <NavigateNextIcon />
+                            <NavigateNextIcon style={{color: calendarInfo.numMes !== 12 && '#00bcd4'}}/>
                         </IconButton>
 
                     </div>
 
-                    <div>
-                        <ListItemText primary="Efetivo total:" secondary={militar.length}/>
-                    </div>
-
-                    <div>
-                        <ListItemText primary="De serviço hoje:" secondary="9"/>
-                    </div>
-
-                </Paper>
+                </div>
 
             </div>
 
@@ -608,117 +597,185 @@ const Escala = () => {
                  
                     </div>
 
-                    <Divider style={{marginTop: 15}}/>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
 
-                    <div style={{display: 'flex', width: 400, marginTop: 10, background: '#fff', alignItems: 'center', justifyContent: 'center'}}>
-                        <h3>Lista de militares selecionados</h3>
-                    </div>
+                        <Typography className={classes.heading}>Menu</Typography>
+
+                        </AccordionSummary>
+
+                        <AccordionDetails style={{width: '100%'}}>
+
+                            <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+
+                                <Paper  style={{border: '1px solid #411f1f', width: '100%', maxWidth: 350}}>
+
+                                    <div style={{padding: 5, textAlign: 'center', background: '#411f1f', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                        Legenda
+                                    </div>
+
+                                    <List style={{ height: 225, overflow: 'auto'}}>
+                                        {legendas.map( l => (
+
+                                            <>
+                                                <ListItem >
+
+                                                    <Avatar style={{width: 15, height: 16, marginRight: 5, background: l.background}}>
+                                                        <span></span>
+                                                    </Avatar>
+
+                                                    <ListItemText primary={l.txt}/>
+
+                                                </ListItem>
+
+                                                <Divider/>
+
+                                            </>
+
+                                        ))}
+                                    </List>
+
+                                </Paper>
 
 
-                    <div style={{display: 'flex'}}>
+                                <Paper  style={{border: '1px solid #335d2d', width: '100%', maxWidth: 350}}>
 
-                        <Paper elevation="4" style={{display: 'flex', height: 250, overflow: 'auto', width: 400, background: '#fff'}}>
-                            
-                            <div style={{display: 'flex', flexDirection: 'column', margin: 10}}>
-                                {militarOnService.length === 0 ?
-                                    <Alert severity="warning" style={{height: 'max-content'}}>
-                                        Nenhum militar para ser posto de serviço no dia de hoje?
-                                    </Alert>
-                                :
+                                    <div style={{padding: 5, textAlign: 'center', background: '#335d2d', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                        Detalhes
+                                    </div>
 
-                                    <div style={{display: 'flex'}}>
-                                        <List dense="true" style={{width: 300}}>
-                                            {militarOnService.map( m => (
-                                                <>
-                                                    <ListItem>
+                                    <List style={{ height: 225, overflow: 'auto'}}>
+                                        {detalhes.map( d => (
 
-                                                        <ListItemText 
-                                                            primary={m.militar.grad + ' '+  m.militar.nome } 
-                                                            secondary={moment( m.data.data ).utc().format('DD/MM/YYYY')}>
-                                                        </ListItemText>
-                                                        
-                                                        <ListItemSecondaryAction>
+                                            <>
+                                                <ListItem >
 
-                                                            <LightTooltip title="Incluir de serviço">
-                                                                <IconButton size="small" edge="end">
-                                                                    <AssignmentTurnedInIcon size="small"/>
-                                                                </IconButton>
-                                                            </LightTooltip>
+                                                    <ListItemText primary={d.txt} secondary={d.secTxt || ''}/>
 
-                                                            <LightTooltip title="Cancelar serviço">
-                                                                <IconButton size="small" edge="end">
-                                                                    <AssignmentReturnIcon size="small"/>
-                                                                </IconButton>
-                                                            </LightTooltip>
+                                                </ListItem>
 
+                                                <Divider/>
 
-                                                            <LightTooltip title="Retirar da lista">
-                                                                <IconButton size="small" edge="end">
-                                                                    <ClearIcon size="small"/>
-                                                                </IconButton>
-                                                            </LightTooltip>
+                                            </>
 
-                                                        </ListItemSecondaryAction>
+                                        ))}
+                                    </List>
+                                </Paper>
 
-                                                    </ListItem>
+                                <div style={{display: 'flex', flexDirection: 'column', marginRight: 10, border: '1px solid #556052', borderTopLeftRadius: 4, borderTopRightRadius: 4 }}>
 
-                                                    <Divider/>
-                                                
-                                                </>
+                                    <div style={{padding: 5, textAlign: 'center', background: '#556052', borderTopLeftRadius: 3, borderTopRightRadius: 3, color: '#fff'}}>
+                                        Lista de militares
+                                    </div>
 
-                                            ))}
-                                        </List>
-
-                                    
-                                    </div>  
-                                }
-                            </div>
-
-                        </Paper>
-
-                        <Paper elevation="2">
-                            <div style={{display: 'flex', flexDirection: 'column'}}>
-                                <List dense="true">
-                                    <LightTooltip title="Retira todos os militares da lista.">
-                                        <ListItem button>
-                                            <ListItemIcon>
-                                                <ClearIcon />
-                                            </ListItemIcon>
-                                           
-                                            <ListItemText primary="Limpar lista" />
-                                            
-                                        </ListItem>
-                                    </LightTooltip>
-
-                                    <LightTooltip title="Coloca todos os militares da lista de serviço, nas datas selecionadas.">
-                                        <ListItem button>
-                                            <ListItemIcon>
-                                                <AssignmentTurnedInIcon />
-                                            </ListItemIcon>
-                                            
-                                            <ListItemText primary="Colocar todos de serviço" />
-                                            
-                                        </ListItem>
-                                    </LightTooltip>
-
-                                    <LightTooltip title="Retira todos os militares da lista de serviço, nas datas selecionadas.">
-                                        <ListItem button>
-                                            <ListItemIcon>
-                                                <AssignmentReturnIcon />
-                                            </ListItemIcon>
-                                            
-                                            <ListItemText primary="Retirar todos de serviço" />
-                                            
-                                        </ListItem>
-                                    </LightTooltip>
+                                    <Paper style={{display: 'flex', height: 250, overflow: 'hide', width: 600, background: '#fff'}}>
                                         
-                                    
-                                </List>
-                            </div>
-                        </Paper>
+                                        <div style={{display: 'flex', flexDirection: 'column', margin: 10}}>
+                                            {militarOnService.length === 0 ?
+                                                <Alert severity="warning" style={{height: 'max-content', width: 300}}>
+                                                    Nenhum militar para colocar ou retirar de serviço no dia de hoje?
+                                                </Alert>
+                                            :
 
-                    </div>
-                    
+                                                <div style={{display: 'flex', overflow: 'auto'}}>
+                                                    <List dense="true" style={{width: 300}}>
+                                                        {militarOnService.map( m => (
+                                                            <>
+                                                                <ListItem>
+
+                                                                    <ListItemText 
+                                                                        primary={m.militar.grad + ' '+  m.militar.nome } 
+                                                                        secondary={moment( m.data.data ).utc().format('DD/MM/YYYY')}>
+                                                                    </ListItemText>
+                                                                    
+                                                                    <ListItemSecondaryAction>
+
+                                                                        <LightTooltip title="Incluir de serviço">
+                                                                            <IconButton size="small" edge="end">
+                                                                                <AssignmentTurnedInIcon size="small"/>
+                                                                            </IconButton>
+                                                                        </LightTooltip>
+
+                                                                        <LightTooltip title="Cancelar serviço">
+                                                                            <IconButton size="small" edge="end">
+                                                                                <AssignmentReturnIcon size="small"/>
+                                                                            </IconButton>
+                                                                        </LightTooltip>
+
+
+                                                                        <LightTooltip title="Retirar da lista">
+                                                                            <IconButton size="small" edge="end">
+                                                                                <ClearIcon size="small"/>
+                                                                            </IconButton>
+                                                                        </LightTooltip>
+
+                                                                    </ListItemSecondaryAction>
+
+                                                                </ListItem>
+
+                                                                <Divider/>
+                                                            
+                                                            </>
+
+                                                        ))}
+                                                    </List>
+
+                                                
+                                                </div>  
+                                            }
+                                        </div>
+
+                                        <div style={{display: 'flex', flexDirection: 'column', borderLeft: '1px solid #D1D1D1'}}>
+                                            <List dense="true">
+                                                <LightTooltip title="Retira todos os militares da lista.">
+                                                    <ListItem button>
+                                                        <ListItemIcon>
+                                                            <ClearIcon />
+                                                        </ListItemIcon>
+                                                    
+                                                        <ListItemText primary="Limpar lista" />
+                                                        
+                                                    </ListItem>
+                                                </LightTooltip>
+
+                                                <LightTooltip title="Coloca todos os militares da lista de serviço, nas datas selecionadas.">
+                                                    <ListItem button>
+                                                        <ListItemIcon>
+                                                            <AssignmentTurnedInIcon />
+                                                        </ListItemIcon>
+                                                        
+                                                        <ListItemText primary="Colocar todos de serviço" />
+                                                        
+                                                    </ListItem>
+                                                </LightTooltip>
+
+                                                <LightTooltip title="Retira todos os militares da lista de serviço, nas datas selecionadas.">
+                                                    <ListItem button>
+                                                        <ListItemIcon>
+                                                            <AssignmentReturnIcon />
+                                                        </ListItemIcon>
+                                                        
+                                                        <ListItemText primary="Retirar todos de serviço" />
+                                                        
+                                                    </ListItem>
+                                                </LightTooltip>
+                                                    
+                                                
+                                            </List>
+                                        </div>
+                                    </Paper>
+
+                                </div>
+
+                            </div>
+                       
+                        </AccordionDetails>
+
+                    </Accordion>
 
 
                 </div>
