@@ -161,8 +161,8 @@ function Login( props ){
         validationSchema={loginSchema}
         onSubmit={onSubmit}
         initialValues={{
-          nome: 'sarge',
-          senha: '12345'
+          nome: '',
+          senha: ''
         }}
         render={( { values, handleChange, handleSubmit, errors }) => (
 

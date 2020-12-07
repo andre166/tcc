@@ -1,11 +1,27 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
+    activeForService: {
+        cursor: 'pointer',
+        background: '#1b262c',
+        color: '#fff',
+        margin: '2px 4px',
+        width: 35,
+        height: 30,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '3px 0px',
+        borderRadius: 2,
+        '&:hover': {
+            filter: 'brightness(90%)'
+        },
+        fontSize: '9pt',
+    },
     containerPrincipal: {
         marginTop: 60,
         height: 'calc(100vh - 60px)',
         display: 'flex',
-        alignItems: 'center',
         background: '#eeeeee',
         flexDirection: 'column'
     },
@@ -14,7 +30,8 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: 8,
         display: 'flex',
         flexDirection: 'row',
-        padding: 5
+        padding: 5,
+        height: '100%',
     },
     namesColumn: {
         width: 120,
@@ -40,6 +57,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative'
     },
     dias:{
         cursor: 'pointer',
@@ -58,16 +76,24 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: '9pt',
 
     },
+    cabecalho: {
+        background: '#fff',
+        display: 'flex',
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        
+    },  
     diasDaSemanaHeader: {
         background: '#D1D1D1',
         margin: '2px 4px',
         width: 35,
-        height: 30,
+        height: 40,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '3px 0px',
         borderRadius: 2,
+        flexDirection: 'column',
         fontSize: '8pt',
     },
     diasDaSemanaHeaderFeriado: {
@@ -75,12 +101,12 @@ export const useStyles = makeStyles((theme) => ({
         color: '#fff',
         margin: '2px 4px',
         width: 35,
-        height: 30,
+        height: 40,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '3px 0px',
         borderRadius: 2,
+        flexDirection: 'column',
         fontSize: '8pt',
     },
     diasDaSemanaFeriado: {
@@ -140,11 +166,16 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: 5
+        borderRadius: 5,
+        position: 'relative'
+        
     },
     calendario: {
-        display: 'flex',
-        flexDirection: 'column',
+        // display: 'flex',
+        // flexDirection: 'column',
+        height: 600,
+        width: 1530,
+        // flexWrap: 'nowrap'
     },
     calendario2: {
         display: 'flex',
